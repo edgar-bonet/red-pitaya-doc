@@ -1,6 +1,6 @@
 rpsa_client.exe -c [-h IPs] -i NAME [-v]
 rpsa_client.exe -c [-h IPs] -i NAME=VALUE [-w] [-v]
-
+  
 --config               -c              Enable config mode.
 --hosts=IP,...         -h IP,...       You can specify one or more board IP addresses through a separator - ','
                                        You can not specify the board address, then the client will take the first board found via broadcast

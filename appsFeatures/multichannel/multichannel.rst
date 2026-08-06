@@ -28,6 +28,11 @@ For detailed comparison of the two systems, please see the :ref:`Q&A section <fa
     For streaming application multiboard setup (network configuration, client detection, bandwidth considerations), see the 
     :ref:`Multiboard Streaming documentation <multiboard_stream>`.
 
+.. contents:: Table of contents
+   :local:
+   :depth: 2
+   :backlinks: top
+
 |
 
 How can I control synchronised boards?
@@ -160,8 +165,8 @@ For more information on the Click Shield, please see the :ref:`Click Shield docu
 
 .. _x-ch_streaming:
 
-X-Channel Synchronisation
-==========================
+X-Channel Synchronisation (Discontinued)
+=========================================
 
 The Red Pitaya X-Channel System provides clock and trigger synchronization between multiple Red Pitaya boards using a daisy-chain topology 
 with SATA (Original Gen) or USB-C (Gen 2) cables. The system routes clock and trigger signals sequentially through each board's FPGA, 
@@ -169,10 +174,14 @@ making it a cost-effective solution that requires no additional synchronization 
 
 The X-Channel System consists of one **primary** device and one or more **secondary** devices connected in a daisy chain.
 
+.. note::
+
+    **This is a different setup than the Red Pitaya X-Channel System 2.0 (Click Shield)**, which uses dedicated ZL40213 LVDS clock fanout buffers for optimal signal integrity across extended daisy chains.
+
 **Ideal for:**
 
 * **Small to medium systems:** 2-3 boards where signal quality remains excellent
-* **Moderate to high sampling rates:** Performance is comparable to X-channel 2.0 (Click Shield) synchronisation
+* **Low to moderate sampling rates:** Performance is comparable to X-channel 2.0 (Click Shield) synchronisation
 * **Cost-effective setups:** No additional synchronization hardware required beyond cables
 * **Quick deployment:** Simple cable connections between boards without external components
 * **Full GPIO access:** All GPIO pins remain available for user applications
@@ -210,16 +219,18 @@ The Red Pitaya X-Channel system includes two types of devices:
 
     .. group-tab:: Gen 2
 
-        * one STEMlab 125-14 Pro Gen 2 primary device.
-        * one or more STEMlab 125-14 Pro Gen 2 secondary devices denoted by an "S" sticker.
-
-        Both devices must be one of the Pro board models (STEMlab 125-14 Pro Gen 2, STEMlab 125-14 Pro Z7020 Gen 2).
+        * one primary device (STEMlab 125-14 PRO Gen 2 or STEMlab 125-14 PRO Z7020 Gen 2).
+        * one or more secondary devices (STEMlab 125-14 PRO Gen 2 or STEMlab 125-14 PRO Z7020 Gen 2) denoted by an "S" sticker.
 
     .. group-tab:: Original Gen
 
-        * one STEMlab 125-14 primary device (STEMlab 125-14 Low Noise).
-        * one or more STEMlab 125-14 Low Noise secondary devices denoted by an "S" sticker.
+        * one primary device (STEMlab 125-14 Low Noise).
+        * one or more secondary devices (STEMlab 125-14 Low Noise) denoted by an "S" sticker.
 
+.. note::
+
+    **Secondary devices are NOT standard Red Pitaya boards.** They require factory hardware modifications to receive the clock signal from the primary device through the FPGA. 
+    Secondary boards are marked with an "S" sticker and must be specifically ordered or modified at the factory.
 
 S1 and S2 connectors are used to connect the primary and secondary devices:
 
@@ -259,8 +270,9 @@ When connecting the boards, make sure both LEDs are lit. If the **O** LED is not
 
     We recommend using :ref:`OS 2.00-23 or higher <prepareSD>` for the X-channel system.
 
-    * With 2.00 OS both the primary and the secondary devices use the SAME OS!
+    * With 2.00 OS or higher both the primary and the secondary devices use the SAME OS!
     * With 1.04 OS the primary and secondary boards use DIFFERENT OS!
+    * Older OS versions do not support X-channel system at all.
 
 |
 

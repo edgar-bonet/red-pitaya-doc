@@ -7,7 +7,27 @@ The Red Pitaya signal generator can be controlled using the generate command lin
 
 .. tabs::
 
-    .. group-tab:: OS version 2.00 and higher
+    .. group-tab:: OS version 3.00 and higher
+
+        .. code-block:: console
+
+            redpitaya> generate
+
+            generate version 3.00-809-bce7a0397
+
+            Usage: generate channel amplitude frequency[,end_frequency] [type] [-c] [-d]
+
+                    channel         Channel to generate signal on [1, 2].
+                    amplitude       Peak-to-peak signal amplitude in Vpp [0.0 - 2.0].
+                    frequency       Signal frequency in Hz [0 - 62500000].
+                    end_frequency   Sweep-to frequency in Hz [0 - 62500000].
+                    type            Signal type [sine, sqr, tri, sweep, noise, ramp_up, ramp_down, dc, dc_neg] (default value sine).
+                    -c              Disable calibration. By default calibration enabled.
+                    -d              Debug FPGA registers.
+
+            Setting the frequency to 0 will disable the generator completely.
+
+    .. group-tab:: OS version 2.00
 
         .. code-block:: console
 
@@ -64,7 +84,7 @@ To run the signal generation utility, perform the following steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 

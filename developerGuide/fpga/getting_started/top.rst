@@ -5,13 +5,20 @@
 Getting Started with FPGA Development
 ###########################################
 
-This section guides you through setting up your FPGA development environment and creating your first Red Pitaya FPGA project. You'll install the necessary tools (Vivado 2020.1 and SDK 2019.1), learn to build and modify projects, simulate designs, and load bitstreams to your board.
+This section guides you through setting up your FPGA development environment and creating your first Red Pitaya FPGA project. For current Red Pitaya OS releases, use Vivado 2025.1 with Vitis 2025.1. Legacy SDK 2019.1 documentation is kept for older OS branches.
+
+.. note::
+
+    **Toolchain by OS version**
+
+    * **OS 3.00 or higher:** Vivado 2025.1 + Vitis 2025.1 (current flow)
+    * **OS 1.04 - 2.00:** Vivado 2020.1 + SDK 2019.1 (legacy flow)
 
 **What you'll find here:**
 
 * **Introduction** - Understand Red Pitaya FPGA architecture, required tools, and development workflow
-* **Vivado Installation** - Install Xilinx Vivado 2020.1 for FPGA development
-* **SDK Installation** - Install Xilinx SDK 2019.1 for ARM software development (optional)
+* **Vivado and Vitis Installation** - Current installation flow for FPGA and ARM software development
+* **SDK Installation (Legacy)** - SDK 2019.1 setup for older OS branches
 * **Project Creation** - Create your first FPGA project from scratch
 * **Modify Existing Projects** - Learn to customize existing Red Pitaya projects
 * **Simulation** - Verify your designs with behavioral simulation before hardware deployment

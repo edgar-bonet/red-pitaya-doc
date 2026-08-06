@@ -66,31 +66,63 @@ Command Help
 
 Running ``overlay.sh`` without arguments displays the command help:
 
-.. code-block:: console
+.. tabs::
 
-    root@rp-f0ef2d:~# overlay.sh
-    Usage: /opt/redpitaya/sbin/overlay.sh <fpga_name> [custom_fpga] [custom_devicetree] [overlay_name]
-    
-    Load FPGA bitstream and device tree overlay
-    
-    Parameters:
-        <fpga_name>        - Name of FPGA configuration from /opt/redpitaya/fpga/$MODEL/
-        [custom_fpga]      - Custom FPGA bitstream path (optional)
-        [custom_devicetree]- Custom device tree overlay path (optional)
-        [overlay_name]     - Custom overlay region name (optional, default: Full)
-    
-    Examples:
-        /opt/redpitaya/sbin/overlay.sh mercury                                                              - Load a built-in FPGA project
-        /opt/redpitaya/sbin/overlay.sh oscillator /path/to/custom.bit.bin                                   - Load custom FPGA bitstream
-        /opt/redpitaya/sbin/overlay.sh sdr /path/to/custom.bit.bin /path/to/custom.dtbo                     - Load custom FPGA and device tree
-        /opt/redpitaya/sbin/overlay.sh transmitter /path/to/fpga.bit.bin /path/to/fpga.dtbo CustomRegion    - Load with custom overlay name
-    
-    Available FPGA configurations:
-        - barebones
-        - logic
-        - pyrpl
-        - stream_app
-        - v0.94
+    .. group-tab:: OS version 3.00 and higher
+
+        .. code-block:: console
+
+            root@rp-f0b1cb:~# overlay.sh
+            Usage: /opt/redpitaya/sbin/overlay.sh <fpga_name> [custom_fpga] [custom_devicetree] [overlay_name]
+
+            Load FPGA bitstream and device tree overlay
+
+            Parameters:
+            <fpga_name>        - Name of FPGA configuration from /opt/redpitaya/fpga/$MODEL/
+            [custom_fpga]      - Custom FPGA bitstream path (optional)
+            [custom_devicetree]- Custom device tree overlay path (optional)
+            [overlay_name]     - Custom overlay region name (optional, default: Full)
+
+            Examples:
+            /opt/redpitaya/sbin/overlay.sh v0.94                                                            - Load default v0.94 FPGA
+            /opt/redpitaya/sbin/overlay.sh oscillator /path/to/custom.bin                                   - Load custom FPGA bitstream
+            /opt/redpitaya/sbin/overlay.sh sdr /path/to/custom.bin /path/to/custom.dtbo                     - Load custom FPGA and device tree
+            /opt/redpitaya/sbin/overlay.sh transmitter /path/to/fpga.bin /path/to/fpga.dtbo CustomRegion    - Load with custom overlay name
+
+            Available FPGA configurations:
+            - barebones
+            - logic
+            - pyrpl
+            - stream_app
+            - v0.94
+
+        .. group-tab:: OS version 2.00
+
+            .. code-block:: console
+
+                root@rp-f0ef2d:~# overlay.sh
+                Usage: /opt/redpitaya/sbin/overlay.sh <fpga_name> [custom_fpga] [custom_devicetree] [overlay_name]
+                
+                Load FPGA bitstream and device tree overlay
+                
+                Parameters:
+                    <fpga_name>        - Name of FPGA configuration from /opt/redpitaya/fpga/$MODEL/
+                    [custom_fpga]      - Custom FPGA bitstream path (optional)
+                    [custom_devicetree]- Custom device tree overlay path (optional)
+                    [overlay_name]     - Custom overlay region name (optional, default: Full)
+                
+                Examples:
+                    /opt/redpitaya/sbin/overlay.sh v0.94                                                                - Load a built-in FPGA project
+                    /opt/redpitaya/sbin/overlay.sh oscillator /path/to/custom.bit.bin                                   - Load custom FPGA bitstream
+                    /opt/redpitaya/sbin/overlay.sh sdr /path/to/custom.bit.bin /path/to/custom.dtbo                     - Load custom FPGA and device tree
+                    /opt/redpitaya/sbin/overlay.sh transmitter /path/to/fpga.bit.bin /path/to/fpga.dtbo CustomRegion    - Load with custom overlay name
+                
+                Available FPGA configurations:
+                    - barebones
+                    - logic
+                    - pyrpl
+                    - stream_app
+                    - v0.94
 
 |
 

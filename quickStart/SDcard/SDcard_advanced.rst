@@ -25,29 +25,35 @@ OS Versions
 The OS versions are listed from newest to oldest. Each listed OS version consists of an image download link (to download the OS image) and a changelog link (listing the major changes in the OS).
 
 ===============
-Latest 2.00 OS
+Latest OS
 ===============
 
 .. note::
 
     *One OS to rule them all*.
-    The 2.00 OS versions work on all Red Pitaya board models.
+    The latest OS versions (2.00 and higher) work on all Red Pitaya board models.
+
+**Red Pitaya OS 3.0**:
+
+* :download:`Latest Stable (3.00-57) <https://downloads.redpitaya.com/downloads/Unify/RedPitaya_OS_3.00-57_stable.img.zip>`  - |CHANGELOG| (MD5 (extracted): 930574230e45249e1cd23d735e93ca3a).
+
+|
 
 **Red Pitaya OS 2.0**:
 
-* :download:`Latest Stable (2.07-48) <https://downloads.redpitaya.com/downloads/Unify/RedPitaya_OS_2.07-48_stable.img.zip>`  - |CHANGELOG| (MD5 (extracted): 5d02710fd87a71b4c049ffa5105b69e5).
+* :download:`2.07-48 <https://downloads.redpitaya.com/downloads/Unify/RedPitaya_OS_2.07-48_stable.img.zip>`  - |CHANGELOG| (MD5 (extracted): 5d02710fd87a71b4c049ffa5105b69e5).
 
-Previous 2.00 OS versions can be found |download_os_old|
+Older versions can be found |download_os_old|
 
 .. |download_os_old| replace:: :rp-download:`here <downloads/Unify/old>`
 
 .. note::
 
-    If you have problems running the 2.00 version of the OS and you updated from the 1.04 or older OS image, please check |this GitHub solution|. For all other problems please contact the |SUPPORT TEAM|.
+    If you have problems running the 2.00 or higher versions of the OS and you updated from the 1.04 or older OS image, please check |this GitHub solution|. For all other problems please contact the |SUPPORT TEAM|.
 
 .. note::
 
-    When updating the OS to 2.00 version from 1.04 or older (or downgrading from 2.00 to 1.04 or older), a factory reset of calibration parameters must be performed. Please open the Red Pitaya's web interface and head to **System => Calibration => Manual DC calibration**. Click on **Reset**, select **Factory**, and confirm the reset. For more details on calibration, please see the :ref:`Calibration application <calibration_app>`.
+    When updating the OS to 2.00 or higher version from 1.04 or older (or downgrading from 2.00 or newer to 1.04 or older), a factory reset of calibration parameters must be performed. Please open the Red Pitaya's web interface and head to **System => Calibration => Manual DC calibration**. Click on **Reset**, select **Factory**, and confirm the reset. For more details on calibration, please see the :ref:`Calibration application <calibration_app>`.
 
 |
 
@@ -113,7 +119,8 @@ All older OS versions that are in our database are available in our archive:
 
     *Impossible. Perhaps the archives are incomplete.*
 
-    OS images not in our archive have been lost to the sands of time. If you are looking for a specific OS or ecosystem that is missing from the archives, we suggest you ask the community on the |redpitaya-forum|. There is a chance someone has it lying around on the disk.
+    OS images not in our archive have been lost to the sands of time. If you are looking for a specific OS or ecosystem that is missing from the archives, we suggest you ask the community on the |redpitaya-forum|. 
+    There is a chance someone has it lying around on the disk.
 
 For manual ecosystem upgrade please refer to `Manual ecosystem upgrade`_.
 
@@ -235,7 +242,7 @@ macOS
 Red Pitaya OS partitions
 *************************
 
-The Red Pitaya OS image on the SD card contains two partitions. As of OS 2.05-37, the partitions are as follows:
+The Red Pitaya OS image on the SD card contains two partitions. As of OS 2.05-37 and higher, the partitions are as follows:
 
 1.  **1 GB FAT** contains the **ecosystem**:
 
@@ -372,7 +379,9 @@ The official Red Pitaya OS releases have both the Linux OS and the ecosystem com
 +-----------------+-----------------+---------------------------------------+-------------------+
 | Red Pitaya OS   | OS release date | Nightly Build (alpha) versions        | Linux version     |
 +=================+=================+=======================================+===================+
-| IN DEV          |                 | NB 656 and later                      | 3.00              |
+| IN DEV          |                 | NB 811 and later                      | 3.00              |
++-----------------+-----------------+---------------------------------------+-------------------+
+| 3.00-57         | 7.7.2026        | up to NB 810                          | 3.00              |
 +-----------------+-----------------+---------------------------------------+-------------------+
 | 2.07-48         | 1.12.2025       | up to NB 655                          | 2.07              |
 +-----------------+-----------------+---------------------------------------+-------------------+
@@ -466,7 +475,7 @@ Unfortunately, the process is not as simple as installing the old OS to the SD c
 
 Though we do not recommend it, some users may want to downgrade to an older OS version for various reasons. Here is a step-by-step guide on how to do it.
 
-    1.  **Manually install the latest 2.00 OS version** onto the newly acquired board. See the :ref:`quick installation instructions <prepareSD>`.
+    1.  **Manually install the latest OS version** onto the newly acquired board. See the :ref:`quick installation instructions <prepareSD>`.
     #.  **Establish an SSH connection** with the board to get access to the Red Pitaya's Linux terminal. See the :ref:`SSH connection instructions <ssh>`.
 
         .. code-block:: shell-session

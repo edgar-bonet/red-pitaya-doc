@@ -252,11 +252,11 @@ You can find the source code of the library on GitHub here:
 
 .. |venv| replace:: |vscode-venv|
 
-.. |redpitaya_scpi lib github| replace:: :github:`redpitaya_scpi GitHub source code <RedPitaya/RedPitaya-Examples/blob/dev/python/lib/>`
+.. |redpitaya_scpi lib github| replace:: :github:`redpitaya_scpi GitHub source code <RedPitaya/RedPitaya-Examples/tree/main/SCPI_examples/Python/lib>`
 
 .. |redpitaya_scpi.py| replace::
 
-    :download:`redpitaya_scpi.py <https://github.com/RedPitaya/RedPitaya-Examples/blob/dev/python/lib/redpitaya_scpi.py>`
+    :download:`redpitaya_scpi.py <https://github.com/RedPitaya/RedPitaya-Examples/blob/main/SCPI_examples/Python/lib/redpitaya_scpi.py>`
 
 |
 

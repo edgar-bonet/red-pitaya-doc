@@ -8,23 +8,27 @@ The Red Pitaya spectrum analyzer utility is a command-line tool that enables the
 maximum frequency, the iteration count, and the window function. The utility can also be used to enable or disable averaging and to print the values in CSV format.
 The spectrum utility 
 
-.. code-block:: console
+.. tabs::
 
-    redpitaya> spectrum -h
-    spectrum Version: 2.07-651-631657660
-    
-    usage:
-    -h, --help: help
-    -m, --min: minimum frequency (default: 0)
-    -M, --max: maximum frequency (default: 62500000)
-    -c, --count: iteration count (default: 1, negative: infinity)
-    -a, --average: average the measurement from 10 times (default: enabled)
-    -n, --no-average: disable average the measurement from 10 times
-    -v, --values: Display all values ​​for the signal.
-    -C, --csv: print values by columns Frequency (Hz), ch0 (dB), ch1 (dB)
-    -L, --csv-limit: print values by columns Frequency (Hz), ch0 min (dB), ch0 max (dB), ch1 min (dB), ch1 max (dB)
-    -W, --window: window function. Available options: [rect, hanning, hamming, blackman_harris, flat_top, kaiser_4, kaiser_8] (default: hanning)
-    -t, --test: test mode avoids the initiating/resetting/releasing FPGA
+    .. group-tab:: OS version 2.00 or higher
+
+        .. code-block:: console
+
+            redpitaya> spectrum -h
+            spectrum Version: 2.07-651-631657660
+            
+            usage:
+            -h, --help: help
+            -m, --min: minimum frequency (default: 0)
+            -M, --max: maximum frequency (default: 62500000)
+            -c, --count: iteration count (default: 1, negative: infinity)
+            -a, --average: average the measurement from 10 times (default: enabled)
+            -n, --no-average: disable average the measurement from 10 times
+            -v, --values: Display all values for the signal.
+            -C, --csv: print values by columns Frequency (Hz), ch0 (dB), ch1 (dB)
+            -L, --csv-limit: print values by columns Frequency (Hz), ch0 min (dB), ch0 max (dB), ch1 min (dB), ch1 max (dB)
+            -W, --window: window function. Available options: [rect, hanning, hamming, blackman_harris, flat_top, kaiser_4, kaiser_8] (default: hanning)
+            -t, --test: test mode avoids the initiating/resetting/releasing FPGA
 
 Examples:
 
@@ -116,7 +120,7 @@ To run the spectrum analyzer utility, perform the following steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 
@@ -163,5 +167,5 @@ To run the spectrum analyzer utility, perform the following steps:
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the spectrum utility <RedPitaya/tree/master/Test/spectrum>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the spectrum utility <RedPitaya/tree/master/tools/spectrum>`.
 

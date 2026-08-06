@@ -1,14 +1,15 @@
 .. _fpga_create_project:
 
-###################################
-Creating an FPGA project in Vivado
-###################################
+##############################################
+Creating an FPGA project in Vivado (2025.1)
+##############################################
 
-To ease the creation of new FPGA projects or adding new features to existing ones, Red Pitaya FPGA repository provides a set of scripts and templates, which automatically generate the :ref:`existing projects <fpga_projects>`.
+To ease the creation of new FPGA projects or adding new features to existing ones, Red Pitaya FPGA repository provides scripts and templates that automatically generate the :ref:`existing projects <fpga_projects>`.
 
 .. note::
 
-    This section describes the process of creating a new project using just the Vivado development environment (FPGA projects only). For the complete building process using both the Vivado and the Vivado SDK (Vitis), please refer to the :ref:`creating a Vivado SDK/Vitis project section <fpga_create_sdk_project>`.
+    This section describes the current build flow for **Vivado 2025.1** (OS 3.00+), based on the scripts in the RedPitaya-FPGA repository.
+    The legacy Vivado 2020.1 method is still available for backward compatibility and is summarized in the `Legacy Vivado 2020.1 compatibility`_ section.
 
 .. contents:: Table of Contents
     :local:
@@ -82,7 +83,13 @@ Building process
 
 .. note::
 
-    Before proceeding, please check the :ref:`Vivado installation instructions <FPGA_install_vivado>` were followed correctly.
+    Before proceeding, please check that the :ref:`Vivado and Vitis installation instructions <FPGA_install_vivado>` were followed correctly.
+
+    For the current RedPitaya-FPGA flow, the main entry points are:
+
+    * ``open_vivado.sh`` (Linux/Unix-like shells)
+    * ``open_vivado.bat`` (native Windows CMD/PowerShell)
+    * Root ``Makefile`` targets (``make project``, ``make``, ``make dts``)
 
 
 The automatic project generation scripts have two possible modes of operation:
@@ -96,20 +103,18 @@ Non-project mode
 -----------------
 
 In non-project mode, the generated files are organized in a flat directory structure, making it easier to manage and version control the individual files. However, users lose the benefits of the Vivado project structure, such as the ability to easily open and edit the project in the Vivado GUI.
-Non-project mode basically uses the RTL files and constraints to generate the bitstream directly without creating a full Vivado project.
+Non-project mode uses RTL, constraints, and board configuration files to generate outputs without creating a full GUI project.
 
 .. note::
 
     The Red Pitaya FPGA repository must be downloaded through the ``git`` command, otherwise the project creation will fail.
 
-There are five different script types available for non-project mode:
+The current repository contains these relevant script types:
 
 +-----------------------------------+---------------------------------------------------------------------------+
 | TCL script                        | Functionality                                                             |
 +===================================+===========================================================================+
-| ``red_pitaya_vivado.tcl``         | Generates the bitstream and reports.                                      |
-+-----------------------------------+---------------------------------------------------------------------------+
-| ``red_pitaya_vivado_project.tcl`` | Creates a Vivado project for graphical editing (see `Project mode`_).     |
+| ``red_pitaya_vivado_<MODEL>.tcl`` | Generates the bitstream and reports for a selected model.                 |
 +-----------------------------------+---------------------------------------------------------------------------+
 | ``red_pitaya_hsi_fsbl.tcl``       | Generates FSBL executable binary (see |SDK/Vitis project creation|).      |
 +-----------------------------------+---------------------------------------------------------------------------+
@@ -119,13 +124,15 @@ There are five different script types available for non-project mode:
 +-----------------------------------+---------------------------------------------------------------------------+
 
 
-1. **Open terminal or CMD**. Windows users have three options, depending on the availablity of the *make* utility on their computer:
+1. **Open terminal or shell**.
 
-    * **CMD**. If *make* utility is installed, then the easiest way to proceed is to follow the instructions using the *Command Prompt (CMD)*.
-    * **Vivado HLS Command Prompt**. If *make* utility is not installed and you have installed Vivado, you can open the *Vivado HLS Command Prompt*, which is a command-line interface that comes with Vivado. Please note that Vitis doesn't come with *Vivado HLS Command Prompt*.
-    * **Vivado TCL console**. The final option is using the *Vivado TCL console*, which is a built-in command-line interface within the Vivado GUI.
+    * **Linux**: use a regular terminal.
+    * **Windows native GUI flow**: use CMD/PowerShell with ``open_vivado.bat``.
+    * **Windows make-based flow**: use a Unix-like shell (*Git Bash*, *MSYS2*, or *WSL*), as the Makefile uses Unix shell tools.
 
-    The final two options allow project creation without installing the *make* utility, but running the script will result in opening of a separate instance of Vivado window. The original window will remain open, running the script. Closing the original window will terminate the script execution and also exit the second Vivado GUI.
+    .. note::
+
+        For ``make``-based builds on Windows, install and expose these tools in your shell environment: ``make``, ``gcc``, ``dtc``, and ``xsct``.
 
 #. **Navigate to the extracted FPGA repository**. In this instance, we have renamed the extracted folder to RedPitaya-FPGA. If you have not renamed the folder, please use the original name.
 
@@ -143,7 +150,12 @@ There are five different script types available for non-project mode:
 
         make PRJ=name MODEL=model
 
-    This will automatically generate the bitstream file, reports, device tree, and FSBL.
+    This is the standard non-project build command for RedPitaya-FPGA.
+    You can also generate only the device tree with:
+
+    .. code-block:: bash
+
+        make dts PRJ=name MODEL=model
 
 #. **Bitstream location**. The resulting bitstream *.bit* file is located in **/prj/<project_name>/out/red_pitaya.bit**.
 
@@ -161,13 +173,37 @@ Project mode
 The project mode generates a complete Vivado project structure, including all necessary files and directories. This allows users to open the project in the Vivado GUI and make changes as needed.
 Only the Red Pitaya FPGA repository is required to create a project in this mode. The project can be created using the following steps:
 
-1.  **Open terminal or CMD**. Windows users have three options, depending on the availablity of the *make* utility on their computer:
+1.  **Open terminal or shell**.
 
-    * **CMD**. If *make* utility is installed, then the easiest way to proceed is to follow the instructions using the *Command Prompt (CMD)*.
-    * **Vivado HLS Command Prompt**. If *make* utility is not installed and you have installed Vivado, you can open the *Vivado HLS Command Prompt*, which is a command-line interface that comes with Vivado. Please note that Vitis doesn't come with *Vivado HLS Command Prompt*.
-    * **Vivado TCL console**. The final option is using the *Vivado TCL console*, which is a built-in command-line interface within the Vivado GUI.
+    * **Linux/Unix-like shell**:
 
-    The final two options allow project creation without installing the *make* utility, but running the script will result in opening of a separate instance of Vivado window. The original window will remain open, running the script. Closing the original window will terminate the script execution and also exit the second Vivado GUI.
+      .. code-block:: bash
+
+          ./open_vivado.sh <project_name> <model>
+
+      Example:
+
+      .. code-block:: bash
+
+          ./open_vivado.sh v0.94 Z20_250
+
+    * **Windows CMD/PowerShell (native)**:
+
+      .. code-block:: bat
+
+          open_vivado.bat <project_name> <model>
+
+      Example:
+
+      .. code-block:: bat
+
+          open_vivado.bat v0.94 Z20_250
+
+    * **Alternative (Linux or Unix-like shell on Windows):**
+
+      .. code-block:: bash
+
+          make project PRJ=<project_name> MODEL=<model>
 
 #.  **Navigate to the extracted FPGA repository**. In this instance, we have renamed the extracted folder to RedPitaya-FPGA. If you have not renamed the folder, please use the original name.
 
@@ -179,13 +215,9 @@ Only the Red Pitaya FPGA repository is required to create a project in this mode
 
         Contrary to Linux and Vivado, Windows uses backslashes (``\``) instead of forward slashes (``/``) in file paths.
 
-#.  **Create the project**. Run the following command in the terminal or command prompt:
+#.  **Create or open the project**. Use one of the commands above for your OS/shell.
 
-    .. code-block:: bash
-
-        make project PRJ=name MODEL=model
-
-    Here are reference pictures for all three options:
+    Here are reference pictures for the command-line options:
 
     * **Terminal/CMD**
 
@@ -205,7 +237,7 @@ Only the Red Pitaya FPGA repository is required to create a project in this mode
             :width: 800
             :align: center
 
-#.  **Modify the project**. A new, blank project will be created automatically and all the necessary Red Pitaya files will be added.
+#.  **Modify the project**. A project will be opened with all required Red Pitaya files.
     You can then add or write your Verilog module at the end of the *red_pitaya_top.sv* file, or add a new source by right-clicking the *Design Sources* folder and selecting *Add Source*.
     For more information on how to add sources and connect them in the design, please refer to the :ref:`Modify project section <fpga_modify_project>`.
 
@@ -226,9 +258,76 @@ There are a few important things to note about the project creation process:
         :width: 800
         :align: center
 
-#.  **Recreating an existing project** - Rerunning the *make project* command will overwrite the existing project resources. Please consider backing-up the existing project or move the important RTL resources and IP cores to a separate directory.
+#.  **Recreating an existing project** - Rerunning the *make project* command for the same ``PRJ`` can overwrite generated project resources. Please back up important RTL resources and IP cores.
 
 |
+
+.. _fpga_legacy_2020_flow:
+
+Legacy Vivado 2020.1 compatibility
+====================================
+
+The current RedPitaya-FPGA ``master`` branch targets **Vivado 2025.1**. For older OS branches or archived projects that were created for Vivado 2020.1, keep using the legacy flow.
+
+* **Current branch (OS 3.00+):** Vivado 2025.1
+* **Legacy flow (OS 1.04 - 2.00):** Vivado 2020.1 + SDK 2019.1
+
+For legacy tool installation and usage, see :ref:`Vivado 2020.1 installation <FPGA_install_vivado_2020_1>` and :ref:`SDK 2019.1 legacy installation <fpga_install_sdk>`.
+
+Legacy flow steps (verified against repository tags)
+-----------------------------------------------------
+
+Use a legacy RedPitaya-FPGA snapshot that was built for Vivado 2020.1 (for example tag ``2.07-48``).
+
+1. **Clone repository and checkout a legacy tag**
+
+    .. code-block:: bash
+
+        git clone https://github.com/RedPitaya/RedPitaya-FPGA.git
+        cd RedPitaya-FPGA
+        git checkout 2.07-48
+
+2. **Project mode (open GUI project) using legacy scripts**
+
+    .. code-block:: bash
+
+        make project PRJ=v0.94 MODEL=Z10
+
+    This legacy flow uses ``red_pitaya_vivado_project_<MODEL>.tcl`` scripts.
+
+3. **Non-project mode (build bitstream directly)**
+
+    .. code-block:: bash
+
+        make PRJ=v0.94 MODEL=Z10
+
+4. **Optional: generate device tree only**
+
+    .. code-block:: bash
+
+        make dts PRJ=v0.94 MODEL=Z10
+
+5. **Expected legacy outputs**
+
+    * Bitstream: ``prj/v0.94/out/red_pitaya.bit``
+    * Bitstream binary: ``prj/v0.94/out/red_pitaya.bit.bin``
+
+Windows and Linux notes for legacy flow
+----------------------------------------
+
+* **Linux**: run commands in a regular shell with Vivado 2020.1 environment loaded.
+* **Windows with Unix-like shell (Git Bash/MSYS2/WSL)**: ``make`` flow works as above.
+* **Windows CMD/PowerShell without make**: run Vivado directly with legacy Tcl entry points:
+
+  .. code-block:: bat
+
+      C:\Xilinx\Vivado\2020.1\bin\vivado.bat -source red_pitaya_vivado_project_Z10.tcl -tclargs v0.94
+
+  .. code-block:: bat
+
+      C:\Xilinx\Vivado\2020.1\bin\vivado.bat -source red_pitaya_vivado_Z10.tcl -tclargs v0.94
+
+| 
 
 Running the scripts in a different Vivado version
 ==================================================
@@ -237,21 +336,21 @@ Running the auto-project generation scripts in a different Vivado version than t
 If possible, please install the Vivado version that the scripts were generated for. If you cannot do this, you can try to modify the scripts to make them compatible with your Vivado version.
 Please note that **this is not guaranteed to work and may require additional modifications to the scripts**.
 
-* **Vivado version**: 2020.1
+* **Vivado version (current scripts):** 2025.1
 
-Both `Project mode`_ and `Non-project mode`_ scripts are designed to work with Vivado 2020.1 and will return the following error if run in a different Vivado version:
+Both `Project mode`_ and `Non-project mode`_ scripts are designed for a specific Vivado version and can fail when run in a different one.
 
 .. code-block:: shell-session
 
-    BD_TCL-109" "ERROR" "This script was generated using Vivado 2020.1 ...
+    ... This script was generated using Vivado <2025.1> and is being run in <other_version> ...
 
 1.  First, **find the Vivado version line** in the script. It should look like this:
 
     .. code-block:: shell-session
 
-        set scripts_vivado_version 2020.1
+        set scripts_vivado_version 2025.1
 
-#.  **Change 2020.1 to your version**. This is a quick and dirty way to get the build working in other versions of Vivado.
+#.  **Change the script version only if necessary**. This is a quick workaround to get a build moving in another Vivado version.
     However, this solution could cause problems if some of the IPs used are different in your version.
 
     To update the script properly, open the project in `Project mode`_ and select **Reports > Report IP Status** from the menu. A new tab will open below the code window.

@@ -5,9 +5,53 @@
 Signal acquisition utility
 ==========================
 
-The Red Pitaya signal can be acquired using the acquire command line utility. It returns raw samples from the ADC buffer to the standard output without calibration compensation. Usage instructions:
+The Red Pitaya signal can be acquired using the acquire command line utility. It returns raw samples from the ADC buffer to the standard output. Usage instructions:
+
+The acquire utility works in two different modes:
+
+- **Normal mode** - the utility waits for a trigger event and then acquires the data on all channels.
+- **Split trigger mode** - the acquisition is split between channels, with each channel having its own trigger. The acquire_p utility is used for this mode.
+
+|
+
+acquire utility usage
+----------------------
+
+Standard ``acquire`` utility usage is as follows:
 
 .. tabs::
+
+    .. group-tab:: OS version 3.00
+
+        .. code-block:: console
+
+            redpitaya> acquire
+            acquire Version: 3.00-809-bce7a0397
+
+            Usage: acquire [OPTION]... SIZE <DEC>
+
+            --equalization  -e    Use equalization filter in FPGA (default: disabled).
+            --shaping       -s    Use shaping filter in FPGA (default: disabled).
+            --bypass        -b    Bypass shaping filter in FPGA.
+            --gain1=g       -1 g  Use Channel 1 gain setting g [lv, hv] (default: lv).
+            --gain2=g       -2 g  Use Channel 2 gain setting g [lv, hv] (default: lv).
+            --tr_ch=c       -t c  Enable trigger by channel. Setting c use for channels [1P, 1N, 1A, 2P, 2N, 2A, EP (external channel), EN (external channel)].
+                                    P - positive edge, N -negative edge, A - any edge. By default trigger no set
+            --tr_level=c    -l c  Set trigger level (default: 0).
+            --hex           -x    Print value in hex.
+            --volt          -o    Print value in volt.
+            --int                 Interrupt-based operation mode.
+            --avg                 Outputs the average value for the values in the buffer.
+            --calib         -c    Disable calibration parameters
+            --16bit               Enables 16Bit mode
+            --hk            -k    Reset houskeeping (Reset state for GPIO). Default: disabled
+            --axi           -a    Enable AXI interface. Also enable housekeeping reset. Default: disabled
+            --debug         -g    Debug registers. Default: disabled
+            --offset              Offset relative to the trigger pointer [-16384 .. 16384]
+            --version       -v    Print version info.
+            --help          -h    Print this message.
+                SIZE                Number of samples to acquire [0 - 16384].
+                DEC                 Decimation [1,2,4,8,16,...] (default: 1). Valid values are from 1 to 65536
 
     .. group-tab:: OS version 2.00
 
@@ -130,7 +174,7 @@ To run the signal acquisition utility, perform the following steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 and higher
 
             .. code-block:: console
 
@@ -169,10 +213,53 @@ Acquisition performance varies between Red Pitaya models. For more information p
 
 |
 
+acquire_p utility usage
+------------------------
+
+The ``acquire_p`` utility is used for capturing data in split trigger mode. It returns raw samples from the ADC buffer to the standard output. Usage instructions:
+
+.. tabs::
+
+    .. group-tab:: OS version 3.00
+
+        .. code-block:: console
+
+            redpitaya> acquire_p
+            Version: 3.00-809-bce7a0397
+
+            Application for capturing data in split trigger mode.
+            Usage: acquire_p [OPTION]... SIZE <DEC>
+                SIZE                Number of samples to acquire [1 - 16384].
+                DEC                 Decimation [1,2,4,8,16,17,18...65536] (default: 1). Valid values are from 1 to 65536
+
+            --att1=a              Use Channel 1 attenuator setting a [1, 20] (default: 1).
+            --att2=a              Use Channel 2 attenuator setting a [1, 20] (default: 1).
+
+            --tr_ch1=c      -1 c  Enable trigger for ch 1. Setting c use for channels [N (now), 1P, 1N, 1A, 2P, 2N, 2A, EP (ext channel), EN (ext channel)].
+            --tr_ch2=c      -2 c  Enable trigger for ch 2. Setting c use for channels [N (now), 1P, 1N, 1A, 2P, 2N, 2A, EP (ext channel), EN (ext channel)].
+            --tr_lev1=c           Set trigger level for ch 1 (default: 0).
+            --tr_lev2=c           Set trigger level for ch 2 (default: 0).
+
+            --equalization  -e    Use equalization filter in FPGA (default: disabled).
+            --shaping       -s    Use shaping filter in FPGA (default: disabled).
+            --bypass        -b    Bypass shaping filter in FPGA.
+            --version       -v    Print version info.
+            --help          -h    Print this message.
+            --hex           -x    Print value in hex.
+            --volt          -o    Print value in volt.
+            --calib         -c    Disable calibration parameters
+            --16bit               Enables 16Bit mode
+            --int                 Interrupt-based operation mode.
+            --hk            -k    Reset houskeeping (Reset state for GPIO). Default: disabled
+            --debug         -g    Debug registers. Default: disabled
+            --offset              Offset relative to the trigger pointer [-16384 .. 16384]
+
+|
+
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the acquire utility <RedPitaya/tree/master/Test/acquire>`.
+The Red Pitaya GitHub repository contains the:
 
-
-
+* :rp-github:`source code for the acquire utility <RedPitaya/tree/master/tools/acquire>`
+* :rp-github:`source code for the acquire_p utility <RedPitaya/tree/master/tools/acquire_p>`

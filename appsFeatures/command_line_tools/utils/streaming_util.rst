@@ -6,17 +6,21 @@ Streaming application utility
 
 The streaming server can also be started through the command line.
 
-.. code-block:: console
+.. tabs::
 
-    root@rp-f0a235:~# streaming-server -h
-    Usage:
-            streaming-server [-b] [-f PATH] [-p PORT] [-s PORT] [-v]
-            streaming-server [--background] [--file=PATH] [--port=PORT] [--search_port=PORT] [--verbose]
+    .. group-tab:: OS version 2.00 or higher
 
-            --background          -b        Run service in background.
-            --file=PATH           -f FILE   Path to configuration file.
-                                            By default uses the config file /root/.config/redpitaya/apps/streaming/streaming_config.json.
-            --verbose             -v        Displays information.
+        .. code-block:: console
+
+            root@rp-f0a235:~# streaming-server -h
+            Usage:
+                    streaming-server [-b] [-f PATH] [-p PORT] [-s PORT] [-v]
+                    streaming-server [--background] [--file=PATH] [--port=PORT] [--search_port=PORT] [--verbose]
+
+                    --background          -b        Run service in background.
+                    --file=PATH           -f FILE   Path to configuration file.
+                                                    By default uses the config file /root/.config/redpitaya/apps/streaming/streaming_config.json.
+                    --verbose             -v        Displays information.
 
 To start the server, follow these steps:
 
@@ -24,7 +28,7 @@ To start the server, follow these steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 

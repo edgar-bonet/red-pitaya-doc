@@ -10,20 +10,38 @@ The LCR meter can be used from the console.
 
     The preparation of the environment can be found in this :ref:`chapter<lrc_app>`.
 
-.. code-block:: console
+.. tabs::
 
-    root@rp-f0a235:~# lcr
-    LCR meter version 2.07-494, compiled at Sat Mar 22 06:11:15 2025
+    .. group-tab:: OS version 3.00 and higher
 
-    Usage:  lcr freq r_shunt [-v]
+        .. code-block:: console
 
-            freq               Signal frequency used for measurement Hz.
-            r_shunt            Shunt resistor value in Ohms [ 10, 100, 1000, 10000, 100000, 1000000 ]. If set to 0, Automatic ranging is used.
-            -v                 Verbose mode
-                            Automatic ranging demands Extenson module.
+            root@rp-f0b1cb:~# lcr
+            LCR meter version 3.00-809, compiled at Thu Jul  2 08:50:41 2026
 
-    Output: Frequency [Hz], |Z| [Ohm], P [deg], Ls [H], Cs [F], Rs [Ohm], Lp [H], Cp [F], Rp [Ohm], Q, D, Xs [H], Gp [S], Bp [S], |Y| [S], -P [deg]
+            Usage:  lcr freq r_shunt [-v]
 
+                    freq               Signal frequency used for measurement in Hz.
+                    r_shunt            Shunt resistor value in Ω [ 10, 100, 1000, 10000, 100000, 1000000 ]. If set to 0, Automatic ranging is used.
+                    -v                 Verbose mode
+
+            Output: Frequency [Hz], |Z|, Ohm [Ω], P [deg], Ls [H], Cs [F], Rs [Ω], Lp [H], Cp [F], Rp [Ω], Q, D, Xs [H], Gp [S], Bp [S], |Y| [S], -P [deg]
+
+    .. group-tab:: OS version 2.00
+
+        .. code-block:: console
+
+            root@rp-f0a235:~# lcr
+            LCR meter version 2.07-494, compiled at Sat Mar 22 06:11:15 2025
+
+            Usage:  lcr freq r_shunt [-v]
+
+                    freq               Signal frequency used for measurement Hz.
+                    r_shunt            Shunt resistor value in Ohms [ 10, 100, 1000, 10000, 100000, 1000000 ]. If set to 0, Automatic ranging is used.
+                    -v                 Verbose mode
+                                    Automatic ranging demands Extenson module.
+
+            Output: Frequency [Hz], |Z| [Ohm], P [deg], Ls [H], Cs [F], Rs [Ohm], Lp [H], Cp [F], Rp [Ohm], Q, D, Xs [H], Gp [S], Bp [S], |Y| [S], -P [deg]
 
 To run the LCR meter, follow these three steps:
 
@@ -36,7 +54,7 @@ To run the LCR meter, follow these three steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 
@@ -75,4 +93,4 @@ To run the LCR meter, follow these three steps:
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the lcr utility <RedPitaya/tree/master/Test/lcr>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the lcr utility <RedPitaya/tree/master/tools/lcr>`.

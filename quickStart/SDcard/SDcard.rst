@@ -24,7 +24,7 @@ Follow these steps to install the Red Pitaya OS on an SD card:
 
     .. note::
 
-        The 2.00 OS versions work on all Red Pitaya board models.
+        The latest Red Pitaya OS versions (2.00 and higher) work on all Red Pitaya board models.
 
     .. figure:: img/microSDcard-RP.png
         :width: 200

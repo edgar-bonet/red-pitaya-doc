@@ -15,7 +15,114 @@ The command line client is available for Windows and Linux operating systems and
 
 .. tabs::
 
-    .. group-tab:: OS version 2.00-23 or newer
+    .. group-tab:: OS 2.07-48 or newer
+
+        #.  **Download the "command line streaming client"** for your computer. Clients are located on the board itself and can be downloaded from there.
+
+            .. figure:: ../img/streaming_cmd_clients_200_23.png
+                :width: 1000
+                :align: center
+
+        #.  **Start the Streaming application** from the web interface or from the :ref:`Command line <stream_util>`.
+
+        #.  **Configure the stream properties** & click **Start**
+
+            .. figure:: ../img/streaming_adc_network_200_23.png
+                :width: 1000
+                :align: center
+
+                Example: streaming on CH1 and CH2, 16-bit resolution, 100 ksps, TCP 
+
+        #.  **Run the streaming client** via ``Command Line`` or ``Terminal`` on a remote computer (copy the IP address from the web interface and choose the required file format).
+
+            .. tabs::
+
+                .. group-tab:: WAV
+
+                    Send the configuration file to the board and start streaming data to a WAV file on the remote computer:
+
+                    .. code-block:: console
+
+                        rpsa_client.exe -c -h 192.168.1.29 -s F -f ./configs/config_adc.json -v
+                        rpsa_client.exe -s -h 192.168.1.29 -f wav -d ./output
+
+                    .. figure:: ../img/client_com_line_wav_300_57.png
+                        :width: 600
+                        :align: center
+
+                    Data streaming can be stopped by pressing ``Ctrl+C``.
+
+                    The created wav file can be read or viewed in |Audacity| or another program that supports WAV file type:
+
+                    .. figure:: ../img/audacity.png
+                        :width: 600
+                        :align: center
+
+                .. group-tab:: TDMS
+
+                    .. code-block:: console
+
+                        rpsa_client.exe -c -h 192.168.1.29 -s F -f ./configs/config_adc.json -v
+                        rpsa_client.exe -s -h 192.168.1.29 -f tdms -d ./output
+
+                    .. figure:: ../img/client_com_line_tdms_300_57.png
+                        :width: 600
+                        :align: center
+
+                    Data streaming can be stopped by pressing ``Ctrl+C``.
+
+                    The created tdms file can be read or viewed in |DIAdem| or another program that supports TDMS file type.
+
+                    .. figure:: ../img/diadem_tdms_file_viewer.png
+                        :width: 600
+                        :align: center
+
+                .. group-tab:: BIN
+
+                    .. code-block:: console
+
+                        rpsa_client.exe -c -h 192.168.1.29 -s F -f ./configs/config_adc.json -v
+                        rpsa_client.exe -s -h 192.168.1.29 -f bin -d ./output
+
+
+                    .. figure:: ../img/client_com_line_bin_300_57.png
+                        :width: 600
+                        :align: center
+
+
+                    The application saves data from the board in binary (BIN) format.
+
+                    The binary file can be converted using the :ref:`convert_tool <streaming_convert_tool>` application.
+
+                .. group-tab:: CSV
+
+                    .. code-block:: console
+
+                        rpsa_client.exe -c -h 192.168.1.29 -s F -f ./configs/config_adc.json -v
+                        rpsa_client.exe -s -h 192.168.1.29 -f csv -d ./output
+
+
+                    .. figure:: ../img/client_com_line_csv_300_57.png
+                        :width: 600
+                        :align: center
+
+
+                    The application saves data from the board in binary (BIN) format and then automatically converts it to CSV format using 
+                    the :ref:`convert_tool <streaming_convert_tool>` application.
+
+                    .. figure:: ../img/csv_list.png
+                        :width: 600
+                        :align: center
+
+                    The binary file can be converted using the :ref:`convert_tool <streaming_convert_tool>` application.
+
+                    The created CSV file can be opened with any text editor, spreadsheet editor, or any other application that supports the CSV file type:
+
+                    .. figure:: ../img/csv_view.png
+                        :width: 600
+                        :align: center
+
+    .. group-tab:: OS version 2.00-23 to 2.07-43
 
         #.  **Download the "command line streaming client"** for your computer. Clients are located on the board itself and can be downloaded from there.
 
@@ -102,14 +209,6 @@ The command line client is available for Windows and Linux operating systems and
                     .. figure:: ../img/csv_view.png
                         :width: 600
                         :align: center
-
-                    .. note::
-
-                        Using the :ref:`convert_tool <streaming_convert_tool>` application you can also see the structure of the received file and the state of the file.
-
-                        .. figure:: ../img/csv_state.png
-                            :width: 600
-                            :align: center
 
     .. group-tab:: OS version 2.00-15 or older
 
@@ -199,14 +298,6 @@ The command line client is available for Windows and Linux operating systems and
                         :width: 600
                         :align: center
 
-                    .. note::
-
-                        Using the :ref:`convert_tool <streaming_convert_tool>` you can also see the structure of the received file and the state of the file.
-
-                        .. figure:: ../img/csv_state.png
-                            :width: 600
-                            :align: center
-
 .. note::
 
     For best performance, the web interface should be closed and the streaming application should be started from the terminal via the :ref:`Streaming utility <stream_util>`.
@@ -215,12 +306,12 @@ The command line client is available for Windows and Linux operating systems and
 
     **Firewall/Antivirus Configuration Required**
     
-    The ``rpsa_client`` requires network access to detect and communicate with Red Pitaya boards. If you experience board detection or connection issues, ensure the client application is allowed network access 
-    in your firewall and antivirus software.
+    The ``rpsa_client`` requires local network access to detect and communicate with Red Pitaya boards. If you experience board detection or connection issues, ensure the client application 
+    is allowed local network access in your firewall and antivirus software.
     
     Common symptoms of firewall/antivirus blocking:
 
-    1. **No boards detected in detect mode:**
+    1.  **No boards detected in detect mode:**
 
         .. code-block:: shell-session
 
@@ -228,7 +319,7 @@ The command line client is available for Windows and Linux operating systems and
             Search: DONE
             Found boards:
 
-    2. **Host not found error when trying to connect to a board:**
+    2.  **Host not found error when trying to connect to a board:**
 
         .. code-block:: shell-session
 
@@ -239,6 +330,9 @@ The command line client is available for Windows and Linux operating systems and
     program a few times, then check the firewall/antivirus logs to see if it blocked the application, and create an exception for it (look for ``Network access troubleshooting``, ``Resolve 
     blocked communication``, etc. in your security software documentation).
 
+    **Router connection required:** We recommend connecting the Red Pitaya to the router via Ethernet cable for best performance. Direct connection to a computer via Ethernet cable may 
+    result in the streaming command line client not working properly.
+
 |
 
 .. _streaming_rpsa_client:
@@ -246,7 +340,7 @@ The command line client is available for Windows and Linux operating systems and
 Instructions for the rpsa_client
 -----------------------------------
 
-1. **Detect mode**
+1.  **Detect mode**
 
     This mode allows you to determine the IP addresses that are in the local network in streaming mode. By default, the search takes about 5 seconds.
 
@@ -254,7 +348,7 @@ Instructions for the rpsa_client
 
     If no IP is specified, the client will automatically detect boards on the network and connect to a random board.
 
-2. **Configuration mode**
+2.  **Configuration mode**
 
     This mode allows you to get or set the streaming configuration on the boards.
 
@@ -264,25 +358,25 @@ Instructions for the rpsa_client
 
     .. literalinclude:: ../include/configModeSingle.txt
 
-3. **Remote control mode**
+3.  **Remote control mode**
       
     This mode allows you to control streaming as a client.
 
    	.. literalinclude:: ../include/remoteControlMode.txt
 
-4. **Streaming mode**
+4.  **Streaming mode**
 
     This mode allows you to control streaming as a client, and also captures data in network streaming mode.
 
     .. literalinclude:: ../include/streamingMode.txt
 
-5. **DAC streaming mode**
+5.  **DAC streaming mode**
 
     This mode allows you to generate output data using a signal from a file.
 
     .. literalinclude:: ../include/dacStreamingMode.txt
 
-6. **Configuration variables**
+6.  **Configuration variables**
 
     Configuration file variables and their valid values.
 

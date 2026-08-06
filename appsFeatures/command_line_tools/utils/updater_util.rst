@@ -15,31 +15,71 @@ Software requirements
 Usage
 ------
 
-.. code-block:: console
+.. tabs::
 
-    root@rp-f0a235:~# updater
-    updater Version: 2.07-501-e1eff7e0a
+    .. group-tab:: OS version 3.00 or higher
 
-    Usage: updater -m file,file,...
-        updater -d URL [-v]
-        updater -n FILE [-v]
-        updater -n NUMBER [-v]
-        updater -i FILE [-v]
-        updater -i NUMBER [-v]
-        updater -l
-        updater -r
+        .. code-block:: console
 
-    --md5=FILES           -m FILES     Calculates md5 for the specified files.
-    --download=URL        -d URL       Downloads a file to a directory: /home/redpitaya/ecosystems.
-    --download_nb=FILE    -n FILE      Download ecosystem by file name from NB server.
-    --download_nb=NUMBER  -n NUMBER    Download ecosystem by build number from NB server.
-    --install=FILE        -i FILE      Installs the ecosystem by file name on the SD card.
-    --install=NUMBER      -i NUMBER    Installs the ecosystem by build number on the SD card.
-    --list                -l           List of loaded ecosystems.
-    --list_nb             -r           List of ecosystems on the server in the NB folder.
-    --verbose             -v           Produce verbose output.
+            root@rp-f0b1cb:~# updater
+            updater Version: 3.00-809-bce7a0397
 
-Here are the setps to use the updater utility:
+            Usage: updater -m file,file,...
+                updater -d URL [-v]
+                updater -n FILE [-v]
+                updater -n NUMBER [-v]
+                updater -i FILE [-v]
+                updater -i NUMBER [-v]
+                updater -l
+                updater -p
+                updater -a USER:PASSWORD
+                updater -r
+                updater -w
+                updater -e
+
+            --md5=FILES              -m FILES           Calculates md5 for the specified files.
+            --download=URL           -d URL             Downloads a file to a directory: /home/redpitaya/ecosystems.
+            --download_nb=FILE       -n FILE            Download ecosystem by file name from NB server.
+            --download_nb=NUMBER     -n NUMBER          Download ecosystem by build number from NB server.
+            --download_prod=FILE     -t FILE            Download ecosystem by file name from Prod server.
+            --download_prod=NUMBER   -t NUMBER          Download ecosystem by build number from Prod server.
+            --install=FILE           -i FILE            Installs the ecosystem by file name on the SD card.
+            --install=NUMBER         -i NUMBER          Installs the ecosystem by build number on the SD card.
+            --list                   -l                 List of loaded ecosystems.
+            --list_nb                -r                 List of ecosystems on the server in the NB folder.
+            --list_prod              -p                 List of ecosystems on the server in the Production folder.
+            --auth                   -a USER:PASSWORD   Login and password.
+            --verbose                -v                 Produce verbose output.
+            --webcontrol             -w                 Starts websocket control mode.
+            --last                   -e                 Downloads and installs the latest version from NB.
+
+    .. group-tab:: OS version 2.00
+
+        .. code-block:: console
+
+            root@rp-f0a235:~# updater
+            updater Version: 2.07-501-e1eff7e0a
+
+            Usage: updater -m file,file,...
+                updater -d URL [-v]
+                updater -n FILE [-v]
+                updater -n NUMBER [-v]
+                updater -i FILE [-v]
+                updater -i NUMBER [-v]
+                updater -l
+                updater -r
+
+            --md5=FILES           -m FILES     Calculates md5 for the specified files.
+            --download=URL        -d URL       Downloads a file to a directory: /home/redpitaya/ecosystems.
+            --download_nb=FILE    -n FILE      Download ecosystem by file name from NB server.
+            --download_nb=NUMBER  -n NUMBER    Download ecosystem by build number from NB server.
+            --install=FILE        -i FILE      Installs the ecosystem by file name on the SD card.
+            --install=NUMBER      -i NUMBER    Installs the ecosystem by build number on the SD card.
+            --list                -l           List of loaded ecosystems.
+            --list_nb             -r           List of ecosystems on the server in the NB folder.
+            --verbose             -v           Produce verbose output.
+
+Here are the steps to use the updater utility:
 
 #.  List the ecosystems on the server using the **-r** option. THe program automatically checks the contents of the file and the contents of the archives and compares the MD5 sums.
     The list will show the file names and their status (``OK`` or ``BROKEN``), depending on the MD5 sum.
@@ -102,6 +142,4 @@ Other ways to update the ecosystem and Red Pitaya Linux OS
 Source code
 ------------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the Ecosystem update utility <RedPitaya/tree/master/Test>`.
-
-.. TODO Update link to the source code.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the Ecosystem update utility <RedPitaya/tree/master/tools/updater>`.

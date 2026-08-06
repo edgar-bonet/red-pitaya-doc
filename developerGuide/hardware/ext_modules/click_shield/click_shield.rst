@@ -30,8 +30,16 @@ reference clock can also be connected to the shield through the U.FL connector.
 
 |
 
-What is in the box?
-=====================
+.. contents:: Table of Contents
+   :local:
+   :depth: 2
+   :backlinks: top
+
+|
+
+
+1. What is in the box?
+=======================
 
 * 1x Red Pitaya Click Shield.
 * 3x U.FL to U.FL patch cable for trigger and clock synchronisation.
@@ -39,8 +47,8 @@ What is in the box?
 
 .. _click_shield_compatibility:
 
-Compatibility
-===============
+2. Compatibility
+=================
 
 .. note::
 
@@ -62,48 +70,49 @@ Here is a compatibility table:
 
 .. table::
     :widths: 10 18 18
-    :align: center
 
     +------------------------------------+--------------------------------------+--------------------------------------+
     | Click Shield Feature Compatibility Gen 2                                                                         |
     +====================================+======================================+======================================+
-    |                                    | **STEMlab 125-14 Gen 2**             | **STEMlab 125-14 Pro Gen 2** |br|    |
-    |                                    |                                      | **STEMlab 125-14 Pro Z7020 Gen 2**   |
-    |                                    |                                      |                                      |
+    |                                    | **STEMlab 125-14 Gen 2**             | | **STEMlab 125-14 Pro Gen 2**       |
+    |                                    |                                      | | **STEMlab 125-14 Pro Z7020 Gen 2** |
+    |                                    |                                      | | **STEMlab 125-14 TI**              |
+    |                                    |                                      | | **STEMlab 65-16 TI**               |
     +------------------------------------+--------------------------------------+--------------------------------------+
     | Click Boards (microBus)            | Yes                                  | Yes                                  |
     +------------------------------------+--------------------------------------+--------------------------------------+
     | High speed Clock Synchronisation   | No                                   | Yes                                  |
     +------------------------------------+--------------------------------------+--------------------------------------+
-    | Powering options                   | Yes                                  | Yes                                  |
+    | Powering options                   | No [#f2]_                            | No [#f2]_                            |
     +------------------------------------+--------------------------------------+--------------------------------------+
     | Clk Switch (Internal/External)     | No                                   | Yes                                  |
     +------------------------------------+--------------------------------------+--------------------------------------+
 
 .. table::
-    :widths: 10 18 18 18 18 18
-    :align: center
+    :widths: 10 18 18 18 18
 
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
-    | Click Shield Feature Compatibility Original Gen                                                                                                                                                   |
-    +====================================+==============================+==============================+==================================+==============================+==============================+
-    |                                    | **STEMlab 125-14** |br|      | **SDRlab 122-16**            | **STEMlab 125-14 ext. clk** |br| | **STEMlab 125-14 4-Input**   | **SIGNALlab 250-12**         |
-    |                                    | **STEMlab 125-14 LN** |br|   |                              | **SDRlab 122-16 ext. clk**       |                              |                              |
-    |                                    | **STEMlab 125-14-Z7020-LN**  |                              |                                  |                              |                              |
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
-    | Click Boards (microBus)            | Yes                          | Yes                          | Yes                              | Yes                          | Yes                          |
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
-    | High speed Clock Synchronisation   | No                           | No                           | Yes                              | Yes                          | No                           |
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
-    | Powering options                   | Yes                          | Yes                          | Yes                              | Yes                          | No                           |
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
-    | Clk Switch (Internal/External)     | No                           | No                           | No                               | Yes                          | No                           |
-    +------------------------------------+------------------------------+------------------------------+----------------------------------+------------------------------+------------------------------+
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
+    | Click Shield Feature Compatibility Original Gen                                                                                                                    |
+    +====================================+================================+================================+==============================+==============================+
+    |                                    | | **STEMlab 125-14**           | | **STEMlab 125-14 ext. clk**  | **STEMlab 125-14 4-Input**   | **SIGNALlab 250-12**         |
+    |                                    | | **STEMlab 125-14 LN**        | | **SDRlab 122-16 ext. clk**   |                              |                              |
+    |                                    | | **STEMlab 125-14-Z7020-LN**  | |                              |                              |                              |
+    |                                    | | **SDRlab 122-16**            | |                              |                              |                              |
+    |                                    | |                              | |                              |                              |                              |
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
+    | Click Boards (microBus)            | Yes                            | Yes                            | Yes                          | Yes                          |
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
+    | High speed Clock Synchronisation   | No                             | Yes                            | Yes                          | No                           |
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
+    | Powering options                   | Yes                            | Yes                            | Yes                          | No                           |
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
+    | Clk Switch (Internal/External)     | No                             | No                             | Yes                          | No                           |
+    +------------------------------------+--------------------------------+--------------------------------+------------------------------+------------------------------+
 
 |
 
-What are Click Boards?
-=======================
+3. What are Click Boards?
+==========================
 
 |Click Boards| by |MIKROE| are small add-on boards designed to simplify the process of developing electronic projects by providing a pre-built and tested module with specific functionality. Currently, over 1500 click boards are available 
 in different categories, including communication, display, sensors, storage, motor control, mixed signals, and others.
@@ -115,8 +124,8 @@ These Click Boards are an innovative and efficient way to develop hardware proje
 connector that can be easily plugged into the Red Pitaya Click Shield.
 
 
-Technical specifications
-==========================
+4. Technical specifications
+============================
 
 .. figure:: img/red-pitaya-click-shield-logo.jpg
     :width: 900
@@ -401,7 +410,7 @@ Red Pitaya only has one set of UART pins, to achieve the functionality of two cl
 
 
 
-Components
+5. Components
 ===============
 
 * |ZL40213| LVDS clock fanout buffer.
@@ -409,7 +418,7 @@ Components
 
 |
 
-Schematics
+6. Schematics
 ================
 
 * `Schematics_Click_Shields_v103.pdf <https://downloads.redpitaya.com/doc/Schematics/Schematics_Click_Shields_v103.pdf>`_
@@ -424,15 +433,15 @@ Schematics
 
 |
 
-Mechanical Specifications and 3D Models
-=========================================
+7. Mechanical Specifications and 3D Models
+===========================================
 
 * `3D_Click_Shield.zip <https://downloads.redpitaya.com/doc/3D_models/3D_Click_Shield.zip>`_
 
 |
 
-External clock specifications
-==============================
+8. External clock specifications
+================================
 
 According to the datasheet the |ZL40213| fanout buffer supports a wide range of differential or single-ended input clock signals:
 
@@ -446,8 +455,8 @@ For more information on the external clock signal, please check the |ZL40213| da
 
 |
 
-Examples of use
-================
+9. Examples of use
+===================
 
 Synchronisation options
 -------------------------
@@ -482,11 +491,13 @@ Here are some examples of how to use click boards together with Click Shield and
 
 .. [#f1] This also includes other variations of STEMlab 125-14 external clock boards, such as *STEMlab 125-14 Z7020 external clock*, *STEMlab 125-14 LN external clock*, etc.
 
-
+.. [#f2] STEMlab 125-14 Gen 2 versions require 3 A power supply, which the Click Shield power supply cannot provide (max 2 A). The Click Shield can still be 
+   used with second generation of boards, but the board should be powered from the original Red Pitaya power supply. This means that the industrial power supply 
+   option is not available for Gen 2 boards.
 
 .. |MIKROE| raw:: html
 
-    <a href="https://www.mikroe.com/" target="_blank">MirkoElektronika</a>
+    <a href="https://www.mikroe.com/" target="_blank">MikroElektronika</a>
 
 .. |Click Boards| raw:: html
 

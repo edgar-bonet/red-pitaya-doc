@@ -263,9 +263,10 @@ For standard boards at the default input range:
 
     **Calibration in streaming:**
 
-    * **OS versions older than 2.07-43**: RAW data is **uncalibrated** — it does not apply ADC offset or gain calibration corrections.
-    * **OS 2.07-43 and newer**: RAW and VOLTS data **are calibrated** using calibration version 5 (API-based calibration).
-    * **OS 3.00 and newer** (in development): Streaming will use calibration version 6 (FPGA-based calibration) for improved performance.
+    * **OS 3.00-57 and newer** - Streaming uses calibration version 6 (FPGA-based calibration) for improved performance.
+    * **OS 2.07-43 and newer** - RAW and VOLTS data **are calibrated** using calibration version 5 (API-based calibration).
+    * **OS versions older than 2.07-43** - RAW data is **uncalibrated** — it does not apply ADC offset or gain calibration corrections.
+
 
     For older OS versions, use the **VOLTS** format to ensure calibrated measurements.
 

@@ -13,8 +13,8 @@ These limitations are related to the maximum data rates and the minimum streamed
 
 |
 
-Data rate limitations
-**********************
+1. Data rate limitations
+*************************
 
 The maximum data rates (per board) are determined by the hardware capabilities of the Red Pitaya board and the network transfer rates. 
 The following limitations apply:
@@ -81,8 +81,8 @@ This is the most efficient way to transfer data as no data conversion is perform
 
 |
 
-Calculating maximum sampling frequency
-****************************************
+2. Calculating maximum sampling frequency
+*******************************************
 
 The following calculation can be used to determine the maximum **continuous** sampling frequency for streaming:
 
@@ -183,8 +183,8 @@ Short duration high-speed acquisition (DMA one buffer mode)
 
 |
 
-Packet size limitations
-************************
+3. Packet size limitations
+***************************
 
 To increase the efficiency of the application, there is a minimum data packet (chunk) size that can be sent through the network. 
 This can have a big impact at high decimation values, as it may take a long time to fill a chunk before sending it over the network.
@@ -213,8 +213,8 @@ Here are the minimum chunk limitations sorted by file type and units:
 
 .. _stream_dac_limitations:
 
-Data generation limitations
-****************************
+4. Data generation limitations
+*******************************
 
 The data generation process has different limitations than ADC streaming because the data path is reversed. Since data must be 
 received over the network and processed before being sent to the FPGA, the expected performance is lower than for ADC streaming.
@@ -228,7 +228,16 @@ Here are limitations for the **dac_rate** variable for each of the two modes:
 
 .. tabs::
 
-    .. group-tab:: OS 2.07-43 or newer
+    .. group-tab:: OS 3.00-57 or newer
+
+        * **One-pack mode:** Maximum **dac_rate** is 125 MHz (125 MS/s)
+        * **True streaming mode:** Maximum stable **dac_rate** is about 62.5 MHz (62.5 MS/s)
+
+        .. warning::
+
+            Setting the DAC rate higher than 62.5 MHz in true streaming mode may result in data loss and unstable signal generation.
+
+    .. group-tab:: OS 2.07-43 to 2.07-51
 
         * **One-pack mode:** Maximum **dac_rate** is 125 MHz (125 MS/s)
         * **True streaming mode:** Maximum stable **dac_rate** is about 5 MHz (5 MS/s) for 16-bit resolution
@@ -251,12 +260,13 @@ Here are limitations for the **dac_rate** variable for each of the two modes:
 DAC performance recommendations
 =================================
 
-When generating data from a file, we recommend:
+For file-based DAC generation, we recommend:
 
-1. **Set block size to 2 MB** for high-quality signal generation
-2. **Fit the signal into DMM memory** - The entire file should fit into the :ref:`DMM region <stream_memory_config>` for best performance
-3. **Minimum 1024 samples per channel** - To avoid inconsistencies in the generated signal due to C++ program overhead
-4. **Ideal signal length** - The signal should fit completely into the specified block size
+1. **Use one-pack mode when possible** - Keep the waveform small enough to fit inside one ``block_size``. If the waveform grows, increase the reserved :ref:`DMM memory <stream_memory_config>`.
+2. **Set block size to 2 MB or larger** - A larger block size reduces transfer overhead and gives the software more time to process data. In true streaming mode, use the largest practical block size.
+3. **Use at least 1024 samples per channel** - The absolute minimum waveform size is 128 Bytes (64 or 128 samples), but we recommend at least 1024 samples to avoid inconsistencies caused by C++ program overhead.
+4. **Keep waveform sizes aligned** - The waveform size should be a multiple of 128 Bytes (64 samples for 16-bit resolution) to ensure proper alignment and avoid data corruption.
+5. **Match the signal length to the block size** - Ideally, the signal should fit completely into the selected block size.
 
 |
 
@@ -273,10 +283,10 @@ Additional factors
 
 |
 
-Performance optimization tips
-*******************************
+5. Performance optimization tips
+*********************************
 
-To maximize streaming performance:
+To maximize streaming performance, use the settings above together with the tips below:
 
 ADC streaming optimization
 ===========================
@@ -295,16 +305,13 @@ ADC streaming optimization
 DAC streaming optimization
 ===========================
 
-1. Keep waveforms small enough for :ref:`one-pack mode <stream_dac_config>`
-2. Use 2 MB or bigger block size for true streaming mode
-3. Pre-load data into :ref:`DMM memory <stream_memory_config>`
-4. Ensure waveform has at least 1024 samples per channel
-5. Avoid streaming DAC and ADC simultaneously at maximum rates
+1. Follow the DAC performance recommendations above for block size, waveform size, and DMM memory usage.
+2. Avoid streaming DAC and ADC simultaneously at maximum rates.
 
 |
 
-Next steps
-***********
+6. Next steps
+*************
 
 * Review :ref:`ADC Configuration <stream_adc_config>` to set appropriate sampling rates
 * Check :ref:`DAC Configuration <stream_dac_config>` for generation rate settings

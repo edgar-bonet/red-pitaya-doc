@@ -21,8 +21,8 @@ Required Development Tools
 
 FPGA development for Red Pitaya requires specific versions of Xilinx tools:
 
-Xilinx Vivado 2020.1
---------------------
+AMD (Xilinx) Vivado (Version depends on OS)
+--------------------------------------------
 
 **What it is:** Vivado is the primary development environment for creating and modifying FPGA designs. It includes:
 
@@ -34,13 +34,23 @@ Xilinx Vivado 2020.1
 
 **When you need it:** Always required for any FPGA development work.
 
-Xilinx SDK 2019.1
------------------
+**Current version mapping:**
 
-**What it is:** The Software Development Kit (SDK) is used for developing C/C++ applications that run on the ARM processor and interface with your FPGA design.
+* **OS 3.00 or higher:** Vivado 2025.1
+* **OS 1.04 - 2.00:** Vivado 2020.1
 
-**When you need it:** Only required if you're modifying the software running on the ARM processor (drivers, APIs, custom applications). If you're only changing 
-the FPGA logic and using existing software, you don't need SDK.
+AMD Vitis 2025.1 (Current) / Xilinx SDK 2019.1 (Legacy)
+-----------------------------------------------------------
+
+**What it is:** Vitis (current) and SDK (legacy) are used for developing applications that run on the ARM processor and interface with your FPGA design.
+
+**When you need it:** Required only if you're modifying ARM-side software (drivers, APIs, custom applications, FSBL/device-tree related flows). If you're only changing 
+the FPGA logic and using existing software, you usually don't need Vitis/SDK.
+
+**Current version mapping:**
+
+* **OS 3.00 or higher:** Vitis 2025.1 (installed together with Vivado in the current installation flow)
+* **OS 1.04 - 2.00:** SDK 2019.1 (legacy page kept for backward compatibility)
 
 |
 
@@ -62,14 +72,14 @@ Depending on your project goals, you can:
 * Change application logic
 * Add new software features
 * Modify APIs and drivers
-* **Tools needed:** SDK only (using existing FPGA bitstreams)
+* **Tools needed:** Vitis (current flow) or SDK (legacy flow), using existing FPGA bitstreams
 
 **Full Custom Development**
 
 * Create entirely new FPGA designs
 * Develop matching software drivers
 * Integrate custom hardware peripherals
-* **Tools needed:** Both Vivado and SDK
+* **Tools needed:** Vivado + Vitis (current flow) or Vivado + SDK (legacy flow)
 
 |
 
@@ -78,7 +88,7 @@ Development Workflow Overview
 
 The typical FPGA development workflow follows these steps:
 
-1. **Setup Environment** - Install Vivado (and SDK if needed)
+1. **Setup Environment** - Install Vivado and, if needed, Vitis (current) or SDK (legacy)
 2. **Create/Modify Project** - Start with existing project or create new one
 3. **Design** - Write HDL code or modify block diagrams
 4. **Simulate** - Verify logic with behavioral simulation (critical step!)
@@ -95,8 +105,8 @@ Next Steps
 
 Now that you understand the architecture and tools, proceed with:
 
-1. **Install Vivado** - Set up your development environment
-2. **Install SDK** (optional) - If you need to modify ARM software
+1. **Install Vivado and Vitis** - Current flow for OS 3.00 or higher
+2. **Use Legacy SDK guide only if needed** - For OS 1.04 - 2.00 maintenance
 3. **Create Your First Project** - Follow the project creation guide
 4. **Learn Simulation** - Essential for efficient development
 

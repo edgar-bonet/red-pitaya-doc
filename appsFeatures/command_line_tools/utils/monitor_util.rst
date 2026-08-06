@@ -10,7 +10,36 @@ The system and FPGA registers can be accessed through the monitor utility. Usage
 
 .. tabs::
 
-    .. group-tab:: OS version 2.00 or higher
+    .. group-tab:: OS version 3.00 or higher
+
+        .. code-block:: console
+
+            redpitaya> monitor
+            monitor version 3.00-809-bce7a0397
+
+            Usage:
+                    read addr: address
+                    read addr: address-count
+                    write addr: address value
+                    write addr: address w value
+                    read analog mixed signals: -ams
+                    Showing graph of analog mixed signals: -ams_graph
+                    set slow DAC: -sdac AO0 AO1 AO2 AO3 [V]
+                    Clock frequency meter: -c
+                    Print fpga version: -f
+                    Print DTS version: -d
+                    Print model name: -n
+                    Print model id: -i
+                    Print Housekeeping regset: -ph
+                    Print Oscilloscope regset: -posc
+                    Print Arbitrary Signal Generator regset: -pasg
+                    Print Arbitrary Signal Generator signal from ch1: -pasg_ch1
+                    Print Arbitrary Signal Generator signal from ch2: -pasg_ch2
+                    Print Analog Mixed Signals regset: -pams
+                    Print Daisy Chain regset: -pdaisy
+                    Reserved memory for DMA: -r
+
+    .. group-tab:: OS version 2.00
 
         .. code-block:: console
 
@@ -109,4 +138,4 @@ For example, the following sequence of monitor commands checks, modifies and ver
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the monitor utility <RedPitaya/tree/master/Test/monitor>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the monitor utility <RedPitaya/tree/master/tools/monitor>`.

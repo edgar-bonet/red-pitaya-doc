@@ -12,8 +12,8 @@ This guide describes optimizations to achieve maximum streaming performance on R
 
 |
 
-Overview
-*********
+1. Overview
+************
 
 For maximum streaming performance, especially at high sample rates or with multiple channels, system-level optimizations are essential. The most impactful optimization is disabling the web interface, which frees up significant CPU resources and network bandwidth.
 
@@ -29,8 +29,8 @@ For maximum streaming performance, especially at high sample rates or with multi
 
 |
 
-Quick Start: Disable Web Interface
-************************************
+2. Quick Start: Disable Web Interface
+****************************************
 
 The fastest way to optimize for streaming:
 
@@ -54,8 +54,8 @@ To restore the web interface later:
 
 |
 
-Additional Optimizations
-*************************
+3. Additional Optimizations
+*****************************
 
 Memory Allocation
 ==================
@@ -133,8 +133,8 @@ Going beyond these limits requires:
 
 |
 
-Workflow Recommendations
-*************************
+4. Workflow Recommendations
+*****************************
 
 Development Phase
 ==================
@@ -167,8 +167,8 @@ See :ref:`CLI Examples <streaming_examples_top>` for command-line workflows.
 
 |
 
-Verification
-*************
+5. Verification
+*****************
 
 After optimization, verify performance:
 
@@ -201,7 +201,7 @@ Run a test capture at your target sample rate:
 
         .. code-block:: bash
 
-            rpsa_client -h <red_pitaya_ip> -p TCP -f ./ -t wav
+            rpsa_client -s -h <red_pitaya_ip> -f ./output/ -t wav
 
     .. tab:: Python API
 
@@ -227,8 +227,8 @@ Look for:
 
 |
 
-Troubleshooting
-****************
+6. Troubleshooting
+********************
 
 Data Loss Despite Optimization
 ================================
@@ -301,8 +301,8 @@ See :ref:`Streaming Limitations <streaming_limits>` for detailed performance bou
 
 |
 
-Related Topics
-***************
+7. Related Topics
+*******************
 
 * :ref:`Service Management <service_management>` - Complete guide to managing Red Pitaya services
 * :ref:`Streaming Performance Limits <streaming_limits>` - Theoretical performance boundaries
@@ -312,8 +312,8 @@ Related Topics
 
 |
 
-Additional Resources
-*********************
+8. Additional Resources
+*************************
 
 * :ref:`Streaming Application Documentation <streaming_top>`
 * :ref:`CLI Examples <examples_streaming>` - Command-line streaming workflows

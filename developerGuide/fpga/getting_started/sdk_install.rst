@@ -1,10 +1,20 @@
 .. _fpga_install_sdk:
 
-#####################################
-Installation of Xilinx SDK 2019.1
-#####################################
+#############################################
+Installation of Xilinx SDK 2019.1 (Legacy)
+#############################################
 
 This installation tutorial is intended for anyone who wants to develop FPGA projects that also require modifications to the software running on the ARM processor of the Red Pitaya board, such as creating custom device drivers or modifying the First Stage Boot Loader (FSBL).
+
+.. warning::
+
+    This page is for the legacy toolchain only.
+
+    * **Use this page for OS 1.04 - 2.00** (Vivado 2020.1 + SDK 2019.1).
+    * **For OS 3.00 or higher, use Vitis 2025.1** from the Vivado/Vitis installation flow in :ref:`Vivado Installation Guide <FPGA_install_vivado>`.
+   
+    For the complete legacy build and project-generation command flow, see
+    :ref:`Legacy Vivado 2020.1 compatibility <fpga_legacy_2020_flow>`.
 
 .. contents:: Table of Contents
     :local:
@@ -37,7 +47,9 @@ Red Pitaya FPGA projects are configured to work with SDK 2019.1 specifically. Us
 
 .. note::
 
-    Xilinx has replaced SDK with Vitis starting from version 2019.2. However, Red Pitaya projects still use SDK 2019.1 for maximum stability and compatibility. Future versions will migrate to Vitis.
+    AMD (Xilinx) replaced SDK with Vitis starting from version 2019.2.
+
+    Red Pitaya OS 3.00 or higher already uses Vitis 2025.1. This SDK page is retained only for backward compatibility with older OS branches.
 
 |
 

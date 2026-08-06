@@ -75,6 +75,7 @@ EXTERNAL_LINKS = {
     'vivado': 'https://www.xilinx.com/products/design-tools/vivado.html',
     'vivado_downloads': 'https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools.html',
     'vivado_downloads_archive': 'https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html',
+    'vitis_downloads': 'https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vitis.html',
     'amd_login': 'https://login.amd.com/',
     'quartus': 'https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/',
     'xilinx_device_tree': 'https://github.com/Xilinx/device-tree-xlnx',

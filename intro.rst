@@ -68,5 +68,4 @@ to :rp-blog:`sorting tomatoes <when-picking-and-sorting-tomatoes-become-a-matter
 
 **FPGA lessons and tutorials**
 
-* :rp-knowledge:`Knowledge Base FPGA tutorials <>`
 * :ref:`FPGA section <fpga_top>`

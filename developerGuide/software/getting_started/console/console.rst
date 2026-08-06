@@ -4,29 +4,39 @@
 Setting up the serial console
 ###############################
 
-The debug console can be used to follow the boot process:
+.. contents:: Table of Contents
+    :local:
+    :backlinks: top
+    :depth: 2
+
+|
+
+
+What is a serial console?
+==========================
+
+Serial console is a text-based interface that allows users to interact with the Red Pitaya board through a serial connection. It provides a reliable way to access 
+and manage the Red Pitaya board, especially when network connectivity is not available or when troubleshooting issues. The serial console allows users to monitor 
+the boot process, view system logs, and execute commands directly on the Red Pitaya board.
+
+The serial console can be used to follow the boot process:
 
 1.  **FSBL** (if debug mode is enabled)
 
-    The serial console can also be used to see the output 
-    of other bare metal applications, for example, the memory test.
+    The serial console can also be used to see the output of other bare metal applications, for example, the memory test.
 
 2.  **U-Boot**
 
     During the boot process, U-Boot will show status and debug information.
 
-    After FSBL starts U-Boot, there is a 3-second delay before U-Boot starts the Linux kernel.
-    If during this time a key is pressed, U-boot will stop the boot process and give the user access to its shell.
+    After FSBL starts U-Boot, there is a 3-second delay before U-Boot starts the Linux kernel. If during this time a key is pressed, U-boot will stop the boot 
+    process and give the user access to its shell.
 
 
 3.  **Linux console**
 
-    During the boot process, Linux will show status and debug information.
-
-    When ``systemd`` reaches ``multi-user.target`` a login prompt will appear.
-
-        User name: ``root``
-        Password: ``root``
+    During the boot process, Linux will show status and debug information. After the boot process is complete, the user will automatically be logged in as the root user
+    and will have access to the Linux shell. The user can then execute commands and manage the Red Pitaya board through the serial console.
 
 |
 
@@ -40,20 +50,63 @@ Here is a list of additional hardware you will need to set up the serial console
 - **SIGNALlab 250-12** - USB to USB-C cable
 - **STEMlab 125-10** - serial to USB adapter (the pins must first be soldered onto the board)
 
-The following instructions are written for the STEMlab 125-14. For other boards, the procedure is the same, but the cable connection may differ.
+.. note::
+
+    The serial console cable should be a data cable. Power cables do not have the necessary communication lines connected.
+
 
 .. figure:: img/console-connector.png
     :width: 1000
 
-Connect your Red Pitaya and PC with a micro USB to USB-A cable and follow the instructions for your OS.
+Connect your Red Pitaya's ``CON`` port and PC with the specified cable and follow the instructions for your OS.
 
-.. figure:: img/pitaya-USB-connection-300x164.png
-    :width: 400
+.. tabs::
+
+    .. group-tab:: Gen 2 and TI boards
+
+        The USB-C connector for serial console is located directly beneath the Ethernet connector.
+
+        .. figure:: img/Console_Gen2_TI_top.png
+            :width: 500
+
+        .. figure:: img/Console_Gen2_TI_bot.png
+            :width: 500
+
+    .. group-tab:: STEMlab 125-14 and SDRlab 122-16
+
+        The micro USB connector for serial console is located beneath the SD card slot (towards the middle of the board).
+
+        .. figure:: img/Console_STEMlab_125-14.jpg
+            :width: 500
+
+    .. group-tab:: SIGNALlab 250-12
+
+        The USB-C connector for the serial console is located on the very edge of the board, next to the SD card holder.
+
+        .. figure:: img/Console_SIGNALlab.jpg
+            :width: 500
+
+    .. group-tab:: STEMlab 125-10
+
+        The serial console ports are located between the USB-A connector and the SD card holder. The pins must first be soldered onto the board 
+        before connecting the serial to USB adapter.
+
+        .. figure:: img/Console_STEMlab_125-10.jpg
+            :width: 500
+
+.. note::
+
+    Not all USB ports on your PC may support the serial console connection. If you are having trouble connecting, try using a different USB port 
+    on your PC.
 
 |
 
 Software requirements
 ======================
+
+At this stage it is assumed that the Red Pitaya status LEDs display the normal behaviour, indicating that the Red Pitaya is powered on and running. 
+If this is not the case, please refer to the :ref:`troubleshooting guide <troubleshooting_guide>`. The troubleshooting guide will also give you 
+information on the expected behaviour of the Red Pitaya status LEDs.
 
 Windows
 --------
@@ -74,7 +127,8 @@ Boot reference must be done through ``Minicom`` or a similar serial console appl
 
 **Using Windows Subsystem for Linux (WSL)**
 
-For Windows users, we recommend using WSL to access the serial console with ``minicom``. WSL provides a Linux environment on Windows and allows you to connect USB devices to Linux tools.
+For Windows users, we recommend using WSL to access the serial console with ``minicom``. WSL provides a Linux environment on Windows and allows you 
+to connect USB devices to Linux tools.
 
 If you haven't set up WSL yet, please follow our :ref:`WSL Setup Guide <wsl_setup>` first.
 
@@ -82,7 +136,8 @@ Once WSL is set up, here's how to connect the Red Pitaya serial console:
 
 1.  Open *Windows PowerShell* or *Windows Terminal* (we'll call this the Windows terminal)
 #.  Open *Windows Terminal* as an administrator in a separate window for USB device management
-#.  In the administrator Windows terminal, list all available USB devices and find the "bus-id" of the Red Pitaya console (listed as *USB Serial Converter*):
+#.  In the administrator Windows terminal, list all available USB devices and find the "bus-id" of the Red Pitaya console (listed as 
+    *USB Serial Converter*):
    
     .. code-block:: bash
         
@@ -141,7 +196,8 @@ There is broad support for USB-to-serial converters in the Linux kernel, so in m
 Establishing serial console connection
 =======================================
 
-At this point you should have the Red Pitaya connected to your PC via a USB-to-serial converter and are able to access the Linux terminal either through the WSL or naturally from the Linux.
+At this point you should have the Red Pitaya connected to your PC via a USB-to-serial converter and are able to access the Linux terminal either 
+through the WSL or naturally from the Linux.
 
 Check the driver output in the kernel log using ``dmesg``:
 
@@ -161,8 +217,8 @@ Check the driver output in the kernel log using ``dmesg``:
     [95074.891157] usb 1-2.4.3: FTDI USB Serial Device converter now attached to ttyUSB0
 
 
-The first Red Pitaya board connected to your PC will create a device named ``/dev/ttyUSB0``. If **N** USB or serial devices are connected, they will appear as ``/dev/ttyUSBn``, where **n** is 
-**{0, 1, ..., N-1}**. To access these devices, programs should be run with ``sudo``.
+The first Red Pitaya board connected to your PC will create a device named ``/dev/ttyUSB0``. If **N** USB or serial devices are connected, they 
+will appear as ``/dev/ttyUSBn``, where **n** is **{0, 1, ..., N-1}**. To access these devices, programs should be run with ``sudo``.
 
 Minicom or a similar serial console application must be used to view the boot reference log.
 
@@ -183,19 +239,8 @@ To configure ``minicom`` use the ``-s`` option.
 
 A configuration menu will open.
 
-.. code-block:: console
-
-    +-----[configuration]------+
-    | Filenames and paths      |
-    | File transfer protocols  |
-    | Serial port setup        |
-    | Modem and dialing        |
-    | Screen and keyboard      |
-    | Save setup as dfl        |
-    | Save setup as..          |
-    | Exit                     |
-    | Exit from Minicom        |
-    +--------------------------+
+.. figure:: img/minicom_main_menu.png
+    :width: 400
 
 Go to ``Serial Port Setup``, press **Enter**, and set up the next options:
 
@@ -203,20 +248,8 @@ Go to ``Serial Port Setup``, press **Enter**, and set up the next options:
 * Bps/Par/Bits: ``115200 8N1`` (baud rate, byte length, parity, and stop bits)
 * Hardware/Software Flow Control: No (flow control should be disabled)
 
-.. code-block:: console
-
-    +-----------------------------------------------------------------------+
-    | A -    Serial Device      : /dev/ttyUSB0                              |
-    | B - Lockfile Location     : /var/lock                                 |
-    | C -   Callin Program      :                                           |
-    | D -  Callout Program      :                                           |
-    | E -    Bps/Par/Bits       : 115200 8N1                                |
-    | F - Hardware Flow Control : No                                        |
-    | G - Software Flow Control : No                                        |
-    |                                                                       |
-    |    Change which setting?                                              |
-    +-----------------------------------------------------------------------+
-
+.. figure:: img/minicom_settings.png
+    :width: 600
 
 ``Minicom`` requires some special ``Control+A`` key sequences to operate. The most common commands you will need are:
    
@@ -228,7 +261,7 @@ Please see the |minicom| manual for details.
 
 After you have configured the details, exit the settings. At this point Minicom should be connected to your Red Pitaya:
 
-.. figure:: img/Minicom_connected.png
+.. figure:: img/minicom_connected.png
     :width: 1000
 
 If you are asked to log in into the Red Pitaya, please use the following credentials:
@@ -238,9 +271,10 @@ If you are asked to log in into the Red Pitaya, please use the following credent
 
 Leave the Minicom open and unplug Red Pitaya from power. After plugging it back in, you should see the boot sequence for Red Pitaya.
 
-At the begginning of the boot sequence, you can press any key to stop the autoboot process and enter the Zynq U-Boot shell. This is useful for debugging and changing the boot parameters.
+At the begginning of the boot sequence, you can press any key to stop the autoboot process and enter the Zynq U-Boot shell. This is useful for 
+debugging and changing the boot parameters.
 
-.. figure:: img/Minicom_zynq_boot.png
+.. figure:: img/minicom_zynq_boot.png
     :width: 1000
 
 
@@ -252,7 +286,8 @@ If you are not able to see the boot sequence, please check the connection betwee
 ``screen``
 ------------
 
-GNU ``screen`` is, in general, a terminal multiplexer. It also supports connecting to a serial console and provides syntax to configure the serial connection's baud rate, byte length, parity, and flow control.
+GNU ``screen`` is, in general, a terminal multiplexer. It also supports connecting to a serial console and provides syntax to configure the 
+serial connection's baud rate, byte length, parity, and flow control.
 
 Compared to ``Minicom``, it provides better fonts and support for terminal window resizing.
 
@@ -278,8 +313,6 @@ U-Boot
 
 .. tabs::
 
-    
-      
     .. tab:: OS 2.00
 
         .. code-block::
@@ -928,14 +961,16 @@ Boot sequence not visible on the serial console
 2.  Check whether the FTDI drivers for Windows are installed correctly.
 3.  Check the status LEDs on Red Pitaya:
 
-    - If the **green and blue LEDs are ON** and the other status LEDs are working correctly, unplug the power and repower the board. If the issue persists, please double-check the serial console instructions above or use a different cable.
+    - If the **green and blue LEDs are ON** and the other status LEDs are working correctly, unplug the power and repower the board. If 
+      the issue persists, please double-check the serial console instructions above or use a different cable.
     
     - If the **green LED is ON**, but no other LEDs are visible, this means that the boot process is stuck:
         
         -   Please check whether the Red Pitaya OS is installed on the SD card.
-        -   If the OS is installed correctly and the boot log is not visible, the Zynq SoC might be damaged. In this case, please contact Red Pitaya support (support@redpitaya.com).
-            If the board is still under warranty, we will replace it.
+        -   If the OS is installed correctly and the boot log is not visible, the Zynq SoC might be damaged. In this case, please contact 
+            Red Pitaya support (support@redpitaya.com). If the board is still under warranty, we will replace it.
 
-    - If the **green LED is OFF**, please check whether the power supply is connected and working correctly. If the power supply is good, then the board might be damaged.
+    - If the **green LED is OFF**, please check whether the power supply is connected and working correctly. If the power supply is good, then the 
+      board might be damaged.
 
 |

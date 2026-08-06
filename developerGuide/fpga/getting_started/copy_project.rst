@@ -4,9 +4,9 @@
 Creating a copy for a new project
 ###################################
 
-Each of the projects and tutorials has its own directory, which is forcibly cleared each time a "new" project with the same name is created.
+Each project has its own directory under ``prj/``. Generated files can be overwritten when rebuilding the same project name, so keeping a separate copy is recommended.
 
-For example, running the following command, when the project already exists (perhaps it is just the LED blink project or a new custom FPGA image). 
+For example, running the following command when the project already exists (perhaps it is your LED blink project or a new custom FPGA image):
 
 .. code-block:: bash
 
@@ -15,47 +15,46 @@ For example, running the following command, when the project already exists (per
 Will revert everything in the v0.94 project located in the **RedPitaya-FPGA/prj/v0.94** directory back to the original state, 
 which can cause problems when project backups are required.
 
-Here is how you can separate create a separate project folder that contains all the code of the normal v0.94 project:
+Here is how you can create a separate project folder for Vivado 2025.1 flow:
 
-#.  Create a new folder called "New_Project" in **RedPitaya-FPGA/prj/**.
-#.  Copy all files from **RedPitaya-FPGA/prj/v0.94** into the newly created folder.
-#.  Add or copy any existing *VHDL* or *Verilog* files to the "New_project/rtl" directory.
-#.  Create a new folder named **tbn** inside the *New_project* directory. This is where any testbench files should be placed.
-#.  Make a copy of the **red_pitaya_vivado_project_Z10.tcl** script from the **RedPitaya-FPGA** directory and rename it to **new_project.tcl**.
-#.  If the **new_project.tcl** is located in a different directory, edit the following lines of code:
+#.  Create a new folder called ``new_project`` in **RedPitaya-FPGA/prj/**.
+#.  Copy all files from **RedPitaya-FPGA/prj/v0.94** into ``prj/new_project``.
+#.  Add or copy your existing *VHDL* or *Verilog* files to ``prj/new_project/rtl``.
+#.  Keep or create ``prj/new_project/tbn`` for testbenches.
+#.  Open the copied project with the current model-specific launcher:
 
-    .. code-block:: bash
+    * **Linux/Unix-like shell**:
 
-        cd prj/$prj_name                    → cd <new_path_to_project>/$prj_name
-        set path_brd ./../brd               → set path_brd <path_to_brd_directory>/brd
-        set path_sdc ../../sdc              → set path_sdc <path_to_sdc_directory>/sdc
-        add_files  ../../$path_rtl          → add_files  <path_to_rtl_directory>/$path_rtl
+      .. code-block:: bash
 
-    Add a new **tbn** variable
+          ./open_vivado.sh new_project Z10
 
-    .. code-block:: bash
+    * **Windows CMD/PowerShell**:
 
-        set path_tbn tbn
+      .. code-block:: bat
 
-    And the simulation files after the *add_files $path_bd* line:
+          open_vivado.bat new_project Z10
+
+#.  Alternatively, use the Makefile project target:
 
     .. code-block:: bash
 
-        add_files -fileset sim_1 -norecurse $path_tbn/red_pitaya_proc_tb.vhd
+        make project PRJ=new_project MODEL=Z10
 
-    Short description of each directory:
-
-    - **brd** directory contains board information files (.xml)
-    - **sdc** contains the constraints files (*.xdc*)
-    - **rtl** contains source files
-    - **tbn** cointains simulation files (also called testbench)
-
-#.  Finally, we can create a new project by running the following code:
+#.  Build the copied project:
 
     .. code-block:: bash
 
-        make project 
+        make PRJ=new_project MODEL=Z10
 
-        vivado -source New_projct.tcl -tclargs <PRJ_project_flag>
+#.  If everything is set up correctly, Vivado and command-line builds should generate outputs in ``prj/new_project/out``.
 
-#.  If everything is set up correctly, you can run a **Generate Bitstream** command in Vivado to check if the project is working as expected.
+| 
+
+Legacy Vivado 2020.1 note
+==========================
+
+If you are maintaining older OS 1.04 - 2.00 flows, you may still encounter documentation or scripts that refer to older project Tcl patterns.
+For those cases, keep using the legacy toolchain documented in :ref:`Vivado 2020.1 installation <FPGA_install_vivado_2020_1>` and :ref:`SDK legacy installation <fpga_install_sdk>`.
+For complete legacy checkout and build commands, see :ref:`Legacy Vivado 2020.1 compatibility <fpga_legacy_2020_flow>`.
+
