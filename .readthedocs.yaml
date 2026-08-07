@@ -10,7 +10,7 @@ build:
   tools:
     python: "3.14"
     # You can also specify other tool versions:
-    nodejs: "20"
+    nodejs: "26"
   jobs:
     post_checkout:
       # Install system dependencies if needed
@@ -34,6 +34,7 @@ search:
   ignore:
     - "_build/*"
     - "*/.*"
+    - "_Docs_build_info/*"
 
 # Optionally build your docs in additional formats such as PDF, ePub, and HTML zip
 # Build the docs in epub and pdf version

@@ -41,6 +41,7 @@ In either case, **refrain from using spaces in the path** to the extracted repos
 
 Finally, rename the extracted repository folder to **RedPitaya-FPGA**.
 
+|
 
 Accessing older versions of the repository
 -------------------------------------------
@@ -252,7 +253,7 @@ Only the Red Pitaya FPGA repository is required to create a project in this mode
 
 There are a few important things to note about the project creation process:
 
-4.  **Reopen an existing project** - Open Vivado and select the project from the **Recent Projects** list.
+6.  **Reopen an existing project** - Open Vivado and select the project from the **Recent Projects** list.
 
     .. figure:: img/Vivado-recent-projects.png
         :width: 800
@@ -264,16 +265,16 @@ There are a few important things to note about the project creation process:
 
 .. _fpga_copy_project:
 
-Creating a Safe Project Copy (Recommended)
-===========================================
+Creating a Safe Project Copy
+=============================
 
 .. note::
 
     The information in this section is relevant for **automatic project generation**. For manual project creation, the process is much simpler and 
     only requires copying the baseline project and modifying the RTL and constraints as needed. For more information, see :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>`.
 
-If you are building a custom variant, do not continue editing directly in ``prj/v0.94`` (or another shared baseline project directory).
-Create a project copy first.
+A safe project copy is a duplicate of an existing project that can be modified without affecting the original project. This is useful when you may need to access the 
+original project later or when you want to keep a backup of the custom design as rerunning the automatic project generation scripts can overwrite the custom design.
 
 Why this matters:
 

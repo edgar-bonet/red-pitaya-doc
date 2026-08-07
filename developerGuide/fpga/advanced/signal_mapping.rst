@@ -83,12 +83,9 @@ The XADC inputs use voltage dividers to scale input voltages to the safe range f
 
 The fourth XADC input (AD) is connected to a voltage divider for measuring the internal 5V power supply voltage:
 
-.. code-block:: console
-
-                           +-----------------0  Vout
-              -----------  |  -----------
-    Vin  0----| 56.0 kΩ |--+--| 4.99 kΩ |----0  GND
-              -----------     -----------
+.. figure:: img/voltage_divs_5v.png
+    :align: center
+    :width: 400
 
 .. math::
 
@@ -103,12 +100,9 @@ Slow Analog Inputs
 The XADC auxiliary inputs connected to the slow analog inputs operate in unipolar mode with an input voltage range of 0-1 V. Resistor dividers are used to 
 scale the external input voltage range to 0-7.0 V:
 
-.. code-block:: console
-
-                           +-----------------0  Vout
-              -----------  |  -----------
-    Vin  0----| 30.0 kΩ |--+--| 4.99 kΩ |----0  GND
-              -----------     -----------
+.. figure:: img/voltage_divs_slow_analog.png
+    :align: center
+    :width: 400
 
 .. math::
 
