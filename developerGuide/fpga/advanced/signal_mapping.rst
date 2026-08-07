@@ -106,7 +106,7 @@ scale the external input voltage range to 0-7.0 V:
 
 .. math::
 
-    ratio = \frac{4.99 k\Omega}{30.0 k\Omega + 4.99  k\Omega} = 0.143
+    ratio = \frac{4.99 k\Omega}{30.0 k\Omega + 4.99 k\Omega} = 0.143
 
     range = \frac{1.0 V}{ratio} = 7.00 V
 

@@ -276,6 +276,13 @@ html_context = {
 
 htmlhelp_basename = 'RedPitayaDocs'
 
+# MathJax configuration
+
+mathjax3_config = {
+    'loader': {'load': ['output/svg']},
+    'startup': {'output': 'svg'},
+}
+
 # LaTeX output
 
 latex_elements = {

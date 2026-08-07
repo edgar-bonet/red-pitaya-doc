@@ -8,19 +8,6 @@ html, body, html * {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
 }
 
-/* MathJax fix for newer Sphinx/MathJax rendering:
-     keep site font globally, but do not force it inside math output. */
-.rst-content mjx-container,
-.rst-content mjx-container * {
-        font-family: "MathJax_Main", "MathJax_Math", "STIX Two Math", "Cambria Math", serif !important;
-        line-height: normal !important;
-        overflow: visible !important;
-}
-
-.rst-content mjx-container {
-        vertical-align: middle !important;
-}
-
 /* Clean logo display - combine logo_only: True with background image */
 .wy-side-nav-search {
     padding: 6px !important;
