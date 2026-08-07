@@ -52,9 +52,9 @@ When working with Red Pitaya FPGA projects, the generation flow produces several
     +-------------------+--------------------------------------------------------+
     | File              | Description                                            |
     +===================+========================================================+
-    | zynq-7000.dtsi    | PS peripherals and interfaces                           |
+    | zynq-7000.dtsi    | PS peripherals and interfaces                          |
     +-------------------+--------------------------------------------------------+
-    | pl.dtsi           | AXI peripherals in PL                                   |
+    | pl.dtsi           | AXI peripherals in PL                                  |
     +-------------------+--------------------------------------------------------+
     | system.dts        | Complete system device tree (includes above files)     |
     +-------------------+--------------------------------------------------------+
