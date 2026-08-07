@@ -318,6 +318,23 @@ nav.contents.local ul {
     display: inline !important;
 }
 
+/* Shared color roles defined in conf.py */
+.text-bold-blue {
+    color: #005bbb;
+}
+
+.text-bold-orange {
+    color: #d97706;
+}
+
+.text-bold-green {
+    color: #15803d;
+}
+
+.text-bold-red {
+    color: #dc2626;
+}
+
 /* Override any sidebar logo styles that might affect breadcrumb home icon */
 /* Use high specificity to ensure breadcrumb icon stays inline */
 .wy-breadcrumbs li a.icon.icon-home,

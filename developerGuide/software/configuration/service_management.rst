@@ -31,17 +31,19 @@ Red Pitaya Services
 The main Red Pitaya system services include:
 
 .. list-table::
-   :widths: 30 70
-   :header-rows: 1
+    :widths: 30 70
+    :header-rows: 1
 
-   * - Service Name
-     - Description
-   * - ``redpitaya_nginx``
-     - Customized Nginx web server for Red Pitaya web interface and applications
-   * - ``redpitaya_e3_controller``
-     - Service that detects whether an external board is connected to the E3 slot (only active on Gen 2 PRO boards)
-   * - ``redpitaya_startup``
-     - Service for running Red Pitaya startup scripts
+    * - Service Name
+      - Description
+    * - ``redpitaya_nginx``
+      - Customized Nginx web server for Red Pitaya web interface and applications
+    * - ``redpitaya_e3_controller``
+      - Service that detects whether an external board is connected to the E3 slot (only active on PRO Gen 2 boards)
+    * - ``redpitaya_startup``
+      - Service for running Red Pitaya startup scripts
+    * - ``redpitaya_scpi``
+      - Red Pitaya SCPI server
 
 .. note::
 
@@ -60,7 +62,7 @@ For additional system services and details, see the :ref:`Build Red Pitaya OS <S
     The ``redpitaya_nginx`` web interface and the SCPI server (``/opt/redpitaya/bin/monitor``) cannot run simultaneously. They both access the same hardware resources, which causes conflicts.
     
     * **Before starting SCPI:** Stop the Nginx service with ``systemctl stop redpitaya_nginx``
-    * **Before starting web interface:** Stop any running SCPI server instances
+    * **Before starting web interface:** Stop any running SCPI server instances ``systemctl stop redpitaya_scpi``
     
     For more details, see the :ref:`SCPI Server documentation <scpi_commands>`.
 
@@ -224,6 +226,7 @@ Example output:
     redpitaya_e3_controller.service loaded inactive dead    Service for an application that detects...
     redpitaya_nginx.service         loaded active   running Customized Nginx web server for Red Pitaya...
     redpitaya_startup.service       loaded inactive dead    Service for startup script Red Pitaya
+    redpitaya_scpi.service          loaded inactive dead    SCPI server for Red Pitaya
 
 |
 

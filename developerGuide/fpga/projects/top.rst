@@ -10,6 +10,7 @@ This section contains information about various FPGA projects available for Red 
 
 * :ref:`FPGA Register Maps <fpga_registers>` - Detailed register documentation for each project
 * :ref:`FPGA Development <fpga_top>` - General FPGA development guide
+* :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>` - Constraint and model/configuration file selection for manual project creation
 
 .. contents:: Table of Contents
     :local:
@@ -77,30 +78,54 @@ We recommend using the **0.94** as the *default project*.
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
 | Project name      | Description                                                            | Application                      | Status             |
 +===================+========================================================================+==================================+====================+
-| 0.94              | | The core project that contains most of the available functionality.  | | Oscilloscope                   | Active             |
-|                   | | Also the core for all future development.                            | | Signal generator               |                    |
-|                   | |                                                                      | | Arbitrary waveform generator   |                    |
-|                   | | Main improvements over 0.93:                                         | | Spectrum analyzer              |                    |
-|                   | | 1. The CDC (clock domain crossing) code on the custom CPU bus was    | | Bode analyzer                  |                    |
-|                   | |    removed. Instead, the CDC for the GP0 port, which was already     | | Impedance analyzer             |                    |
-|                   | |    available in the PS, was used. This improves speed and            | | LCR meter                      |                    |
-|                   | |    reliability, while reducing RTL complexity.                       | | JupyterLab                     |                    |
-|                   | | 2. A bug in the generator that caused a value increment was fixed;   | |                                |                    |
-|                   | |    this should improve the generated frequencies near the half-      | | **Register map:**              |                    |
-|                   | |    sampling rate.                                                    | | :ref:`v0.94 <fpga_094_dev>`    |                    |
-|                   | | 3. The XADC custom RTL wrapper was replaced with the Xilinx AXI      | |                                |                    |
-|                   | |    XADC. This enables the use of the Linux driver with IIO streaming | |                                |                    |
-|                   | |    support.                                                          | |                                |                    |
+| 0.94              | | Default and most feature-complete Red Pitaya FPGA image. Used as the | | Oscilloscope                   | Active (default)   |
+|                   | | baseline for current application support and most custom forks.      | | Signal generator               |                    |
+|                   | | In the 2025.1 flow it remains the recommended starting point.        | | Spectrum analyzer              |                    |
+|                   | |                                                                      | | Bode analyzer                  |                    |
+|                   | |                                                                      | | Impedance analyzer             |                    |
+|                   | |                                                                      | | LCR meter                      |                    |
+|                   | |                                                                      | | JupyterLab                     |                    |
+|                   | |                                                                      | | **Register map:**              |                    |
+|                   | |                                                                      | | :ref:`v0.94 <fpga_094_dev>`    |                    |
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
-| stream_app        | | 1. Streaming of ADC and DAC data to and from DDR3 memory buffers.    | | Data stream control            | Active             |
-|                   | | 2. Streaming of GPIO inputs and outputs to/from DDR3 memory buffers. | | (streaming application)        |                    |
-|                   | | 3. Streaming to and from computer to ADC and DAC.                    | |                                |                    |
+| stream_app        | | High-throughput streaming project. Supports ADC/DAC/GPIO transfer    | | Data streaming                 | Active             |
+|                   | | between PL and DDR memory, and host-to-board streaming workflows.    | | Streaming server / API flows   |                    |
+|                   | | Includes board-specific variants (for example 4-input and 250-12).   | |                                |                    |
 |                   | |                                                                      | | **Register maps:**             |                    |
 |                   | |                                                                      | | :ref:`In Dev <regset_in_dev>`  |                    |
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
-| logic             | | The DMA is used to transfer data to the main DDR3 RAM. The ADC and   | Logic analyzer                   | Active             |
-|                   | | DAC code is unfinished.                                              |                                  |                    |
+| logic             | | Logic-analyzer oriented project with DMA-based capture to DDR.       | Logic analyzer                   | Active             |
+|                   | | Focuses on digital acquisition and protocol analysis workflows.      |                                  |                    |
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+| barebones         | | Linux platform base with shared PS configuration used across         | Foundation for Linux system      | Active             |
+|                   | | projects. Builds the full Linux device tree; other projects          |                                  |                    |
+|                   | | typically provide overlays only. Keeps application layer             |                                  |                    |
+|                   | | intentionally minimal/empty.                                         |                                  |                    |
++-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+| pyrpl             | | Third-party oriented image for PyRPL workflows, including lock-in,   | PyRPL / control loops            | Community          |
+|                   | | IQ, filter, and feedback-control related DSP blocks.                 | (advanced DSP/control)           |                    |
++-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+| fsbl              | | Build-support project for FSBL and U-Boot artifacts (XSA/FSBL flow). | Boot and platform artifacts      | Build support      |
+|                   | | Similar to barebones but with fewer enabled peripherals/settings,    |                                  |                    |
+|                   | | because U-Boot does not require the full Linux platform scope.       |                                  |                    |
++-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+| Examples          | | Collection of standalone educational Vivado examples (for example    | Learning and quick demos         | Legacy             |
+|                   | | LED/GPIO/VGA exercises). Useful for training and quick experiments.  |                                  |                    |
++-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+
+The table above reflects projects currently present in ``prj/`` on the master branch of the FPGA repository. Older projects from previous releases may still be available in historical tags.
+
+|
+
+Legacy projects
+----------------
+
+These projects are no longer in the FPGA repository and are not actively maintained. They may be incompatible with the latest hardware revisions or software versions. 
+Use them only for reference or if you are maintaining older systems.
+
++-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
+| Project name      | Description                                                            | Application                      | Status             |
++===================+========================================================================+==================================+====================+
 | 0.93              | | The original Red Pitaya FPGA release with all original bugs.         |                                  | Legacy             |
 |                   | | For deprecated application backward compatibility only.              |                                  |                    |
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
@@ -120,7 +145,7 @@ We recommend using the **0.94** as the *default project*.
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
 | mercury           | | The old image used by Jupyter Notebook application. Replaced by      | Jupyter Notebook                 | Legacy             |
 |                   | | :ref:`Python API commands <C&Py_API>` in the latest OS versions.     |                                  |                    |
-|                   | |                                                                      |                                  |                    |
+|                   |                                                                        |                                  |                    |
 +-------------------+------------------------------------------------------------------------+----------------------------------+--------------------+
 
 |
@@ -129,13 +154,18 @@ We recommend using the **0.94** as the *default project*.
 In-depth project descriptions
 ==============================
 
+The following pages cover active projects in the current repository layout. PyRPL and Examples are intentionally not covered here.
+
 .. toctree::
     :maxdepth: 1
 
     v0_94.rst
     stream_app.rst
     logic.rst
+    barebones.rst
+    fsbl.rst
 
+|
 
 Board compatibility
 =====================

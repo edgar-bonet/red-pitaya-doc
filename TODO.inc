@@ -43,7 +43,6 @@
 
     - Building Vivado project from scratch (without using the automated scripts) - should work on any Vivado version
     - Constraint files for all boards (.xdc) and which FPGA part is used (aka board file)
-    - Building FPGA on Gen 2 boards - za Z10 Gen2 ni treba narediti nič posebnega. Za Z20 Gen2 moraš buildat MODEL=Z20_G2 . Razlika je zaradi E3 konektorja
 
 ##.  FPGA examples:
 
@@ -120,6 +119,9 @@
 
 ##.  Update the custom component to include 4-Input option and show how to create a pass-through for the ADC and DAC data.
 
+##. AMS - XADC registers are not used (comment them out). We are using Linux driver directly to read the slow analog inputs. The DACs are driven throguh there.
+
+
 
 
 # HARDWARE
@@ -127,12 +129,6 @@
 ##. Current limits - Need to check the FPGA settings (config file) for E3 diff pair current and voltage limits
 
 ##. Differential pair voltage levels, comment on resistor values for S1 Link and Orient USB-C lines - these also need to be updated.
-
-##. Booting with 1GB RAM: 
-    The Red Pitaya OS will, due to board compatibility reasons, normally boot with only 512 MB enabled. To enable the full 1GB capacity, please head to the blue info button in the top left corner of the web interface, select the System Settings tab and switch the "BOOT mode" to "up to 1 GB".
-    Click close and restart the board via the top-right power button.
-
-    This should let the board boot with 1 GB of RAM on every consecutive boot (the setting is static and will only be affected if the SD card is rewritten completely).
 
 
 
@@ -169,13 +165,6 @@
     For RAW values:
 
     Same for RAW. For version 6, uncalibrated data can be obtained only by disabling calibration in the EEPROM.
-
-##. Serial console access: 
-    Please check if the USB-C cable used is actually an USB to USB-C data cable. Power cables do not have the necessary communication lines connected.
-
-    The COM port is directly beneath the Ethernet connector.
-
-    TODO - Need pictures of the bottom side of the Gen 2 board.
 
 
 
@@ -214,6 +203,32 @@
     https://github.com/RedPitaya/RedPitaya-Examples/commit/95bec06cb4c42e522e696cdd7aa44f2079c45c5b
 
     On my side I checked the tests. For me, transferring 32MB of data in LEND/RAW/BIN mode took 1-2 seconds.
+
+##. Add the following explanation to the generation intro:
+
+    I have found the reason behind the original problem. It is quite simple actually (see the attached picture for the explanation). Here is the description:
+
+    Since we are generating a continuous signal, the signal generates continuously regardless of the state of the output (after the trigger it does not matter whether the output is on or off).
+    Output turned ON/OFF affects the signal on the actual OUT1 port, but not the internal signal generation in the FPGA. Turning the output OFF after generating the signal will cut the signal on the actual output, but will not stop the internal generation. Think of it as switching the output to High-Z mode. The FPGA will continue to generate the signal.
+    Generator reset will clear all settings and stop the generation of the continuous signal, which explains why it solves the problem here and produces the expected output.
+    Without generator reset, the sequence is as follows:
+    First iteration, we setup the generator and trigger the generation. Since there was no previous signal generated, the acquired data is as expected.
+    Second and further iterations, we turn off the output (internally, the FPGA still generates the signal) and we reconfigure the generator to exactly the same specs. There is another important aspect here corelated to triggering itself, which I will explain later on.
+    Then we start the acquisition and specify the trigger as "immediate acquisition trigger".
+    Since the output is turned off at this point, the acquisition starts capturing data without the output signal present, resulting in a short zero data line in the results (see the trig_now picture).
+    Then the output is turned ON, resulting in the output immediately jumping to whatever state it was in (not necessarily starting at 0).
+    The generation continuous for a short time before the Generator trigger command arrives (non-zero network and processing delay). The generator trigger does the following:
+    Immediately resets the internal waveform generation counter to 0 - starting the generation from 0.
+    Applies any configured settings to the waveform (change in amplitude, frequency waveform, etc.)
+    Since the settings are the same, the trigger will only reset the read pointer of the arbitrary waveform generation to the start of the internally saved waveform (since this is a sine waveform, the first sample is always 0), resulting in the jump in the waveform.
+    This can clearly be seen by setting the trigger level to a non-zero value and setting the acquisition trigger to CH1_PE. This actually shows that the acquisition triggers before the actual jump in value. So, this is not a glitch in acquisition or data collection, but rather a reset of the generation.
+    With generator reset, the FPGA resets the generation completely in between iterations, so the generation starts with the trigger and not with turning on the output on the second and later generations.
+    This behaviour is visible since we are generating a continuous waveform and would not be so obvious with a burst waveform generation.
+
+
+    A few other important but easily missed things that can be relevant:
+
+    SOUR:TRig:INT command will reset the generated waveform to the start and clear the generator read counter (resets the FPGA generation), while SOUR:TRig:INT:ONLY will apply the generator trigger, but will NOT reset the generator read counter, resulting in a smooth transition between different settings (for example changing frequency of the generated signal on the fly)
 
 ##.  Simple lessons on Data acquisition and generation - C++ & Python API commands.
 
@@ -269,6 +284,35 @@
 
 ##. Add link to system info change of DMM memory to the DMM docs (changing reserved memory)
 
+##. DMG - For one-pack mode, the data-pack must be at least twice the size of the number of samples in the generated waveform otherwise the waveform will not be generated correctly.
+          The waveform must still fit inside the DDR memory.
+
+        To avoid problems with flat regions between generated waveforms (very small buffer), increase the buffer size to 128-256 kB. One-pack mode eliminates unnecessary data transfer over the network, but the logic of two buffers still remains. Essentially, after the first buffer is generated, we swap the address for the second buffer with the first. Due to the slow speed of swapping buffers, we experience some delay in signal generation.
+        To avoid this delay, the buffer needs to be large enough. Alternatively, the FPGA can be modified to allow the one-pack mode to operate inside the FPGA itself (independent of RAM)
+
+        When streaming data in 8-bit mode, the data only has 256 possible values, which can lead to flat regions in the generated wavefrom (conversion from float to int8). Especially if the waveform itself is very long (for example a single sine wave in a 1 MSample buffer). When generating such a waveform, 
+        it will likely have a small flat zero region in the middle of the sine wave.
+
+##. DMA - trigger delay: It works the same as in normal mode. The buffer is circular. Data is written in a loop. As soon as a trigger occurs, the number of samples after the trigger specified in the delay is written.
+
+    We get a pointer to the trigger sample.
+
+    https://github.com/RedPitaya/RedPitaya-Examples/blob/main/C/axi.cpp#L98
+
+    There is also a function
+    /**
+    Returns current position of AXI ADC write pointer.
+    @param channel channel index
+    @param pos Write pointer position
+    @return If the function is successful, the return value is RP_OK.
+    If the function is unsuccessful, the return value is any of RP_E* values ​​that indicate an error.
+    /
+    int rp_AcqAxiGetWritePointer(rp_channel_t channel, uint32_t pos);
+    The difference between them should be equal to trigger delay
+
+
+    Use the write pointer instead of the trigger pointer when looking to return data in the correct chronological order when trig_dly != samples_per_channel.
+
 
 
 
@@ -285,8 +329,13 @@
      Check the VNA specifications and find the specified parameters to publish.
      RF bandwidth is 300 kHz-60 MHz, S11/S21 measurements, 1 port, calibration support (manual Red Pitaya hardware calibration and software VNA calibration), 
 
-##. SA - the peak amplitude depends on the chosen window function and buffer size. Generally, diferences of 0.5 -2.5 dB can be expected between different window functions. The buffer size also affects the resolution bandwidth, which in turn affects the noise floor and the ability to resolve closely spaced signals. A larger buffer size allows for a narrower resolution bandwidth, which can help to resolve closely spaced signals and reduce the noise floor, but it also increases the time required for each measurement.
+##. SA - revise the measurements for SA for different boards
 
+
+
+# QUICKSTART
+
+##. Alucase Gen 2 update - add info on backdrilling the Gen 2 alu case to get access to different parts of the Red Pitaya board (for example, DIN holes, etc.). Pictures!
 
 
 
@@ -307,11 +356,8 @@
 
 ##. GitHub examples:
 
-    Looking at the examples, it looks like we'll have a merge conflict since we've made changes to the main branch.
     Also, I think we should add the ecosystem version it runs on to the title of each example. This is because we currently have a separate repository and no direct connection to the ecosystem version.
 
-    And most likely, you need to add this:
-    import lib.redpitaya_scpi as scpi
 
     https://github.com/RedPitaya/RedPitaya-Examples/tree/dev/python
 
@@ -321,6 +367,8 @@
     Again, we're not responsible for the client's Python installation.
     If anyone uses older versions of the ecosystem, you need to specify that such and such an example will work with version 2.0-35, and new examples only with 2.07-50, permissible.
     In one folder with examples for the generator there can be examples for the old OS and the new OS
+
+##. Update Nightly Build instructions (on the server) to reflect the latest changes.
 
 
 

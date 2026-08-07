@@ -1,6 +1,6 @@
 .. _regset_2.07_48:
 
-FPGA Register map (Release 2.07-48)
+FPGA Register Maps (Release 2.07-48)
 #########################################
 
 .. toctree::

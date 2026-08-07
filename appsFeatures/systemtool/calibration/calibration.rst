@@ -25,6 +25,7 @@ The easiest way to recalibrate the Red Pitaya board is through the Calibration a
 
 * :ref:`Calibration application <calibration_app>`.
 * :ref:`Calibration command line utility <calib_util>`.
+* :ref:`Frequency calibration command line utility <filter_calib_util>`.
 * :ref:`C++ or Python API commands <API_commands>`.
 
 To open the Calibration application click on **System Tools** and then select **Calibration**.
@@ -166,10 +167,12 @@ For command-line backup and restore options, see the :ref:`calib utility documen
 Command Line Calibration
 =========================
 
-The command line utility *calib* can also be used for 
-calibration tasks.
+The command line utility *calib* can also be used for calibration tasks.
 
-For more information on the command line utility and the different calibration formats, please refer to the :ref:`calib_util documentation <calib_util>`.
+For more information on the command line utility and the different calibration formats, please refer to:
+
+* :ref:`calib_util documentation <calib_util>` for standard calibration.
+* :ref:`filter_calib_util documentation <filter_calib_util>` for frequency calibration.
 
 |
 

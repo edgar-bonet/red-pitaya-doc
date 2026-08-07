@@ -13,6 +13,7 @@ Whether you're developing measurement tools, integrating hardware peripherals, o
 * **Application Development** - Build applications using C++/Python APIs, streaming, and web interfaces
 * **System Development** - Compile the OS ecosystem, create Debian packages, and build custom images
 * **Configuration & Integration** - Set up networking, GPIO, SPI, displays, and remote deployment
+* **Security Considerations** - User accounts, permissions, and safe deployment practices
 * **Troubleshooting** - Known software issues and workarounds
 
 .. toctree::
@@ -23,6 +24,7 @@ Whether you're developing measurement tools, integrating hardware peripherals, o
     app_development/app_development.rst
     system_development/system_development.rst
     configuration/configuration.rst
+    security.rst
     troubleshooting/troubleshooting.rst
 
 

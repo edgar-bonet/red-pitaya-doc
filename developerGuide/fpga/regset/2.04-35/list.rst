@@ -1,7 +1,7 @@
 .. _regset_2_04_35:
 
-FPGA Register map (Release 2.04-35)
-###################################
+FPGA Register Maps (Release 2.04-35)
+######################################
 
 .. toctree::
    :maxdepth: 1

@@ -73,10 +73,4 @@ When requesting a state change, the QSPI eMMC board will return one of the follo
 Source code
 ------------
 
-The Red Pitaya GitHub repository contains the `source code for the E3 I2C controller utility <https://github.com/RedPitaya/RedPitaya-Examples>`_.
-
-.. TODO Update link to the source code.
-
-
-
-
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the E3 I2C controller utility <RedPitaya/tree/master/tools/e3_led_controller>`

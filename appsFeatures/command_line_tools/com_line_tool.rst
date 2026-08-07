@@ -16,7 +16,7 @@ and quick hardware interactions without the web interface.
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 
@@ -41,7 +41,9 @@ and quick hardware interactions without the web interface.
     utils/monitor_util.rst
     utils/led_util.rst
     utils/calib_util.rst
+    utils/filter_calib_util.rst
     utils/updater_util.rst
     utils/e3_i2c_util.rst
     utils/overlay_util.rst
+    utils/profiles_util.rst
     utils/other_util.rst

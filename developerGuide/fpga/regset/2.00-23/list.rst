@@ -1,6 +1,6 @@
 .. _regset_2.00_23:
 
-FPGA Register map (Release 2.00-23)
+FPGA Register Maps (Release 2.00-23)
 ###########################################
 
 .. toctree::

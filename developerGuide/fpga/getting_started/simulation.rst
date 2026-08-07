@@ -8,7 +8,13 @@ FPGA Simulation
 #############################
 
 Simulation is a critical part of FPGA development that allows you to verify your design's functionality before deploying to hardware. 
-This guide covers setting up and running simulations for Red Pitaya FPGA projects using ModelSim.
+This guide covers setting up and running simulations for Red Pitaya FPGA tutorial projects using ModelSim.
+
+.. note::
+
+    This guide will focus on ModelSim as the primary simulation tool which we will use during the Red Pitaya FPGA tutorials. For more
+    complex designs, you may want to consider Vivado's built-in simulator (XSIM) as we already have some Red Pitaya simulation scripts
+    available.
 
 .. contents:: Table of Contents
     :local:
@@ -80,6 +86,10 @@ Simulation vs. Hardware Testing
 Simulation Tools
 **********************************
 
+This guide covers the recommended simulation tools for the FPGA tutorials in this section. Since will be working with simple code
+and testbenches, we will focus on ModelSim as the primary simulation tool. For more complex designs, you may want to consider 
+Vivado's built-in simulator (XSIM) as we already have some Red Pitaya simulation scripts available.
+
 Available Simulators
 ====================
 
@@ -99,13 +109,19 @@ ModelSim (Recommended)
 - Excellent waveform viewer
 - Well-documented
 - Industry-standard tool
+- Lightweight installation
 
 **Limitations:**
 
 - Limited to 10,000 lines of code (sufficient for most Red Pitaya modules)
-- Linux version only (use WSL on Windows)
 
 **Download** `ModelSim-Altera Starter Edition 20.1.1 <https://www.intel.com/content/www/us/en/software-kit/750666/modelsim-intel-fpgas-standard-edition-software-version-20-1-1.html>`_
+
+.. note::
+
+    We are using ModelSim-Altera Starter Edition 20.1.1 for the Red Pitaya FPGA tutorials, since it is the last standalone version of ModelSim that includes 
+    only simulation features. Newer versions of ModelSim are integrated into Intel Quartus Prime which comes with extra features that are not needed for 
+    our tutorials.
 
 |
 
@@ -125,6 +141,10 @@ Vivado Simulator (XSIM)
 - Slower than ModelSim for complex designs
 - Waveform viewer less feature-rich
 - Command-line usage less convenient
+
+.. note::
+
+    Red Pitaya FPGA projects include some XSIM simulation scripts, which should help you simulate the complex logic of the Red Pitaya board.
 
 |
 
@@ -152,10 +172,10 @@ Prerequisites
 
 **System requirements:**
 
-- **OS:** Ubuntu 18.04/20.04 or newer (use WSL on Windows)
+- **OS:** Ubuntu 18.04/20.04 or newer, Windows 10 or newer
 - **RAM:** 4 GB minimum, 8 GB recommended
 - **Disk space:** 2 GB for ModelSim installation
-- **Display:** X11 server for GUI (Windows users: VcXsrv or Xming)
+- **Display:** Local GUI on Windows, X11 on Linux
 
 |
 
@@ -171,9 +191,10 @@ Step 1: Download ModelSim
 3. Choose **Individual Files** tab
 
 4. Download **ModelSim-Intel® FPGA Edition (includes Starter Edition)**
-   
-   - File: ``ModelSimSetup-20.1.1.720-linux.run``
-   - Size: ~1.5 GB
+
+    - Linux installer: ``ModelSimSetup-20.1.1.720-linux.run``
+    - Windows installer: ``ModelSimSetup-20.1.1.720-windows.exe``
+    - Size: ~1.5 GB (varies slightly by platform)
 
 .. note::
 
@@ -181,8 +202,11 @@ Step 1: Download ModelSim
 
 |
 
-Step 2: Install on Ubuntu/Linux
-================================
+Step 2: Installation
+====================
+
+Linux Installation
+------------------
 
 **Make installer executable:**
 
@@ -209,10 +233,28 @@ Step 2: Install on Ubuntu/Linux
 
     $HOME/intelFPGA/20.1/modelsim_ase/
 
+Windows Installation (Native)
+-----------------------------
+
+1. Run ``ModelSimSetup-20.1.1.720-windows.exe``
+2. Accept license agreement
+3. Choose installation directory (default similar to ``C:\intelFPGA\20.1``)
+4. Select **ModelSim - Intel FPGA Starter Edition**
+5. Complete installation
+
+**Default installation path:**
+
+.. code-block:: text
+
+    C:\intelFPGA\20.1\modelsim_ase\
+
 |
 
-Step 3: Post-Installation Setup (Ubuntu)
+Step 3: Post-Installation Setup
 =========================================
+
+Linux Post-Installation
+-----------------------
 
 **Fix path issue:**
 
@@ -253,6 +295,25 @@ Save and reload:
 
     source ~/.bashrc
 
+Windows Post-Installation
+-------------------------
+
+Add ModelSim to PATH (optional but recommended):
+
+1. Open **System Properties** -> **Advanced** -> **Environment Variables**
+2. Edit the **Path** variable in your user or system variables
+3. Add:
+
+.. code-block:: text
+
+    C:\intelFPGA\20.1\modelsim_ase\win32aloem
+
+Then open a new PowerShell window and verify:
+
+.. code-block:: powershell
+
+    vsim -version
+
 |
 
 Step 4: Verify Installation
@@ -271,6 +332,8 @@ Step 4: Verify Installation
     Model Technology ModelSim - Intel FPGA Starter Edition vsim 2020.1 Simulator 2020.02 Feb 28 2020
     Linux 4.15.0-135-generic #139-Ubuntu SMP Mon Jan 18 17:38:24 UTC 2021 x86_64
 
+On Windows, the second line will show a Windows platform string instead of Linux.
+
 **Test GUI launch:**
 
 .. code-block:: bash
@@ -281,8 +344,10 @@ ModelSim GUI should open. Close it after verifying.
 
 |
 
-Windows Installation (via WSL)
-===============================
+Windows Installation (WSL - Optional)
+======================================
+
+If you prefer to run the Linux version inside WSL, use the optional workflow below.
 
 **Install WSL2:**
 
@@ -366,26 +431,13 @@ Simulation Workflow
 Red Pitaya Simulation Structure
 ================================
 
-**Simulation directory:**
-
-.. code-block:: console
-
-    RedPitaya-FPGA/
-    └── fpga/
-        └── sim/
-            ├── Makefile              # Main simulation control
-            ├── rtl_sim.tcl           # ModelSim configuration
-            ├── top_tb.sv             # Top-level testbench
-            ├── top_tb.tcl            # Waveform configuration
-            ├── axi4_if.sv            # AXI bus testbench
-            ├── axi4_slave_tb.sv      # AXI slave testbench
-            └── ...                   # Other testbenches
+The simulations are located in the tbn directory of each project.
 
 **Navigate to simulation directory:**
 
 .. code-block:: bash
 
-    cd RedPitaya-FPGA/fpga/sim
+    cd RedPitaya-FPGA/prj/<project_name>/tbn/
 
 |
 
@@ -550,16 +602,10 @@ Reading Waveforms
 
 **Basic waveform elements:**
 
-.. code-block:: console
-
-    Signal Name         │ Waveform
-    ────────────────────┼───────────────────────────────
-    clk                 │  ┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐
-                        │ ─┘ └─┘ └─┘ └─┘ └─┘ └─
-    rstn                │ ────┐
-                        │     └──────────────────────
-    data[15:0]          │ XXXX│ 0xABCD │ 0x1234 │XXXX
-                        │     ▼        ▼        ▼
+.. figure:: img/simulation/basic_waveform_example.png
+   :alt: Example waveform screenshot
+   :align: center
+   :width: 600
 
 **Signal states:**
 

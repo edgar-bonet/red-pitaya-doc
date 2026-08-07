@@ -6,6 +6,7 @@ adc_pass_mode           : NET,FILE
 resolution              : BIT_8,BIT_16
 adc_decimation          : An unsigned integer value: 1-65535.
 use_calib               : OFF,ON
+adc_capture_time        : OFF,ON
 channel_state_1         : OFF,ON
 channel_attenuator_1    : A_1_1,A_1_20
 channel_ac_dc_1         : AC,DC

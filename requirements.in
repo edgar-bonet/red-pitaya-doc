@@ -1,12 +1,12 @@
 # Red Pitaya Documentation Build Dependencies
-# Updated: October 2025
-# Python 3.13+ compatible
+# Updated: July 2026
+# Python 3.14+ compatible
 
 # =============================================================================
 # Core Sphinx Documentation System
 # =============================================================================
-# Using Sphinx 7.x for stability (8.x has breaking changes)
-sphinx>=7.4,<8.0
+# There are no issues with using the latest Sphinx version
+sphinx>=7.0, <=9.0.4
 
 # =============================================================================
 # Sphinx Themes and Extensions
@@ -27,8 +27,7 @@ sphinxext-rediraffe>=0.2.7   # Redirect old URLs to new locations
 # =============================================================================
 # Documentation Utilities
 # =============================================================================
-# docutils - keep at 0.20.x for compatibility with Sphinx 7.x
-docutils>=0.20,<0.21
+docutils>=0.20
 
 # MyST parser dependencies
 linkify-it-py>=2.0.0         # URL auto-linking in MyST
@@ -41,10 +40,3 @@ Pillow>=12.0.0
 
 # HTTP requests for external link checking and downloads
 requests>=2.32.0
-
-# =============================================================================
-# Notes:
-# - Sphinx 8.x requires significant migration work (breaking changes)
-# - docutils 0.21+ may cause rendering issues with current RST files
-# - All packages tested with Python 3.13.7
-# =============================================================================

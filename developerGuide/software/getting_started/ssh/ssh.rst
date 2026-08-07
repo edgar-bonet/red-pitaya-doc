@@ -6,8 +6,8 @@ Establish remote SSH connection
 
 Access information for SSH connection:
 
-* Username: ``root``
-* Password: ``root``
+* **Username** - ``root``
+* **Password** - ``root``
 
 If you are unable to connect, check that Red Pitaya is connected to your :ref:`local network <faq_isConnected>`.
 
@@ -15,15 +15,16 @@ Connection instructions are available for:
 
 .. contents::
     :local:
-    :backlinks: none
+    :backlinks: top
     :depth: 1
 
 |
 
-Windows 10
+Windows
 ==========
 
-On Windows you can establish an SSH connection directly through the Command Prompt or use a program like |PuTTy| or |WinSCP|. Here we will discuss both options.
+On Windows you can establish an SSH connection directly through the Command Prompt or use a program like |PuTTy| or |WinSCP|. Here we will discuss 
+both options.
 
 Command Prompt
 ---------------
@@ -54,14 +55,15 @@ Next, the console will ask for a password (``root``).
 After the password was entered, the login text will appear. Here is a picture of the whole exchange:
 
 .. figure:: img/ssh_console_win.png
-    :width: 600 px
+    :width: 800
     :align: center
 
 The last command prompt/terminal line should read as “root@rp-xxxxxx:~#“ (the default home directory on Red Pitaya is /root).
 
 .. note::
 
-    After updating the OS or after some time has passed since the last SSH connection, you might get the following message when trying to establish an SSH connection.
+    After updating the OS or after some time has passed since the last SSH connection, you might get the following message when trying to establish 
+    an SSH connection.
 
     .. code-block:: console
 
@@ -80,7 +82,8 @@ The last command prompt/terminal line should read as “root@rp-xxxxxx:~#“ (th
         Host key verification failed.
 
     
-    Do not worry, nothing is wrong with your Red Pitaya. The problem is that the Red Pitaya identification key has changed. To fix this use the following code:
+    Do not worry, nothing is wrong with your Red Pitaya. The problem is that the Red Pitaya identification key has changed. To fix this use the 
+    following code:
 
     .. code-block:: console
 
@@ -88,7 +91,8 @@ The last command prompt/terminal line should read as “root@rp-xxxxxx:~#“ (th
 
     And try to establish the SSH connection again.
 
-    Alternatively, open Explorer and go to **C:/Users/<your-username>/.ssh** and open the **known_hosts** file. Delete all lines containing *rp-xxxxxx.local*.
+    Alternatively, open Explorer and go to **C:/Users/<your-username>/.ssh** and open the **known_hosts** file. Delete all lines containing 
+    *rp-xxxxxx.local*.
 
 |
 
@@ -124,13 +128,13 @@ At this time, the ssh-key will be added to the registry on your computer. A comm
 When connected to RP via SSH, you get the following command prompt screen:
 
 .. figure:: img/ssh_putty.png
-   :width: 600
+   :width: 800
    :align: center
 
    SSH connection via PuTTy
 
 .. figure:: img/ssh_winscp_con.png
-   :width: 600
+   :width: 800
    :align: center
 
    SSH connection via WinSCP

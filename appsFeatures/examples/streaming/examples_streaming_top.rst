@@ -4,6 +4,10 @@
 Streaming Examples
 #########################
 
+.. note::
+
+    **We are working on an update to the examples to include the latest info for OS 3.00-57 and newer**
+
 Complete, ready-to-run examples demonstrating ADC and DAC streaming capabilities using the Red Pitaya streaming client library.
 
 All example source code is maintained on :rp-github:`GitHub <RedPitaya-Examples/tree/main/python-api/Streaming>` for easy access and continuous updates.
@@ -77,7 +81,6 @@ Stream data from ADC channels with automatic memory management and real-time pro
             :gutter: 2
 
             .. grid-item-card:: **ADC Dual Channel Streaming**
-                :link: https://github.com/RedPitaya/RedPitaya-Examples/blob/main/python-api/Streaming/adc_1_stream.py
                 :link-type: url
 
                 Stream to numpy arrays with automatic buffer management.
@@ -98,19 +101,21 @@ Stream data from ADC channels with automatic memory management and real-time pro
 
             # Configure streaming parameters
             decimation = 256                    # Sample rate = 125 MS/s / decimation
-            capture_duration = 1                # seconds
             ch1_state = 'ON'                    # Enable channel 1
             ch2_state = 'ON'                    # Enable channel 2
 
             # Create client and callback
-            client = streaming.ADCStreamClient()
-            callback = streaming.ADCCallback()  # Handles incoming data
+            client = streaming.ConfigStreamClient()
+            obj = streaming.ADCStreamClient(client)
+
+            callback = ConfigCallbackImpl()
+            client.addCallback(callback)
             
             # Start streaming
             client.startStreaming()
             client.wait()
 
-        **Complete implementation:** :rp-github:`adc_1_stream.py <RedPitaya-Examples/blob/main/python-api/Streaming/adc_1_stream.py>`
+        **Complete implementation:** :rp-github:`stream_adc_capture.py <RedPitaya-Examples/blob/main/API_examples/Python_API/Streaming/stream_adc_capture.py>`
 
     .. tab:: C++
 
@@ -118,7 +123,6 @@ Stream data from ADC channels with automatic memory management and real-time pro
             :gutter: 2
 
             .. grid-item-card:: **C++ Dual Channel ADC Streaming**
-                :link: https://github.com/RedPitaya/RedPitaya-Examples/blob/main/C/API_Examples/Streaming/stream_adc_1.cpp
                 :link-type: url
 
                 High-performance acquisition with ``std::vector buffers``.
@@ -154,7 +158,7 @@ Stream data from ADC channels with automatic memory management and real-time pro
             client.setReceiveDataCallback(&callback);
             client.startStreaming();
 
-        **Complete implementation:** :rp-github:`stream_adc_1.cpp <RedPitaya-Examples/blob/main/C/API_Examples/Streaming/stream_adc_1.cpp>`
+        **Complete implementation:** :rp-github:`stream_adc_capture.cpp <RedPitaya-Examples/blob/main/API_examples/C++/Streaming/stream_adc_capture.cpp>`
 
 |
 

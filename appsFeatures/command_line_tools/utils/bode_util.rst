@@ -10,26 +10,33 @@ The Bode Analyzer can be used from the console.
 
     The preparation of the environment can be found in this :ref:`chapter<bode_app>`.
 
-.. code-block:: console
 
-    Bode analyzer version 2.07-494, compiled at Sat Mar 22 06:11:15 2025
+.. tabs::
 
-    Usage:  bode [channel] [amplitude] [dc bias] [averaging] [count/steps] [start freq] [stop freq] [scale type] [probe]
-    or
-            bode -calib
+    .. group-tab:: OS version 2.00 and higher
 
-            channel            Channel to generate signal on [1 / 2].
-            amplitude          Signal amplitude in V [0 - 1, which means max 2Vpp].
-            dc bias            DC bias/offset/component in V [0 - 1].
-                            Max sum of amplitude and DC bias is (0-1] V.
-            averaging          Number of samples per one measurement [>1].
-            count/steps        Number of measurements [>2].
-            start freq         Lower frequency limit in Hz [3 - 62.5e6].
-            stop freq          Upper frequency limit in Hz [3 - 62.5e6].
-            scale type         0 - linear, 1 - logarithmic.
-            probe              Probe value [1-1000].
-            -calib             Starts calibration mode. The calibration values will be saved in:/tmp/ba_calib.data
-    Output: frequency [Hz], phase [deg], amplitude [dB]
+        .. code-block:: console
+
+            redpitaya> bode
+
+            Bode analyzer version 2.07-494, compiled at Sat Mar 22 06:11:15 2025
+
+            Usage:  bode [channel] [amplitude] [dc bias] [averaging] [count/steps] [start freq] [stop freq] [scale type] [probe]
+            or
+                    bode -calib
+
+                    channel            Channel to generate signal on [1 / 2].
+                    amplitude          Signal amplitude in V [0 - 1, which means max 2Vpp].
+                    dc bias            DC bias/offset/component in V [0 - 1].
+                                    Max sum of amplitude and DC bias is (0-1] V.
+                    averaging          Number of samples per one measurement [>1].
+                    count/steps        Number of measurements [>2].
+                    start freq         Lower frequency limit in Hz [3 - 62.5e6].
+                    stop freq          Upper frequency limit in Hz [3 - 62.5e6].
+                    scale type         0 - linear, 1 - logarithmic.
+                    probe              Probe value [1-1000].
+                    -calib             Starts calibration mode. The calibration values will be saved in:/tmp/ba_calib.data
+            Output: frequency [Hz], phase [deg], amplitude [dB]
 
 To run the bode utility, perform the following steps:
 
@@ -37,7 +44,7 @@ To run the bode utility, perform the following steps:
 
     .. tabs::
 
-        .. group-tab:: OS version 2.00
+        .. group-tab:: OS version 2.00 or higher
 
             .. code-block:: console
 
@@ -71,4 +78,4 @@ To run the bode utility, perform the following steps:
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the bode utility <RedPitaya/tree/master/Test/bode>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the bode utility <RedPitaya/tree/master/tools/bode>`.

@@ -41,7 +41,7 @@ The **System Settings** section contains the following options:
 
     1.  **Boot-up File consistency check:** If checked, during the boot, a file system check of the SD card is performed, which increases the overall boot-up time.
     #.  **Turn ON LED:** If checked, the Red (Heartbeat) and Orange (SD card read) LEDs are enabled.
-    #.  **BOOT mode:** Board models with 1 GB RAM (SIGNALlab 250-12 and STEMlab 125-14 Gen 2 Z7020 Pro) have a button **1 GB RAM** located here (see the picture below). Toggle the button to switch between 1 GB and 512 MB of RAM. Changing the RAM size requires a reboot.
+    #.  **BOOT mode:** Board models with 1 GB RAM (SIGNALlab 250-12 and STEMlab 125-14 PRO Z7020 Gen 2) have a button **1 GB RAM** located here (see the picture below). Toggle the button to switch between 1 GB and 512 MB of RAM. Changing the RAM size requires a reboot.
     #.  **Restore default app settings:** Restores all saved application settings to default values.
     #.  **DMA reserved memory size:** Memory manager for selecting the size of reserved memory for the :ref:`Deep Memory Mode <deepMemoryMode>`. Select the amount of reserved memory from the dropdown menu. The default value is 32 MB. Changing the reserved memory size requires a reboot.
 

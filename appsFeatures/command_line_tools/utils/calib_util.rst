@@ -1,5 +1,3 @@
-
-
 .. _calib_util:
 
 Calibration utility
@@ -9,57 +7,61 @@ Red Pitaya calibration can be accessed and configured using the command line uti
 
 Usage instructions:
 
-.. code-block:: console
+.. tabs::
 
-    root@rp-f0ef2d:~# calib
-    calib version 3.00-781-bc5ed07cd
+    .. group-tab:: OS version 2.00 and higher
 
-    Usage: calib [OPTION]...
+        .. code-block:: console
 
-    OPTIONS:
-            -r               Read calibration values from eeprom (to stdout).
-                            The -n flag has no effect. The system automatically determines the type of stored data.
-                            Examples: -r, -rf, -rv, -rvf, -rx, -rfx, -rvx, -rvfx.
+            redpitaya> calib
+            calib version 3.00-781-bc5ed07cd
 
-            -w               Write calibration values to eeprom (from stdin).
-                            Examples: -w, -wf, -wn, -wfn, -wmn, -wfmn
+            Usage: calib [OPTION]...
 
-            -d               Reset calibration values in eeprom from factory zone. (-n flag converts to new version 5 format)
-                            Conversion to version 6 is impossible, as the calibration will not be valid. The only solution is recalibration and using the -in6 flag for version 6.
-                            Examples: -d, -dn
+            OPTIONS:
+                    -r               Read calibration values from eeprom (to stdout).
+                                    The -n flag has no effect. The system automatically determines the type of stored data.
+                                    Examples: -r, -rf, -rv, -rvf, -rx, -rfx, -rvx, -rvfx.
 
-            -i               Reset calibration values in eeprom by default
-                            Examples: -i, -if, -in, -inf, -in5, -inf5, -in6, -inf6, -ie, -ief, -ine, -inef, -ine5, -inef5, -ine6, -inef6.
+                    -w               Write calibration values to eeprom (from stdin).
+                                    Examples: -w, -wf, -wn, -wfn, -wmn, -wfmn
 
-            -o               Converts the calibration from the user zone to the old calibration format. For ecosystem versions 0.98 to 1.04.
+                    -d               Reset calibration values in eeprom from factory zone. (-n flag converts to new version 5 format)
+                                    Conversion to version 6 is impossible, as the calibration will not be valid. The only solution is recalibration and using the -in6 flag for version 6.
+                                    Examples: -d, -dn
 
-            -b               Binary input and output mode. Works only with the -r and -w flags.
-                            (Example: calib -rb > backup.bin, cat backup.bin | calib -wb).
-            -s [FILE_NAME]   Displays information about the backup.
-                            (Example: calib -s backup.bin, calib -s -u backup.bin, calib -s -v backup.bin
+                    -i               Reset calibration values in eeprom by default
+                                    Examples: -i, -if, -in, -inf, -in5, -inf5, -in6, -inf6, -ie, -ief, -ine, -inef, -ine5, -inef5, -ine6, -inef6.
 
-    Modifiers for output:
-            -v    Produce verbose output.
-            -h    Print this info.
-            -x    Print in hex.
-            -u    Print stored calibration in unified format.
+                    -o               Converts the calibration from the user zone to the old calibration format. For ecosystem versions 0.98 to 1.04.
 
-    Modifiers for input:
-            -f    Use factory address space.
-            -m    Modify specific parameter in universal calibration
-            -n    Flag for working with the new calibration storage format.
-            -e    Disables the ADC filter completely in the FPGA when the calibration is reset to default.
-            -5    Using version 5 of the parameters.
-            -6    Using version 6 of the parameters.
+                    -b               Binary input and output mode. Works only with the -r and -w flags.
+                                    (Example: calib -rb > backup.bin, cat backup.bin | calib -wb).
+                    -s [FILE_NAME]   Displays information about the backup.
+                                    (Example: calib -s backup.bin, calib -s -u backup.bin, calib -s -v backup.bin
+
+            Modifiers for output:
+                    -v    Produce verbose output.
+                    -h    Print this info.
+                    -x    Print in hex.
+                    -u    Print stored calibration in unified format.
+
+            Modifiers for input:
+                    -f    Use factory address space.
+                    -m    Modify specific parameter in universal calibration
+                    -n    Flag for working with the new calibration storage format.
+                    -e    Disables the ADC filter completely in the FPGA when the calibration is reset to default.
+                    -5    Using version 5 of the parameters.
+                    -6    Using version 6 of the parameters.
 
 
-    Calibration parameter versions:
-            1 - Old version for boards: 125-14
-            2 - Old version for boards: 250-12
-            3 - Old version for boards: 125-14 4 channel
-            4 - Old version for boards: 122-16
-            5 - Universal calibration parameters. Used in all board versions. Calibration occurs in the API.
-            6 - Universal calibration parameters. Used in all board versions. Calibration occurs in the FPGA.
+            Calibration parameter versions:
+                    1 - Old version for boards: 125-14
+                    2 - Old version for boards: 250-12
+                    3 - Old version for boards: 125-14 4 channel
+                    4 - Old version for boards: 122-16
+                    5 - Universal calibration parameters. Used in all board versions. Calibration occurs in the API.
+                    6 - Universal calibration parameters. Used in all board versions. Calibration occurs in the FPGA.
 
 To properly calibrate the Red Pitaya using the *calib* utility, we need to understand the calibration format we are working with. There are 4 different types of calibration:
 
@@ -308,4 +310,4 @@ Load from a file:
 Source code
 ------------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the calib utility <RedPitaya/tree/master/Test/calib>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the calib utility <RedPitaya/tree/master/tools/calib>`.

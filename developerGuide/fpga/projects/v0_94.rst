@@ -7,7 +7,12 @@ FPGA project v0.94
 The v0.94 project is the default FPGA image that loads during Red Pitaya boot. It includes all the necessary components to run the standard Red Pitaya applications, such as signal generators, oscilloscopes, and spectrum analyzers.
 This image is also used by most of Red Pitaya applications, so if you want to create your own FPGA project, it is recommended to start with this one.
 
-The v0.94 project does not have a IP Block Design hierarchy, instead all the connections are made in Verilog in the top module.
+The v0.94 project does not have an IP Block Design hierarchy; instead, top-level integration is done directly in Verilog/SystemVerilog.
+
+.. note::
+
+    **2025.1 status:** ``v0.94`` remains the default and recommended baseline project in the current Red Pitaya FPGA flow.
+    The build/tooling path has moved to Vivado/Vitis 2025.1, but the project role is unchanged: use ``v0.94`` as the reference image for most application-compatible customizations.
 
 .. contents:: Table of Contents
     :local:
@@ -69,6 +74,30 @@ The AXI address space of the Red Pitaya bus in the v0.94 project is divided into
 +-------------+------------+----------------------------------+
 
 The architecture of the Red Pitaya is 32-bit, which means that each register occupies 32 bits (4 bytes). The registers are memory-mapped, which means that each register has a specific address in the memory space. The registers are used to configure and control the different modules in the FPGA.
+
+Code-level module summary
+--------------------------
+
+For readers exploring the RTL source, the key instantiated modules in ``red_pitaya_top`` are:
+
+* ``red_pitaya_ps`` - PS/DDR/GPIO and AXI bridge wrapper.
+* ``red_pitaya_pll`` - internal clock generation and reset conditioning.
+* ``sys_bus_interconnect`` - address-space split into module regions.
+* ``red_pitaya_hk`` - housekeeping (DNA, ID, LEDs, GPIO control).
+* ``red_pitaya_scope`` - oscilloscope capture path.
+* ``red_pitaya_asg`` - arbitrary waveform generation.
+* ``red_pitaya_pid`` - PID control blocks.
+* ``red_pitaya_ams`` - slow ADC/DAC and XADC-facing support.
+* ``red_pitaya_daisy`` - multi-board sync/communication path.
+
+These modules are connected through the project system bus and synchronized by shared trigger/clock/reset paths.
+
+Module connection schematic
+----------------------------
+
+.. figure:: img/v0.94/v094_module_block_diagram.png
+   :alt: v0.94 module block diagram
+   :align: center
 
 |
 

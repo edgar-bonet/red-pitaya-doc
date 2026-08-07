@@ -38,8 +38,8 @@ Key features
 
 * **Continuous data streaming to Red Pitaya fast analog outputs** (:ref:`maximum DAC data streaming rate limitations <streaming_limits>`):
 
-    * Remotely from a file on a computer via the TCP ethernet protocol (:ref:`max 5 MHz DAC rate <streaming_limits>`).
-    * Locally from a file on the Red Pitaya SD card (:ref:`See data streaming limitations <streaming_limits>`).
+    * Remotely from a file on a computer via the TCP ethernet protocol (:ref:`max 62.5 MB/s <streaming_limits>`).
+    * Locally from a file on the Red Pitaya SD card (:ref:`max 10 MB/s <streaming_limits>`).
 
 * **GPIO data streaming** (**Future development**):
 
@@ -85,19 +85,19 @@ Application interface
 
 The application interface is divided into the following sections:
 
-1.  **ADC streaming configuration:** Configuration of the ADC streaming settings, such as streaming mode, sampling frequency, input 
+1.  **ADC streaming configuration** - Configuration of the ADC streaming settings, such as streaming mode, sampling frequency, input 
     channel select and file format. See :ref:`ADC Configuration <stream_adc_config>`.
 
-#.  **DAC streaming configuration:** Configuration of the DAC streaming settings, such as streaming mode and output data rate. See 
+#.  **DAC streaming configuration** - Configuration of the DAC streaming settings, such as streaming mode and output data rate. See 
     :ref:`DAC Configuration <stream_dac_config>`.
 
-#.  **DMA memory configuration:** Determines the minimal block size for streaming and :ref:`Deep Memory Mode <deepMemoryMode>` reserved 
+#.  **DMA memory configuration** - Determines the minimal block size for streaming and :ref:`Deep Memory Mode <deepMemoryMode>` reserved 
     memory management. See :ref:`Memory Configuration <stream_memory_config>`.
 
-#.  **Streaming status:** Controls for starting and stopping the streaming process. The status of the streaming process is also 
+#.  **Streaming status** - Controls for starting and stopping the streaming process. The status of the streaming process is also 
     displayed here. See :ref:`Web Interface Usage <stream_web_interface_usage>`.
 
-#.  **Files on the SD card:** List of files saved on the SD card (acquired data and logs) and buttons for managing them. See 
+#.  **Files on the SD card** - List of files saved on the SD card (acquired data and logs) and buttons for managing them. See 
     :ref:`Web Interface Usage <stream_web_interface_usage>`.
 
 #.  **PC Clients:** List of downloadable clients for streaming desktop applications (Windows, Linux), command line clients (Windows, 
@@ -145,6 +145,7 @@ and the streaming client application to ensure the best performance and compatib
     version may result in connection failures or corrupted data, due to changes in the streaming protocol and data formats between 
     releases. Always download the matching client from the streaming application interface when updating the OS.
 
-* **Windows 11** - Please use Red Pitaya OS 2.05-37 or newer as older streaming client versions are incompatible with Windows 11.
+* **Windows 11** - Please use Red Pitaya OS newer than 2.05-37 as older streaming client versions are incompatible with Windows 11. We 
+  recommend using the latest version of the OS and streaming client application to ensure the best performance and compatibility.
 
 |

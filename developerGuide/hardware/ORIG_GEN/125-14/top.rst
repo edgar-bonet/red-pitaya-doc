@@ -174,6 +174,8 @@ Technical Specifications
     +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Digital voltage levels             | 3.3                                | V         |                                  |
     +------------------------------------+------------------------------------+-----------+----------------------------------+
+    | GPIO time resolution               | 8                                  | ns        | Core clock frequency             |
+    +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Analog inputs                      | 4                                  | \-        |                                  |
     +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Analog input voltage range         | 0 - 7.0                            | V         |                                  |
@@ -452,7 +454,8 @@ External ADC Clock
     The standard STEMlab 125-14 does not support external ADC clock without hardware modification. If you need external clock support without modification, consider these pre-modified boards:
     
     * :ref:`STEMlab 125-14 External Clock <top_125_14_EXT>` - Board with external clock capability
-    * :ref:`STEMlab 125-14 4-Input <top_125_14_4IN>` - Board with 4 input channels and external clock capability
+    * :ref:`STEMlab 125-14 4-Input <top_125_14_4-IN>` - Board with 4 input channels and external clock capability
+    * :ref:`STEMlab 125-14 PRO Gen 2 <top_125_14_pro_gen2>` - Second generation of STEMlab 125-14 board with external clock capability
 
 .. _external_125_14:
 

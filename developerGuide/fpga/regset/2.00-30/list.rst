@@ -1,6 +1,6 @@
 .. _fpga_regmap_2_00_30:
 
-FPGA Register map (Release 2.00-30)
+FPGA Register Maps (Release 2.00-30)
 ########################################
 
 .. toctree::

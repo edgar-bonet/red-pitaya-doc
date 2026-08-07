@@ -14,8 +14,8 @@ This section describes the web interface elements for controlling and monitoring
 
 .. _streaming_status:
 
-Streaming status
-*****************
+1. Streaming status
+********************
 
 .. figure:: ../img/streaming_status.png
     :width: 600
@@ -85,8 +85,8 @@ Common error messages
 
 .. _streaming_sd_files:
 
-Files on the SD card
-*********************
+2. Files on the SD card
+************************
 
 .. figure:: ../img/streaming_sd_card_files.png
     :width: 600
@@ -173,8 +173,8 @@ Delete all button
 
 .. _streaming_pc_clients:
 
-PC Clients
-***********
+3. PC Clients
+**************
 
 .. figure:: ../img/streaming_pc_clients.png
     :width: 600
@@ -264,8 +264,8 @@ Documentation
 
 |
 
-Next steps
-***********
+4. Next steps
+**************
 
 * Download and install the :ref:`Desktop Client <stream_desktop_app>` for graphical control
 * Try the :ref:`Command Line Client <stream_command_client>` for advanced features

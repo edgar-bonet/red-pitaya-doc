@@ -6,6 +6,16 @@ Advanced FPGA Loading
 
 This guide covers advanced FPGA loading scenarios including custom bitstreams, device tree overlays, partial reconfiguration, practical workflows, and troubleshooting.
 
+For build outputs produced by current ``RedPitaya-FPGA`` master (Vivado 2025.1 + Vitis/XSCT device tree flow), see:
+
+- Bitstream artifact: ``prj/<PRJ>/out/red_pitaya.bin``
+- Device tree overlay artifact: ``prj/<PRJ>/out/fpga.dtbo``
+
+When loading on Red Pitaya, use project file names expected by ``overlay.sh``:
+
+- ``fpga.bit.bin``
+- ``fpga.dtbo``
+
 .. seealso::
 
     **Prerequisites:**
@@ -159,8 +169,10 @@ Partial reconfiguration allows updating portions of the FPGA without reloading t
 - Not all designs can use PR
 - Red Pitaya default designs don't support PR
 
-For details on implementing partial reconfiguration, see the 
-`Vivado Design Suite User Guide: Dynamic Function eXchange (UG909) <https://docs.amd.com/v/u/2020.1-English/ug909-vivado-partial-reconfiguration>`_.
+For details on implementing partial reconfiguration, see the:
+
+* **Current workflow** - `Vivado 2025.1 Design Suite User Guide: Dynamic Function eXchange (UG909) <https://docs.amd.com/r/en-US/ug909-vivado-partial-reconfiguration>`_
+* **Legacy workflow** - `Vivado 2020.1 Design Suite User Guide: Dynamic Function eXchange (UG909) <https://docs.amd.com/v/u/2020.1-English/ug909-vivado-partial-reconfiguration>`_
 
 |
 
@@ -248,7 +260,7 @@ Streamline the development cycle when frequently updating and testing FPGA desig
     # Configuration
     DEV_HOST="developer-pc"
     DEV_USER="username"
-    DEV_PATH="/home/username/vivado_projects/red_pitaya/output"
+    DEV_PATH="/home/username/RedPitaya-FPGA/prj/v0.94/out"
     RP_PATH="/root/test_fpga"
     
     # Create directory if needed
@@ -256,10 +268,10 @@ Streamline the development cycle when frequently updating and testing FPGA desig
     
     # Download latest bitstream from development PC
     echo "Downloading latest FPGA files from $DEV_HOST..."
-    scp ${DEV_USER}@${DEV_HOST}:${DEV_PATH}/red_pitaya_top.bit.bin \
+    scp ${DEV_USER}@${DEV_HOST}:${DEV_PATH}/red_pitaya.bin \
         $RP_PATH/fpga.bit.bin
     
-    scp ${DEV_USER}@${DEV_HOST}:${DEV_PATH}/devicetree.dtbo \
+    scp ${DEV_USER}@${DEV_HOST}:${DEV_PATH}/fpga.dtbo \
         $RP_PATH/fpga.dtbo
     
     # Load the new FPGA
@@ -571,11 +583,11 @@ Integrate FPGA testing into continuous integration/deployment pipelines:
     build_fpga:
       stage: build
       script:
-        - vivado -mode batch -source build_script.tcl
+          - make PRJ=v0.94 MODEL=Z10
       artifacts:
         paths:
-          - output/red_pitaya_top.bit.bin
-          - output/devicetree.dtbo
+          - prj/v0.94/out/red_pitaya.bin
+          - prj/v0.94/out/fpga.dtbo
     
     test_hardware:
       stage: test
@@ -585,6 +597,13 @@ Integrate FPGA testing into continuous integration/deployment pipelines:
           http://ci-server/artifacts/fpga.dtbo"
       dependencies:
         - build_fpga
+
+.. note::
+
+    For other projects, adjust the ``PRJ`` and ``MODEL`` parameters in the build stage. Ensure that the Red Pitaya test station is accessible via :ref:`SSH <ssh>`
+    and has the necessary scripts for hardware testing.
+
+    For completly custom projects, ensure that the paths to the bitstream and device tree overlay are correct, and that the test scripts are compatible with the hardware design.
 
 |
 
@@ -708,11 +727,9 @@ The ``overlay.sh`` script (OS 2.07+) is Red Pitaya's primary tool for loading FP
 
 **Project Directory Structure:**
 
-.. code-block:: console
-
-    /opt/redpitaya/fpga/<model>/<project>/
-    ├── fpga.bit.bin    # Required: FPGA bitstream
-    └── fpga.dtbo       # Required: Device tree overlay
+.. figure:: img/redpitaya_project_dir_struct.png
+    :alt: Red Pitaya Project Directory Structure
+    :align: center
 
 **Troubleshooting overlay.sh:**
 
@@ -736,17 +753,9 @@ Understanding Red Pitaya's FPGA file organization:
 
 **Standard FPGA Directory:**
 
-.. code-block:: console
-
-    /opt/redpitaya/fpga/
-    ├── stemlab-125-14/          # STEMlab 125-14 (Z7020)
-    │   └── v0.94/               # Default project
-    │       ├── fpga.bit.bin
-    │       └── fpga.dtbo
-    ├── stemlab-125-14-z7020/    # Alternative naming
-    ├── stemlab-122-16/          # STEMlab 122-16 (Z7020)
-    ├── sdrlab-122-16/           # SDRlab 122-16 (Z7020)
-    └── custom_projects/         # Your projects here
+.. figure:: img/redpitaya_fpga_dir_struct.png
+    :alt: Red Pitaya FPGA Directory Structure
+    :align: center
 
 **Model Detection:**
 
@@ -935,7 +944,7 @@ A: Both contain FPGA configuration data, but in different formats:
 - ``.bit`` - Vivado's default output format (includes header)
 - ``.bit.bin`` - Binary format without header (required for OS 2.00+)
 
-Convert with Vivado's ``write_cfgmem`` command or use ``dd`` to skip the header:
+Convert with Vivado's ``write_cfgmem`` command (recommended) or use ``dd`` to skip the header:
 
 .. code-block:: bash
 
@@ -1231,7 +1240,9 @@ A: Several approaches:
 - **Readback Protection**: Disable readback in Vivado (prevents reading FPGA configuration)
 - **Legal Protection**: Licensing, NDAs, patents
 
-Note: Red Pitaya's FPGA is SRAM-based (configuration lost on power-off), making physical extraction difficult.
+.. note::
+
+    Red Pitaya's FPGA is SRAM-based (configuration lost on power-off), making physical extraction difficult.
 
 |
 

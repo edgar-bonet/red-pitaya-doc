@@ -8,18 +8,22 @@ The Red Pitaya's LED indicators can be enabled or disabled using the led_control
 
 Use instructions:
 
-.. code-block:: console
+.. tabs::
 
-    redpitaya> led_control
+    .. group-tab:: OS version 2.00 and higher
 
-    Usage: led_control -y[=State] | -r[=State] | -e[=State]
+        .. code-block:: console
 
-        -y    9 Yellow LED. Responsible for the status of reading the memory card.
-        -r    Red LED, which is responsible for the heartbeat.
-        -e    LEDs on ethernet connector.
+            redpitaya> led_control
 
-    Optional parameter:
-        State = [Off | On]  Turns LEDs on or off
+            Usage: led_control -y[=State] | -r[=State] | -e[=State]
+
+                -y    9 Yellow LED. Responsible for the status of reading the memory card.
+                -r    Red LED, which is responsible for the heartbeat.
+                -e    LEDs on ethernet connector.
+
+            Optional parameter:
+                State = [Off | On]  Turns LEDs on or off
 
 
 To disable the LEDs:
@@ -39,4 +43,4 @@ To enable the LEDs:
 Source code
 -----------
 
-The Red Pitaya GitHub repository contains the :rp-github:`source code for the led control utility <RedPitaya/tree/master/Test/led_control>`.
+The Red Pitaya GitHub repository contains the :rp-github:`source code for the led control utility <RedPitaya/tree/master/tools/led_control>`.

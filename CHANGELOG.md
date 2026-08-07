@@ -6,6 +6,36 @@ orphan: true
 
 All notable changes to this project will be documented in this file.
 
+## August 2026 - Update 1
+
+**Major updates:**
+
+- Updated most application documentation to reflect the new OS 3.00 release (Oscilloscope, Spectrum analyzer, Logic analyzer, LCR meter, Data strem control)
+- Frequency calibration information added to the calibration documentation
+- Updated supported Wifi dongles list in the network manager documentation
+- Added instructions for Vivado and Vitis 2025.1 and building the FPGA on 3.00 OS
+- Expanded the troubleshooting guide and moved it to a new section
+- Updated Serial console connection guide
+
+**Minor updates:**
+
+- Updated command line tools documentation to reflect the new OS 3.00 release
+- Reorganized the FPGA project creation documentation and added a new page for creating a custom project from scratch
+- Split relevant FPGA workflows by tool version (Vivado/Vitis 2025.1, Vivado 2020.1/SDK 2019.1)
+- Changed the SCPI library link to the Red Pitaya Examples repository on GitHub
+- Removed the looooong list of the comments from the conf.py file
+- Documented the rest of FPGA projects
+- Added time resolution of GPIO ports to the hardware docs
+- SIGNALlab 250-12 heatsink hole dimensions added
+- Minor updates to the SSH and serial console sections
+- Updated Sphinx and other related dependencies to the latest versions
+- Link fixes and grammar improvements across multiple pages
+- Fixed MathJax rendering issues in the documentation
+
+**Future update:**
+
+- Updated streaming and JupyterLab examples to reflect the 3.00 OS.
+
 ## June 2026 - Update 1
 
 **Major updates:**

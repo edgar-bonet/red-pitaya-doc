@@ -4,9 +4,9 @@
 FPGA section
 ###############
 
-This section describes how to build and modify the FPGA design for Red Pitaya boards. It is intended for users who want to create their own FPGA projects or modify existing ones using Xilinx Vivado.
+This section describes how to build and modify the FPGA design for Red Pitaya boards. It is intended for users who want to create their own FPGA projects or modify existing ones using Vivado and the matching software toolchain.
 
-**Prerequisites:** Basic knowledge of digital logic design, Verilog/VHDL, and familiarity with Xilinx Vivado development environment. Experience with Linux command line is helpful.
+**Prerequisites:** Basic knowledge of digital logic design, Verilog/VHDL, and familiarity with Vivado development environment. Experience with Linux command line is helpful.
 
 |
 
@@ -16,7 +16,7 @@ Navigating the FPGA Documentation
 
 **For beginners - recommended reading order:**
 
-1. :ref:`Getting Started <fpga_programming_environment>` - Install Vivado and SDK, create your first project, learn simulation (**Critical: includes simulation guide**)
+1. :ref:`Getting Started <fpga_programming_environment>` - Install Vivado and the matching software toolchain, create your first project, learn simulation.
 2. :ref:`FPGA Tutorials <fpga_tutorials_top>` - Step-by-step tutorials for common FPGA tasks (**Coming soon**)
 3. :ref:`FPGA Projects <fpga_projects>` - Explore available projects and repository structure
 4. :ref:`Advanced Topics <fpga_advanced>` - Boot loading, JTAG programming, device trees (as needed)
@@ -25,6 +25,7 @@ Navigating the FPGA Documentation
 **For experienced users - quick access:**
 
 * Modifying existing projects? → Start with :ref:`Getting Started <fpga_programming_environment>`
+* Building a custom project manually? → See :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>`
 * Looking for project examples? → Go to :ref:`FPGA Projects <fpga_projects>`
 * Setting up simulation? → See :ref:`Simulation <fpga_simulation>` in Getting Started
 * Step-by-step guides? → Check :ref:`FPGA Tutorials <fpga_tutorials_top>` (coming soon)
@@ -37,44 +38,60 @@ Navigating the FPGA Documentation
 Typical FPGA Development Workflow
 ===========================================
 
-**1. Environment Setup**
+Before starting the workflow, select the toolchain that matches your Red Pitaya OS generation.
 
-* Install Xilinx Vivado 2020.1 (required for building FPGA images)
-* Install Xilinx SDK 2019.1 (required if modifying ARM software)
-* Clone the Red Pitaya FPGA repository
-* Familiarize yourself with the repository structure
-
-**2. Choose Your Starting Point**
-
-* **Modify existing project:** Start with a standard project (v0.94, streaming, axi4lite) and customize
-* **Create new project:** Use an existing project as template, modify functionality
-* **Add custom IP:** Integrate your own Verilog/VHDL modules into existing design
-
-**3. Development Cycle**
-
-a. **Design:** Modify RTL code or block diagram in Vivado
-b. **Simulate:** Run behavioral simulation to verify logic and catch errors early (**Essential step - saves hours of debugging**)
-c. **Synthesize:** Run synthesis to check for errors and resource usage
-d. **Implement:** Place and route the design
-e. **Generate bitstream:** Create the FPGA binary file (.bit)
-f. **Test:** Load bitstream to Red Pitaya and verify functionality
++--------------------------+------------------------------+------------------------------+------------------------------------------------+
+| Red Pitaya OS generation | FPGA design tools            | ARM software tools           | Notes                                          |
++==========================+==============================+==============================+================================================+
+| 3.00 and higher          | AMD Vivado 2025.1            | AMD Vitis 2025.1             | Recommended default path for new development.  |
++--------------------------+------------------------------+------------------------------+------------------------------------------------+
+| 2.00-1.04 (Older)        | Xilinx Vivado 2020.1         | Xilinx SDK 2019.1            | Use only when maintaining older OS branches.   |
++--------------------------+------------------------------+------------------------------+------------------------------------------------+
 
 .. note::
 
-   **Why simulation is critical:** Simulating your design catches logical errors, timing issues, and functionality problems in minutes, whereas deploying to hardware and debugging can take hours. 
-   Always simulate before synthesis, especially when learning FPGA development.
+    Keep Vivado and software tools aligned with the target OS release.
+    Mixing modern and legacy toolchains in one build flow usually causes handoff and integration issues.
+
+**1. Environment Setup**
+
+
+    * **Current OS path:** Install AMD Vivado 2025.1 and AMD Vitis 2025.1
+    * **Legacy OS path:** Install Xilinx Vivado 2020.1 and Xilinx SDK 2019.1
+    * Clone the Red Pitaya FPGA repository
+    * Familiarize yourself with the repository structure
+
+**2. Choose Your Starting Point**
+
+    * **Modify existing project:** Start with a standard project (v0.94, streaming, axi4lite) and customize
+    * **Create new project:** Use an existing project as template, modify functionality
+    * **Add custom IP:** Integrate your own Verilog/VHDL modules into existing design
+
+**3. Development Cycle**
+
+    1. **Design:** Modify RTL code or block diagram in Vivado
+    #. **Simulate:** Run behavioral simulation to verify logic and catch errors early (saves hours of debugging)
+    #. **Synthesize:** Run synthesis to check for errors and resource usage
+    #. **Implement:** Place and route the design
+    #. **Generate bitstream:** Create the FPGA binary file (.bit)
+    #. **Test:** Load bitstream to Red Pitaya and verify functionality
+
+.. note::
+
+    **Why simulation is critical:** Simulating your design catches logical errors, timing issues, and functionality problems in minutes, whereas deploying 
+    to hardware and debugging can take hours. Always simulate before synthesis, especially when learning FPGA development.
 
 **4. Integration**
 
-* Create or modify device tree if adding new peripherals
-* Update software drivers/APIs to interface with new FPGA functionality
-* Document register maps and usage
+    * Create or modify device tree if adding new peripherals
+    * Update software drivers/APIs to interface with new FPGA functionality
+    * Document register maps and usage
 
 **5. Deployment**
 
-* Copy bitstream to Red Pitaya
-* Load at runtime using the ``overlay`` system
-* Configure automatic loading at boot (optional)
+    * Copy bitstream to Red Pitaya
+    * Load at runtime using the ``overlay`` system
+    * Configure automatic loading at boot (optional)
 
 |
 
@@ -82,7 +99,7 @@ f. **Test:** Load bitstream to Red Pitaya and verify functionality
 What's in each section
 ======================
 
-* **Getting Started** - Vivado/SDK installation, project creation, simulation setup, FPGA reprogramming basics
+* **Getting Started** - Toolchain installation (current and legacy), project creation, custom from-scratch setup, simulation, FPGA reprogramming basics
 * **FPGA Tutorials** - Step-by-step guides for common FPGA development tasks (coming soon)
 * **FPGA Projects** - Available projects (v0.94, streaming, mercury, etc.), repository structure, project descriptions
 * **Registers** - Memory-mapped register addresses and descriptions by OS version

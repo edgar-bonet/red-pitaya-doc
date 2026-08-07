@@ -61,8 +61,8 @@ You can connect to the Red Pitaya boards via:
 
 |
 
-Wired
-======
+1. Wired
+==========
 
 The wired connection status displays the current IP address, subnet mask and gateway of the Red Pitaya board. The wired connection is established 
 via an Ethernet cable connected to the router or directly to the PC Ethernet socket.
@@ -187,8 +187,8 @@ To set up the **Static IP** mode, LAN connection must be established first to co
 
 |
 
-Direct Ethernet connection Static IP configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Combining direct Ethernet connection with Static IP
+-----------------------------------------------------
 
 When using the Direct Ethernet connection in combination with a static IP, some additional settings on the PC are likely required.
 The instruction show an example on Ubuntu 14.04, but they will be very similar on other operating systems as well.
@@ -236,11 +236,30 @@ URL field, input the chosen Red Pitaya board static IP (in our example, ``192.16
 
 .. _wireless:
 
-Wireless
-=========
+2. Wireless
+============
 
-To use the wireless connection, a Wi-Fi dongle must be connected to the Red Pitaya's USB port. We recommend using the 
-`Wi-Fi dongle from our webstore <https://redpitaya.com/product/red-pitaya-wi-fi-dongle/>`_. In general, all Wi-Fi USB dongles that use the RTL8188CUS chipset should work (we are looking to expand the list of compatible dongles in the near future).
+To use the wireless connection, a Wi-Fi dongle must be connected to the Red Pitaya's USB port. For some boards a USB-A to USB-C adapter may be required.
+The Wi-Fi dongle must be supported by the Red Pitaya OS, but it is possible to modify the Linux kernel to support additional Wi-Fi dongles. Here is a 
+quick overview of the supported Wi-Fi dongles for different Red Pitaya OS versions:
+
+.. tabs::
+
+    .. tab:: OS 3.00 and higher
+
+        We recommend using the **Archer T3U AC1300** Wi-Fi dongle from TP-Link, which uses the RTL8812BU chipset.
+        Alternatively, any Wi-Fi dongle that uses the **RTL8812BU chipset** should work. The **RTL8188CUS chipset** is also supported.
+    
+    .. tab:: OS 2.07-51 and older
+
+        We recommend using the :rp-web:`Wi-Fi dongle from our webstore <product/red-pitaya-wi-fi-dongle/>`. 
+        In general, all Wi-Fi dongles based on the **RTL8188CUS chipset** should work.
+
+    .. tab:: OS 1.04 and older
+
+        The older OS versions are focused on the **Edimax EW-7811Un V2** Wi-Fi dongle, which can be hard to acquire nowadays.
+        In general, all Wi-Fi dongles based on the **RTL8188CUS chipset** should work.
+
 
 .. note::
 
@@ -302,6 +321,7 @@ How to connect your Red Pitaya board over a Wi-Fi network:
     
     Wi-Fi networks are generally not as robust as wired connection, so you may experience decreased performance with some of the applications.
 
+|
 
 .. _access_point_mode:
 
@@ -336,11 +356,33 @@ Here are the steps to set up the Access Point mode:
 .. note::
 
     The Access point is automatically activated upon each boot until disabled in the Network Manager application.
-   
-.. note::
     
     The Red Pitaya's IP address in Access Point mode is always the same: ``192.168.128.1``.
 
+.. note::
 
+    Even though the Access Point mode is currently disabled, users have reported that it is possible to enable it by modifying the Red Pitaya OS.
 
+|
 
+.. _manual_network_configuration:
+
+3. Manual configuration
+========================
+
+To manually configure the network settings of your Red Pitaya board, without using the Web interface or the Network Manager application, you can 
+use the command line interface (CLI) via :ref:`SSH <ssh>` or a :ref:`serial console <console>`.
+
+The low-level network templates are stored in the ``/etc/systemd/network/`` directory.
+
+For wired connection, the runtime configuration files are stored on the FAT partition and are visible as:
+
+* ``/etc/systemd/network/wired.network`` - Wired connection settings.
+
+For Wi-Fi, the runtime configuration files are stored on the FAT partition and are visible as:
+
+* ``/opt/redpitaya/wpa_supplicant.conf`` - Wi-Fi client mode credentials.
+* ``/opt/redpitaya/hostapd.conf`` - Wi-Fi access point mode settings.
+
+The active wireless template is selected by the presence of these files and is documented in the :ref:`Network <network>` guide. See :ref:`Wireless setup chapter <wireless_setup>`
+for the full systemd-networkd and service flow.

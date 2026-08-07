@@ -202,6 +202,8 @@ Technical Specifications
     +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Digital voltage levels             | 3.3                                | V         |                                  |
     +------------------------------------+------------------------------------+-----------+----------------------------------+
+    | GPIO time resolution               | 4                                  | ns        | Core clock frequency             |
+    +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Analog inputs                      | 4                                  | \-        |                                  |
     +------------------------------------+------------------------------------+-----------+----------------------------------+
     | Analog input voltage range         | 0 - 7.0                            | V         |                                  |
@@ -319,6 +321,7 @@ Mechanical Specifications & 3D Models
 
 * PDF :download:`3D_SIGNAL_250-12_V1r2.pdf.zip <https://downloads.redpitaya.com/doc/3D_models/3D_SIGNAL_250-12_V1r2.pdf.zip>`
 * STEP :download:`3D_SIGNAL_250-12_V1r2.zip <https://downloads.redpitaya.com/doc/3D_models/3D_SIGNAL_250-12_V1r2.zip>`
+* Hole dimensions :download:`SIGNALlab 250-12 hole dimensions <SIGNALlab_hole_dimensions.pdf>`
 
 |
 
