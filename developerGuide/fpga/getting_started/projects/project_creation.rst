@@ -61,9 +61,9 @@ To make things easier, the Red Pitaya FPGA repository provides a set of scripts 
 
 The scripts automatically build the project depending on the selected flags. The following table shows which projects are available on which boards.
 
-.. include:: ../projects/fpga_project_table.inc
+.. include:: ../../projects/fpga_project_table.inc
 
-.. include:: ../projects/fpga_project_flags.inc
+.. include:: ../../projects/fpga_project_flags.inc
 
 
 .. note::

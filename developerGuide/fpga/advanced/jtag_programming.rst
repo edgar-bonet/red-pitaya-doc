@@ -277,7 +277,7 @@ Installation
 Step 2: Verify JTAG Cable Detection
 ====================================
 
-.. tab::
+.. tabs::
 
     .. group-tab:: Linux
 
