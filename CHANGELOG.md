@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Updated supported Wifi dongles list in the network manager documentation
 - Added instructions for Vivado and Vitis 2025.1 and building the FPGA on 3.00 OS
 - Expanded the troubleshooting guide and moved it to a new section
+- Updated Serial console connection guide
 
 **Minor updates:**
 
@@ -27,8 +28,9 @@ All notable changes to this project will be documented in this file.
 - Added time resolution of GPIO ports to the hardware docs
 - SIGNALlab 250-12 heatsink hole dimensions added
 - Minor updates to the SSH and serial console sections
-- Testing update to Sphinx 9
+- Updated Sphinx and other related dependencies to the latest versions
 - Link fixes and grammar improvements across multiple pages
+- Fixed MathJax rendering issues in the documentation
 
 **Future update:**
 
