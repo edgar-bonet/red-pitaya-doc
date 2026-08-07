@@ -6,7 +6,7 @@
 # Core Sphinx Documentation System
 # =============================================================================
 # There are no issues with using the latest Sphinx version
-sphinx>=7.0
+sphinx>=7.0, <=9.0.4
 
 # =============================================================================
 # Sphinx Themes and Extensions
