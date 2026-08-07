@@ -19,11 +19,9 @@ This section guides you through setting up your FPGA development environment and
 * **Introduction** - Understand Red Pitaya FPGA architecture, required tools, and development workflow
 * **Vivado and Vitis Installation** - Current installation flow for FPGA and ARM software development
 * **SDK Installation (Legacy)** - SDK 2019.1 setup for older OS branches
-* **Project Creation** - Create your first FPGA project from scratch
-* **Modify Existing Projects** - Learn to customize existing Red Pitaya projects
+* **Project Workflows** - Create, customize, and integrate projects (template-based and from-scratch)
 * **Simulation** - Verify your designs with behavioral simulation before hardware deployment
 * **Reprogram FPGA** - Load bitstreams to Red Pitaya and test your designs
-* **Copy Projects** - Set up project templates and workflows
 * **SDK Project Creation** - Create ARM software projects that interface with your FPGA design
 
 .. toctree::
@@ -32,11 +30,8 @@ This section guides you through setting up your FPGA development environment and
     intro.rst
     vivado_install.rst
     sdk_install.rst
-    project_creation.rst
-    modify_project.rst
+    projects/top.rst
     simulation.rst
     reprogram_fpga.rst
-    copy_project.rst
-    project_creation_sdk.rst
-..    new_project.rst
+
 

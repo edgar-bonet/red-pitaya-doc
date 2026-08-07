@@ -1,7 +1,7 @@
 .. _regmap_2_00_15:
 
-FPGA Register map (Release 2.00-15)
-####################################
+FPGA Register Maps (Release 2.00-15)
+#######################################
 
 .. toctree::
    :maxdepth: 1

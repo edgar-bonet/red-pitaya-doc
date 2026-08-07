@@ -25,6 +25,7 @@ Navigating the FPGA Documentation
 **For experienced users - quick access:**
 
 * Modifying existing projects? → Start with :ref:`Getting Started <fpga_programming_environment>`
+* Building a custom project manually? → See :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>`
 * Looking for project examples? → Go to :ref:`FPGA Projects <fpga_projects>`
 * Setting up simulation? → See :ref:`Simulation <fpga_simulation>` in Getting Started
 * Step-by-step guides? → Check :ref:`FPGA Tutorials <fpga_tutorials_top>` (coming soon)
@@ -98,7 +99,7 @@ Before starting the workflow, select the toolchain that matches your Red Pitaya 
 What's in each section
 ======================
 
-* **Getting Started** - Toolchain installation (current and legacy), project creation, simulation setup, FPGA reprogramming basics
+* **Getting Started** - Toolchain installation (current and legacy), project creation, custom from-scratch setup, simulation, FPGA reprogramming basics
 * **FPGA Tutorials** - Step-by-step guides for common FPGA development tasks (coming soon)
 * **FPGA Projects** - Available projects (v0.94, streaming, mercury, etc.), repository structure, project descriptions
 * **Registers** - Memory-mapped register addresses and descriptions by OS version

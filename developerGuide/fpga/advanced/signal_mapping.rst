@@ -18,7 +18,7 @@ This section describes the physical connections between Red Pitaya's FPGA pins a
 |
 
 **********************************
-XADC Analog Inputs
+1. XADC Analog Inputs
 **********************************
 
 Red Pitaya provides four analog inputs (AI0-AI3) mapped through the XADC (Xilinx Analog-to-Digital Converter). These inputs are accessible via the Linux IIO (Industrial I/O) subsystem.
@@ -145,7 +145,7 @@ XADC values can be read from Linux userspace through the IIO interface:
 |
 
 **********************************
-GPIO and LEDs
+2. GPIO and LEDs
 **********************************
 
 Red Pitaya's GPIO pins and LEDs can be controlled from Linux userspace via ``sysfs``. The handling depends on whether the pins are connected to the PS 
@@ -302,7 +302,7 @@ For GPIO pins, use the GPIO sysfs interface:
 |
 
 **********************************
-PS Pinctrl Overlays
+3. PS Pinctrl Overlays
 **********************************
 
 Red Pitaya provides device tree overlay files that allow you to repurpose PS MIO signals. These overlays modify the pinctrl configuration to reassign pins 
@@ -331,7 +331,7 @@ These overlay files are typically included in the project's device tree source w
 |
 
 **********************************
-SPI Configuration Example
+4. SPI Configuration Example
 **********************************
 
 The SPI interface on Red Pitaya can be configured through the device tree. A common example is changing the CS (Chip Select) polarity.
@@ -381,7 +381,7 @@ By default, the CS state is HIGH (inactive) on all Red Pitaya boards. To set the
 |
 
 **********************************
-Troubleshooting
+5. Troubleshooting
 **********************************
 
 GPIO/LED Access Issues
@@ -437,7 +437,7 @@ XADC Reading Issues
 |
 
 **********************************
-Additional Resources
+6. Additional Resources
 **********************************
 
 - :ref:`device_tree` - Device tree configuration and compilation

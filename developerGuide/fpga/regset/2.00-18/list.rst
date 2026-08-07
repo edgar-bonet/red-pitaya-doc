@@ -1,7 +1,7 @@
 .. _regset_2_00_18:
 
-FPGA Register map (Release 2.00-18)
-###################################
+FPGA Register Maps (Release 2.00-18)
+#######################################
 
 .. toctree::
     :maxdepth: 1

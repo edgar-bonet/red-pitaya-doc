@@ -113,7 +113,7 @@ The exact command depends on your OS version. Add **before** the final comment l
 
 .. tabs::
 
-    .. tab:: OS 2.07-43 or newer
+    .. group-tab:: OS 2.07-43 or newer
 
         .. code-block:: bash
 
@@ -126,7 +126,7 @@ The exact command depends on your OS version. Add **before** the final comment l
             
             # Here you can specify commands for autorun at system startup
 
-    .. tab:: OS 2.00 to 2.05-37
+    .. group-tab:: OS 2.00 to 2.05-37
 
         .. code-block:: bash
 
@@ -139,7 +139,7 @@ The exact command depends on your OS version. Add **before** the final comment l
             
             # Here you can specify commands for autorun at system startup
 
-    .. tab:: OS 1.04 or older
+    .. group-tab:: OS 1.04 or older
 
         .. code-block:: bash
 
@@ -257,7 +257,7 @@ Create systemd Service
 
 .. tabs::
 
-    .. tab:: OS 2.07-43 or newer
+    .. group-tab:: OS 2.07-43 or newer
 
         .. code-block:: ini
 
@@ -273,7 +273,7 @@ Create systemd Service
             [Install]
             WantedBy=multi-user.target
 
-    .. tab:: OS 2.00 to 2.05-37
+    .. group-tab:: OS 2.00 to 2.05-37
 
         .. code-block:: ini
 
@@ -289,7 +289,7 @@ Create systemd Service
             [Install]
             WantedBy=multi-user.target
 
-    .. tab:: OS 1.04 or older
+    .. group-tab:: OS 1.04 or older
 
         .. code-block:: ini
 
@@ -364,21 +364,21 @@ Setup Procedure
 
 .. tabs::
 
-    .. tab:: OS 2.07-43 or newer
+    .. group-tab:: OS 2.07-43 or newer
 
         .. code-block:: bash
 
             #!/bin/bash
             /opt/redpitaya/sbin/overlay.sh v0.94 my_project
 
-    .. tab:: OS 2.00 to 2.05-37
+    .. group-tab:: OS 2.00 to 2.05-37
 
         .. code-block:: bash
 
             #!/bin/bash
             fpgautil -b /root/red_pitaya_top.bit.bin
 
-    .. tab:: OS 1.04 or older
+    .. group-tab:: OS 1.04 or older
 
         .. code-block:: bash
 
@@ -548,7 +548,7 @@ If the service is not found or is disabled, use Method 1 or Method 2 instead.
 
 .. tabs::
 
-    .. tab:: OS 2.07-43 or newer
+    .. group-tab:: OS 2.07-43 or newer
 
         .. code-block:: bash
 
@@ -556,7 +556,7 @@ If the service is not found or is disabled, use Method 1 or Method 2 instead.
             /opt/redpitaya/sbin/overlay.sh v0.94 my_project
             exit 0
 
-    .. tab:: OS 2.00 to 2.05-37
+    .. group-tab:: OS 2.00 to 2.05-37
 
         .. code-block:: bash
 
@@ -564,7 +564,7 @@ If the service is not found or is disabled, use Method 1 or Method 2 instead.
             fpgautil -b /root/red_pitaya_top.bit.bin
             exit 0
 
-    .. tab:: OS 1.04 or older
+    .. group-tab:: OS 1.04 or older
 
         .. code-block:: bash
 

@@ -20,12 +20,12 @@ For more information about FPGA projects and their features, see :ref:`FPGA Proj
 .. toctree::
     :maxdepth: 1
 
-    2.00-15/list.rst
-    2.00-18/list.rst
-    2.00-23/list.rst
-    2.00-30/list.rst
-    2.04-35/list.rst
-    2.05-37/list.rst
-    2.07-48/list.rst
-    3.00-57/list.rst
     in_dev/list.rst
+    3.00-57/list.rst
+    2.07-48/list.rst
+    2.05-37/list.rst
+    2.04-35/list.rst
+    2.00-30/list.rst
+    2.00-23/list.rst
+    2.00-18/list.rst
+    2.00-15/list.rst

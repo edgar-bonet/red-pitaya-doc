@@ -19,6 +19,8 @@ All notable changes to this project will be documented in this file.
 **Minor updates:**
 
 - Updated command line tools documentation to reflect the new OS 3.00 release
+- Reorganized the FPGA project creation documentation and added a new page for creating a custom project from scratch
+- Split relevant FPGA workflows by tool version (Vivado/Vitis 2025.1, Vivado 2020.1/SDK 2019.1)
 - Changed the SCPI library link to the Red Pitaya Examples repository on GitHub
 - Removed the looooong list of the comments from the conf.py file
 - Documented the rest of FPGA projects
@@ -26,6 +28,7 @@ All notable changes to this project will be documented in this file.
 - SIGNALlab 250-12 heatsink hole dimensions added
 - Minor updates to the SSH and serial console sections
 - Testing update to Sphinx 9
+- Link fixes and grammar improvements across multiple pages
 
 **Future update:**
 

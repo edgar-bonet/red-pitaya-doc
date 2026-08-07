@@ -17,11 +17,11 @@ This method is particularly useful for rapid prototyping, debugging, and develop
 |
 
 **********************************
-Overview
+1. Overview
 **********************************
 
 When to Use JTAG Programming
-=============================
+=================================
 
 JTAG programming is ideal for:
 
@@ -49,7 +49,7 @@ JTAG programming is ideal for:
 |
 
 Advantages vs. SSH Upload
-==========================
+=============================
 
 **JTAG Programming:**
 
@@ -81,11 +81,11 @@ Advantages vs. SSH Upload
 
 
 **********************************
-Hardware Requirements
+2. Hardware Requirements
 **********************************
 
 JTAG Cable Selection
-====================
+========================
 
 Red Pitaya requires a JTAG cable compatible with Xilinx Zynq-7000 devices. The following cables are tested and supported:
 
@@ -132,7 +132,7 @@ If using JTAG-HS3 or similar 14-pin cable:
 |
 
 Physical Connection
-===================
+=======================
 
 JTAG Connector Location
 -----------------------
@@ -148,18 +148,30 @@ The JTAG connector is a **6-pin header** located on Red Pitaya's PCB:
     
     JTAG connector pin markings on Red Pitaya PCB bottom side
 
+
 JTAG Pinout
 -----------
 
 Red Pitaya's 6-pin JTAG header follows standard ARM JTAG pinout:
 
-.. code-block:: text
-
-    Pin 1: VCC  (3.3V)    Pin 2: GND
-    Pin 3: TDI            Pin 4: TMS
-    Pin 5: TCK            Pin 6: TDO
++------------+----------------------------+
+| Pin Number | Signal Name                |
++============+============================+
+| 1          | VCC (3.3V)                 |
++------------+----------------------------+
+| 2          | GND                        |
++------------+----------------------------+
+| 3          | TDI (Test Data In)         |
++------------+----------------------------+
+| 4          | TMS (Test Mode Select)     |
++------------+----------------------------+
+| 5          | TCK (Test Clock)           |
++------------+----------------------------+
+| 6          | TDO (Test Data Out)        |
++------------+----------------------------+
 
 **Pin 1 orientation:** Look for the square pad or the marking on the PCB bottom.
+
 
 Connection Procedure
 --------------------
@@ -181,11 +193,11 @@ Connection Procedure
 |
 
 **********************************
-Software Installation
+3. Software Installation
 **********************************
 
 Prerequisites
-=============
+==================
 
 Before starting, ensure you have:
 
@@ -214,115 +226,119 @@ Download both packages:
 1. **Adept 2 Runtime** - Core drivers
 2. **Adept 2 Utilities** - Configuration tools
 
-Linux Installation
-------------------
 
-**Download .deb packages** for Ubuntu/Debian:
+Installation
+---------------
 
-.. code-block:: bash
+.. tabs::
 
-    # Install Runtime
-    sudo dpkg -i digilent.adept.runtime_<version>_amd64.deb
-    
-    # Install Utilities
-    sudo dpkg -i digilent.adept.utilities_<version>_amd64.deb
-    
-    # If dependency errors occur, fix them
-    sudo apt-get install -f
+    .. group-tab:: Linux
 
-**Verify installation:**
+        **Download .deb packages** for Ubuntu/Debian:
 
-.. code-block:: bash
+        .. code-block:: bash
 
-    # Check if Adept utilities are available
-    djtgcfg --version
+            # Install Runtime
+            sudo dpkg -i digilent.adept.runtime_<version>_amd64.deb
+            
+            # Install Utilities
+            sudo dpkg -i digilent.adept.utilities_<version>_amd64.deb
+            
+            # If dependency errors occur, fix them
+            sudo apt-get install -f
 
-Windows Installation
---------------------
+        **Verify installation:**
 
-**Run installers:**
+        .. code-block:: bash
 
-1. Double-click ``AdeptRuntime_<version>.msi``
-2. Follow installation wizard
-3. Restart if prompted
-4. Double-click ``AdeptUtilities_<version>.msi``
-5. Follow installation wizard
+            # Check if Adept utilities are available
+            djtgcfg --version
 
-**Verify installation:**
+    .. group-tab:: Windows
 
-Open Command Prompt and run:
+        **Run installers:**
 
-.. code-block:: batch
+        1. Double-click ``AdeptRuntime_<version>.msi``
+        2. Follow installation wizard
+        3. Restart if prompted
+        4. Double-click ``AdeptUtilities_<version>.msi``
+        5. Follow installation wizard
 
-    djtgcfg enum
+        **Verify installation:**
+
+        Open Command Prompt and run:
+
+        .. code-block:: batch
+
+            djtgcfg enum
 
 |
 
 Step 2: Verify JTAG Cable Detection
 ====================================
 
-Linux Verification
-------------------
+.. tab::
 
-**Check USB device:**
+    .. group-tab:: Linux
 
-.. code-block:: bash
+        **Check USB device:**
 
-    lsusb | grep -i ftdi
+        .. code-block:: bash
 
-**Expected output for JTAG-HS3:**
+            lsusb | grep -i ftdi
 
-.. code-block:: text
+        **Expected output for JTAG-HS3:**
 
-    Bus 001 Device 005: ID 0403:6014 Future Technology Devices International, Ltd FT232H Single HS USB-UART/FIFO IC
+        .. code-block:: text
 
-.. figure:: img/JTAG-tutorial/JTAG-tutorial-lsusb.jpg
-    :width: 800
-    :align: center
-    
-    JTAG-HS3 appears as FTDI device in lsusb output
+            Bus 001 Device 005: ID 0403:6014 Future Technology Devices International, Ltd FT232H Single HS USB-UART/FIFO IC
 
-**Check Digilent driver detection:**
+        .. figure:: img/JTAG-tutorial/JTAG-tutorial-lsusb.jpg
+            :width: 800
+            :align: center
+            
+            JTAG-HS3 appears as FTDI device in lsusb output
 
-.. code-block:: bash
+        **Check Digilent driver detection:**
 
-    djtgcfg enum
+        .. code-block:: bash
 
-**Expected output:**
+            djtgcfg enum
 
-.. code-block:: text
+        **Expected output:**
 
-    Found 1 device(s)
-    
-    Device: JtagHs3
-        Product Name:   Digilent JTAG-HS3
-        User Name:      JtagHs3
-        Serial Number:  210299123456
+        .. code-block:: text
 
-.. figure:: img/JTAG-tutorial/JTAG-tutorial-driver-check.jpg
-    :width: 800
-    :align: center
-    
-    Digilent driver successfully detects JTAG cable
+            Found 1 device(s)
+            
+            Device: JtagHs3
+                Product Name:   Digilent JTAG-HS3
+                User Name:      JtagHs3
+                Serial Number:  210299123456
 
-Windows Verification
---------------------
+        .. figure:: img/JTAG-tutorial/JTAG-tutorial-driver-check.jpg
+            :width: 800
+            :align: center
+            
+            Digilent driver successfully detects JTAG cable
 
-**Check Device Manager:**
+    .. group-tab:: Windows
 
-1. Open Device Manager (devmgmt.msc)
-2. Look under "Universal Serial Bus controllers"
-3. Find "Digilent USB Device" or similar
+        **Check Device Manager:**
 
-**Check with Adept:**
+        1. Open Device Manager (devmgmt.msc)
+        2. Look under "Universal Serial Bus controllers"
+        3. Find "Digilent USB Device" or similar
 
-Open Command Prompt:
+        **Check with Adept:**
 
-.. code-block:: batch
+        Open Command Prompt:
 
-    djtgcfg enum
+        .. code-block:: batch
 
-Should list connected Digilent devices.
+            djtgcfg enum
+
+        Should list connected Digilent devices.
 
 |
 
@@ -332,49 +348,60 @@ Troubleshooting Detection Issues
 Cable Not Detected
 ------------------
 
-**Linux:**
+.. tabs::
 
-.. code-block:: bash
+    .. group-tab:: Linux
 
-    # Check if device appears in kernel messages
-    dmesg | grep -i ftdi
-    dmesg | grep -i usb
-    
-    # Check USB permissions
-    ls -l /dev/bus/usb/*/*
-    
-    # Add user to dialout group for USB access
-    sudo usermod -aG dialout $USER
-    # Log out and log back in
+        .. code-block:: bash
 
-**Windows:**
+            # Check if device appears in kernel messages
+            dmesg | grep -i ftdi
+            dmesg | grep -i usb
+            
+            # Check USB permissions
+            ls -l /dev/bus/usb/*/*
+            
+            # Add user to dialout group for USB access
+            sudo usermod -aG dialout $USER
+            # Log out and log back in
 
-- Check Device Manager for yellow exclamation marks
-- Reinstall Adept 2 Runtime
-- Try different USB port
-- Check USB cable quality
+    .. group-tab:: Windows
+
+        **Check Device Manager:**
+
+        - Look for yellow exclamation marks
+        - Reinstall Adept 2 Runtime
+        - Try different USB port
+        - Check USB cable quality
+
 
 Driver Issues
 -------------
 
-**Linux - Missing libraries:**
+.. tabs::
 
-.. code-block:: bash
+    .. group-tab:: Linux
 
-    # Install required libraries
-    sudo apt-get install libusb-1.0-0 libftdi1
+        **Missing libraries:**
 
-**Windows - Driver conflicts:**
+        .. code-block:: bash
 
-- Uninstall conflicting FTDI drivers
-- Use Zadig tool to reinstall WinUSB driver
-- Reboot after driver changes
+            # Install required libraries
+            sudo apt-get install libusb-1.0-0 libftdi1
+
+    .. group-tab:: Windows
+
+        **Driver conflicts:**
+
+        - Uninstall conflicting FTDI drivers
+        - Use Zadig tool to reinstall WinUSB driver
+        - Reboot after driver changes
 
 |
 
 
 **********************************
-Vivado Configuration
+4. Vivado Configuration
 **********************************
 
 Step 1: Open Hardware Manager
@@ -386,7 +413,7 @@ From Vivado IDE:
 
     Or from menu: **Tools** → **Open Hardware Manager**
 
-2.  Hardware Manager window opens
+#.  Hardware Manager window opens
 
 |
 
@@ -403,9 +430,9 @@ In Hardware Manager:
         
         Opening Hardware Manager and auto-connecting to JTAG cable
 
-2.  Vivado searches for JTAG cables
+#.  Vivado searches for JTAG cables
 
-3.  If successful, cable appears under **localhost** in Hardware window
+#.  If successful, cable appears under **localhost** in Hardware window
 
     .. figure:: img/JTAG-tutorial/JTAG-tutorial-cable.jpg
         :width: 500
@@ -420,14 +447,14 @@ Step 3: Connect Red Pitaya
 
 1.  **Ensure Red Pitaya is powered on**
 
-2.  **Connect JTAG cable** to Red Pitaya's 6-pin header
+#.  **Connect JTAG cable** to Red Pitaya's 6-pin header
 
-3.  **In Vivado, click refresh** if device doesn't appear automatically
+#.  **In Vivado, click refresh** if device doesn't appear automatically
 
-4.  **Zynq device appears** in Hardware window:
+#.  **Zynq device appears** in Hardware window:
 
-    - **STEMlab 125-10/14:** ``xc7z010_1`` (Zynq-7010)
-    - **STEMlab 125-14 Z7020, SDRlab, SIGNALlab:** ``xc7z020_1`` (Zynq-7020)
+    - **Zynq-7010:** ``xc7z010_1`` (STEMlab 125-14, STEMlab 125-10, ...)
+    - **Zynq-7020:** ``xc7z020_1`` (SIGNALlab 250-12, SDRlab 122-16, ...)
 
     .. figure:: img/JTAG-tutorial/JTAG-tutorial-program.jpg
         :width: 400
@@ -443,7 +470,7 @@ Manual Connection (Alternative)
 If auto-connect fails:
 
 1.  Click **Open Target** → **Open New Target**
-2.  Follow wizard:
+#.  Follow wizard:
 
     - Select **Local server**
     - Select detected hardware server
@@ -454,7 +481,7 @@ If auto-connect fails:
 
 
 **********************************
-Programming Procedure
+5. Programming Procedure
 **********************************
 
 Step 1: Select Device
@@ -463,7 +490,7 @@ Step 1: Select Device
 In Hardware window:
 
 1.  Right-click on the Zynq device (e.g., ``xc7z010_1``)
-2.  Select **Program Device...**
+#.  Select **Program Device...**
 
     .. figure:: img/JTAG-tutorial/JTAG-tutorial-connected.jpg
         :width: 600
@@ -490,7 +517,7 @@ Program Device dialog appears:
         
         Bitstream file selection dialog
 
-2.  **Debug probes file** (optional):
+#.  **Debug probes file** (optional):
    
     - Leave blank unless using Integrated Logic Analyzer (ILA)
     - If using ILA, select corresponding ``.ltx`` file
@@ -516,7 +543,7 @@ Step 3: Program FPGA
 
 1.  Click **Program** button
 
-2.  **Progress window** shows programming status:
+#.  **Progress window** shows programming status:
    
     .. code-block:: text
     
@@ -525,14 +552,14 @@ Step 3: Program FPGA
         Bitstream loaded successfully
         Configuration complete
 
-3.  **Success message** appears in TCL console:
+#.  **Success message** appears in TCL console:
 
     .. code-block:: text
 
         INFO: [Labtools 27-3164] End of startup status: HIGH
         INFO: [Labtoolstcl 44-377] Flash programming completed successfully
 
-4.  **FPGA is now configured** - Red Pitaya begins operating with new FPGA design
+#.  **FPGA is now configured** - Red Pitaya begins operating with new FPGA design
 
 |
 
@@ -565,7 +592,7 @@ In Hardware window, device status should show:
 
 
 **********************************
-Advanced Usage
+6. Advanced Usage
 **********************************
 
 Programming via TCL Script
@@ -715,7 +742,7 @@ Program Red Pitaya over network using Vivado Hardware Server:
 
 
 **********************************
-Troubleshooting
+7. Troubleshooting
 **********************************
 
 Cable Not Detected in Vivado
@@ -726,13 +753,21 @@ Cable Not Detected in Vivado
 **Solutions:**
 
 1.  **Verify USB connection:**
-   
-    .. code-block:: bash
-    
-        lsusb | grep -i ftdi  # Linux
-        # Or check Device Manager (Windows)
 
-2.  **Check Digilent drivers:**
+    .. tabs::
+
+        .. group-tab:: Linux
+
+            .. code-block:: bash
+            
+                lsusb | grep -i ftdi
+        
+        .. group-tab:: Windows
+
+            1. Open Device Manager
+            2. Look for "Digilent USB Device" under "Universal Serial Bus controllers"
+
+#.  **Check Digilent drivers:**
 
     .. code-block:: bash
 
@@ -740,17 +775,26 @@ Cable Not Detected in Vivado
    
     If cable not listed, reinstall Adept 2
 
-3.  **Restart Hardware Server:**
+#.  **Restart Hardware Server:**
    
-    .. code-block:: bash
-    
-        # Linux
-        killall hw_server
-        hw_server &
-    
+    .. tabs::
+
+        .. group-tab:: Linux
+
+            .. code-block:: bash
+            
+                killall hw_server
+                hw_server &
+
+        .. group-tab:: Windows
+
+            1. Open Task Manager
+            2. End process "hw_server.exe"
+            3. Restart hardware server
+
     In Vivado, reconnect to server
 
-4. **Check Vivado cable drivers:**
+#. **Check Vivado cable drivers:**
    
     .. code-block:: bash
     
@@ -918,7 +962,7 @@ Permission Denied Errors (Linux)
 
 
 **********************************
-Best Practices
+8. Best Practices
 **********************************
 
 Development Workflow
@@ -997,7 +1041,7 @@ For manufacturing or batch programming:
 
 
 **********************************
-Related Documentation
+9. Related Documentation
 **********************************
 
 **FPGA Programming:**

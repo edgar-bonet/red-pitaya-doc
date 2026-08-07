@@ -10,6 +10,7 @@ This section contains information about various FPGA projects available for Red 
 
 * :ref:`FPGA Register Maps <fpga_registers>` - Detailed register documentation for each project
 * :ref:`FPGA Development <fpga_top>` - General FPGA development guide
+* :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>` - Constraint and model/configuration file selection for manual project creation
 
 .. contents:: Table of Contents
     :local:

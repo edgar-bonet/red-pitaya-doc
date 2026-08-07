@@ -262,6 +262,87 @@ There are a few important things to note about the project creation process:
 
 |
 
+.. _fpga_copy_project:
+
+Creating a Safe Project Copy (Recommended)
+===========================================
+
+.. note::
+
+    The information in this section is relevant for **automatic project generation**. For manual project creation, the process is much simpler and 
+    only requires copying the baseline project and modifying the RTL and constraints as needed. For more information, see :ref:`Creating a Custom Project from Scratch <fpga_project_from_scratch>`.
+
+If you are building a custom variant, do not continue editing directly in ``prj/v0.94`` (or another shared baseline project directory).
+Create a project copy first.
+
+Why this matters:
+
+- rebuilding the same ``PRJ`` can overwrite generated data
+- keeping a separate ``prj/<new_project>`` folder makes backup and versioning easier
+
+What does **not** need renaming:
+
+- the root launcher/model scripts such as ``red_pitaya_vivado_Z10.tcl`` or ``red_pitaya_vivado_Z20.tcl``
+- ``open_vivado.sh`` / ``open_vivado.bat``
+- the project-local filename ``ip/system.tcl``
+
+These scripts are selected by ``MODEL`` and then use the folder name passed as ``PRJ`` to enter ``prj/<new_project>``.
+
+Recommended steps:
+
+1. Create a new project folder under ``prj/``.
+2. Copy a baseline project (for example ``prj/v0.94``) into your new folder.
+3. Put your custom RTL in ``prj/<new_project>/rtl``.
+4. Keep testbenches in ``prj/<new_project>/tbn``.
+5. Build with explicit model flags.
+
+Example:
+
+.. code-block:: bash
+
+    cd RedPitaya-FPGA
+    cp -r prj/v0.94 prj/new_project
+    make project PRJ=new_project MODEL=Z10
+    make PRJ=new_project MODEL=Z10
+
+Windows native project-open example:
+
+.. code-block:: bat
+
+    open_vivado.bat new_project Z10
+
+Additional checks after copying
+--------------------------------
+
+Copying a project directory is usually enough for baseline projects such as ``v0.94``.
+However, it is **not always sufficient** for every project.
+
+Repository check against current ``RedPitaya-FPGA`` master shows that some root model scripts contain project-name-specific logic, for example:
+
+- ``if {$prj_name == "stream_app"}``
+- ``if {$prj_name == "logic"}``
+
+These branches set project-specific global variables before sourcing the local block-design Tcl.
+
+This means:
+
+- copying ``v0.94`` to a new name is generally straightforward
+- copying ``stream_app`` or ``logic`` to a new name may require additional script updates
+
+Typical follow-up tasks for renamed project copies:
+
+1. Check whether the copied project depends on ``$prj_name`` matches in ``red_pitaya_vivado_<MODEL>.tcl``.
+2. If it does, update those conditions for your new project name or refactor the project-specific settings into project-local Tcl.
+3. Review local helper scripts under ``tbn/`` and similar folders for hardcoded project paths or old names.
+
+.. note::
+
+    In the current repository, the main build entry points use the copied folder name correctly. The extra work appears only when a project relies on exact project-name checks or contains helper scripts with hardcoded paths.
+
+For manual file-selection details (constraints and config files) when creating projects beyond template copying, see :ref:`fpga_project_from_scratch`.
+
+|
+
 .. _fpga_legacy_2020_flow:
 
 Legacy Vivado 2020.1 compatibility
