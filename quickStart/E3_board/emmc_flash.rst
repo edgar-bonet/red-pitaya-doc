@@ -56,7 +56,7 @@ Before proceeding, ensure you have:
 
 * A Red Pitaya board with the QSPI eMMC module attached (see :ref:`QSPI eMMC board connection <QSPI_eMMC_board>`).
 * A USB to serial console cable connected to the Red Pitaya **CON** port.
-* A terminal program (e.g. PuTTY, minicom, or screen) configured for **115200 baud, 8N1**.
+* A terminal program (e.g. PuTTY, picocom, or screen) configured for **115200 baud, 8N1**.
 * A PC running a disk image writing tool such as `balenaEtcher <https://etcher.balena.io/>`_.
 * A USB cable to connect the Red Pitaya USB port to the PC (the eMMC will appear as a USB drive).
 * The watchdog disabled on the QSPI eMMC module (see :ref:`emmc_flash_watchdog_note` above).

@@ -50,7 +50,7 @@ EXTERNAL_LINKS = {
     'nbconvert': 'https://nbconvert.readthedocs.io/en/latest/',
     
     # Linux tools
-    'minicom': 'https://linux.die.net/man/1/minicom',
+    'picocom': 'https://linux.die.net/man/8/picocom',
     'screen': 'https://www.gnu.org/software/screen/manual/screen.html',
     'wsl': 'https://learn.microsoft.com/en-us/windows/wsl/install',
     'wsl_usb': 'https://learn.microsoft.com/en-us/windows/wsl/connect-usb',

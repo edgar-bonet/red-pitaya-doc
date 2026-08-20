@@ -113,7 +113,7 @@ rst_epilog = """
 .. |nbconvert| replace:: `nbconvert <{nbconvert}>`__
 
 .. Linux Tools
-.. |minicom| replace:: `Minicom <{minicom}>`__
+.. |picocom| replace:: `picocom <{picocom}>`__
 .. |screen| replace:: `screen <{screen}>`__
 .. |WSL| replace:: `Windows Subsystem for Linux <{wsl}>`__
 .. |WSL-USB| replace:: `Connect USB devices <{wsl_usb}>`__
