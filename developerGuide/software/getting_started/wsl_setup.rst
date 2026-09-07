@@ -6,7 +6,7 @@ Windows Subsystem for Linux Setup
 
 The Windows Subsystem for Linux (WSL) provides a Linux environment directly on Windows, which is useful for Red Pitaya development tasks such as:
 
-- Accessing the serial console with ``minicom``
+- Accessing the serial console with ``picocom``
 - Building and compiling software
 - Running Linux-based development tools
 - Accessing USB devices (including the Red Pitaya SD card)
@@ -76,7 +76,7 @@ In your WSL terminal, install the required Linux tools:
 .. code-block:: bash
 
     sudo apt update
-    sudo apt install linux-tools-generic hwdata minicom
+    sudo apt install linux-tools-generic hwdata picocom
     sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
 
 |

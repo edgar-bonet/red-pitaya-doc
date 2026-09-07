@@ -121,13 +121,13 @@ To adjust the connection settings for serial communication, right-click on the C
 
 .. figure:: img/Comm_port.png
 
-Boot reference must be done through ``Minicom`` or a similar serial console application.
+Boot reference must be done through ``picocom`` or a similar serial console application.
 
 |
 
 **Using Windows Subsystem for Linux (WSL)**
 
-For Windows users, we recommend using WSL to access the serial console with ``minicom``. WSL provides a Linux environment on Windows and allows you 
+For Windows users, we recommend using WSL to access the serial console with ``picocom``. WSL provides a Linux environment on Windows and allows you 
 to connect USB devices to Linux tools.
 
 If you haven't set up WSL yet, please follow our :ref:`WSL Setup Guide <wsl_setup>` first.
@@ -189,7 +189,7 @@ Linux and Mac
 
 There is broad support for USB-to-serial converters in the Linux kernel, so in most cases the converter will be detected soon after it is plugged in.
 
-- |minicom|, |screen| or a similar program for setting up a remote serial console.
+- |picocom|, |screen| or a similar program for setting up a remote serial console.
 
 |
 
@@ -220,66 +220,97 @@ Check the driver output in the kernel log using ``dmesg``:
 The first Red Pitaya board connected to your PC will create a device named ``/dev/ttyUSB0``. If **N** USB or serial devices are connected, they 
 will appear as ``/dev/ttyUSBn``, where **n** is **{0, 1, ..., N-1}**. To access these devices, programs should be run with ``sudo``.
 
-Minicom or a similar serial console application must be used to view the boot reference log.
+Picocom or a similar serial console application must be used to view the boot reference log.
 
 |
 
-``minicom``
+``picocom``
 ------------
 
-Minicom is a text-based modem control and terminal emulation program. It is commonly used for setting up a remote serial console.
+Picocom is a minimal serial communication program. It is commonly used for accessing the serial consoles of embedded systems.
 
-
-To configure ``minicom`` use the ``-s`` option.
+To connect to the Red Pitaya's serial console, type
 
 .. code-block:: shell-session
 
-    sudo minicom -s
+    sudo picocom -b 115200 /dev/ttyUSB0
 
+Picocom has many options for configuring the serial port. However, only the baud rate needs to be explicitly set (with options ``--baud`` or ``-b``), as all other options have sane defaults.
 
-A configuration menu will open.
+Unless invoked with the option ``--quiet`` (or ``-q``), picocom starts by printing a bunch of information, including the serial port settings, followed by the message “Terminal ready”:
 
-.. figure:: img/minicom_main_menu.png
-    :width: 400
+.. code-block:: shell-session
 
-Go to ``Serial Port Setup``, press **Enter**, and set up the next options:
+    $ sudo picocom -b 115200 /dev/ttyUSB0
+    picocom v3.1
 
-* Serial Device: ``/dev/ttyUSB0`` (device index ``0`` or a higher number)
-* Bps/Par/Bits: ``115200 8N1`` (baud rate, byte length, parity, and stop bits)
-* Hardware/Software Flow Control: No (flow control should be disabled)
+    port is        : /dev/ttyUSB0
+    flowcontrol    : none
+    baudrate is    : 115200
+    parity is      : none
+    databits are   : 8
+    stopbits are   : 1
+    escape is      : C-a
+    local echo is  : no
+    noinit is      : no
+    noreset is     : no
+    hangup is      : no
+    nolock is      : no
+    send_cmd is    : sz -vv
+    receive_cmd is : rz -vv -E
+    imap is        : 
+    omap is        : 
+    emap is        : crcrlf,delbs,
+    logfile is     : none
+    initstring     : none
+    exit_after is  : not set
+    exit is        : no
 
-.. figure:: img/minicom_settings.png
-    :width: 600
+    Type [C-a] [C-h] to see available commands
+    Terminal ready
 
-``Minicom`` requires some special ``Control+A`` key sequences to operate. The most common commands you will need are:
+At this point, picocom has your terminal connected to the Red Pitaya's serial console.
+
+Picocom uses some special ``Control+A`` key sequences to operate. The most common commands you will need are:
    
-    - ``Control+A`` followed by ``X`` to exit Minicom
-    - ``Control+A`` followed by ``Z`` to open the help menu
+    - ``Control+A`` followed by ``Control-X`` to exit picocom
+    - ``Control+A`` followed by ``Control-H`` to display the list of available commands
 
-Please see the |minicom| manual for details.
+Please see the |picocom| manual for details.
 
-
-After you have configured the details, exit the settings. At this point Minicom should be connected to your Red Pitaya:
-
-.. figure:: img/minicom_connected.png
-    :width: 1000
 
 If you are asked to log in into the Red Pitaya, please use the following credentials:
 
     - **User name:** ``root``
     - **Password:** ``root``
 
-Leave the Minicom open and unplug Red Pitaya from power. After plugging it back in, you should see the boot sequence for Red Pitaya.
+Leave picocom open and unplug Red Pitaya from power. After plugging it back in, you should see the boot sequence for Red Pitaya.
 
 At the begginning of the boot sequence, you can press any key to stop the autoboot process and enter the Zynq U-Boot shell. This is useful for 
 debugging and changing the boot parameters.
 
-.. figure:: img/minicom_zynq_boot.png
-    :width: 1000
+.. code-block:: text
 
+    U-Boot 2022.01 (Nov 27 2024 - 05:10:38 +0000), Build: jenkins-RED_PITAYA_UNIFY-Kernel-212
 
+    CPU:   Zynq 7z010
+    Silicon: v3.1
+    DRAM:  ECC disabled 512 MiB
+    Flash: 0 Bytes
+    NAND:  0 MiB
+    MMC:   mmc@e0100000: 0
+    Loading Environment from nowhere... OK
+    In:    serial@e0000000
+    Out:   serial@e0000000
+    Err:   serial@e0000000
+    Net:
+    ZYNQ GEM: e000b000, mdio bus e000b000, phyaddr 1, interface rgmii-id
+    eth0: ethernet@e000b000
+    Hit any key to stop autoboot:  0
+    Zynq> 
+    Zynq> █
 
-If you are not able to see the boot sequence, please check the connection between the Red Pitaya and your PC, and the settings in Minicom.
+If you are not able to see the boot sequence, please check the connection between the Red Pitaya and your PC, and the settings in picocom.
 
 |
 
@@ -289,17 +320,17 @@ If you are not able to see the boot sequence, please check the connection betwee
 GNU ``screen`` is, in general, a terminal multiplexer. It also supports connecting to a serial console and provides syntax to configure the 
 serial connection's baud rate, byte length, parity, and flow control.
 
-Compared to ``Minicom``, it provides better fonts and support for terminal window resizing.
+Compared to ``picocom``, it provides better fonts and support for terminal window resizing.
 
 .. code-block:: shell-session
 
     $ sudo screen /dev/ttyUSB1 115200 cs8
 
-Similar to ``Minicom``, ``screen`` requires some special ``Control+A`` key sequences to operate.
+Similar to ``picocom``, ``screen`` requires some special ``Control+A`` key sequences to operate.
 Please see the |screen| manual for details.
 
 
-The configuration is the same as for ``Minicom``. Please refer to the previous section for details.
+The configuration is the same as for ``picocom``. Please refer to the previous section for details.
 
 |
 
